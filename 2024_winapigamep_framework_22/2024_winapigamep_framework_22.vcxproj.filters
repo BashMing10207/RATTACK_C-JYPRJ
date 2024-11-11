@@ -38,6 +38,15 @@
     <Filter Include="Engine\PostPorcess">
       <UniqueIdentifier>{792f4d52-d76e-425e-8faf-85003b833eaf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Han">
+      <UniqueIdentifier>{57b4ba9f-3e41-4a8f-8773-eb153654f91f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Bae">
+      <UniqueIdentifier>{be7fa643-7cc9-4b14-a333-ff70665e2cd8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Park">
+      <UniqueIdentifier>{94825c00-25b8-4be6-b9be-7d722ab8d562}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="2024_winapigamep_framework_22.h">
@@ -130,7 +139,22 @@
     <ClInclude Include="Animation.h">
       <Filter>Engine\06. Component</Filter>
     </ClInclude>
-    <ClInclude Include="PostProcess.h" />
+    <ClInclude Include="PostProcess.h">
+      <Filter>Engine\PostPorcess</Filter>
+    </ClInclude>
+    <ClInclude Include="RigidBody.h">
+      <Filter>Engine\Bae</Filter>
+    </ClInclude>
+    <ClInclude Include="UI.h">
+      <Filter>Engine\Han</Filter>
+    </ClInclude>
+    <ClInclude Include="Item.h">
+      <Filter>Engine\Park</Filter>
+    </ClInclude>
+    <ClInclude Include="Stone.h">
+      <Filter>Engine\Bae</Filter>
+    </ClInclude>
+    <ClInclude Include="StaticObject.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="2024_winapigamep_framework_22.rc">
@@ -215,6 +239,21 @@
     <ClCompile Include="Animation.cpp">
       <Filter>Engine\06. Component</Filter>
     </ClCompile>
-    <ClCompile Include="PostProcess.cpp" />
+    <ClCompile Include="PostProcess.cpp">
+      <Filter>Engine\PostPorcess</Filter>
+    </ClCompile>
+    <ClCompile Include="RigidBody.cpp">
+      <Filter>Engine\Bae</Filter>
+    </ClCompile>
+    <ClCompile Include="UI.cpp">
+      <Filter>Engine\Han</Filter>
+    </ClCompile>
+    <ClCompile Include="Item.cpp">
+      <Filter>Engine\Park</Filter>
+    </ClCompile>
+    <ClCompile Include="Stone.cpp">
+      <Filter>Engine\Bae</Filter>
+    </ClCompile>
+    <ClCompile Include="StaticObject.cpp" />
   </ItemGroup>
 </Project>

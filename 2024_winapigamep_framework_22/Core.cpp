@@ -93,7 +93,7 @@ void Core::MainRender()
 
 	//Blur(m_hBackDC, 2);
 
-	//Bloom(m_hBackDC, 1, 100, 2,0.2f);
+	Bloom(m_hBackDC, 1, 100, 2,0.2f);
 	
 	//Blur(m_hDC, 25);
 	// 3. display	

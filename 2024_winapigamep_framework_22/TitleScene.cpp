@@ -16,35 +16,11 @@ void TitleScene::Init()
 	AddObject(pObj, LAYER::ENEMY);
 
 	Object* pObj2 = new Enemy;
-	pObj2->SetPos({ SCREEN_WIDTH / 2.f,150.f });
-	pObj2->SetSize({ 150.f,100.f });
+	pObj2->SetPos({ SCREEN_WIDTH,150.f });
+	pObj2->SetSize({ 100.f,100.f });
 	pObj2->SetName(L"Enemy");
 	AddObject(pObj2, LAYER::ENEMY);
 
-	Object* pObj342 = new Enemy;
-	pObj342->SetPos({ SCREEN_WIDTH / 2.f,150.f });
-	pObj342->SetSize({ 200.f,100.f });
-	pObj342->SetName(L"Enemy");
-	AddObject(pObj342, LAYER::ENEMY);
-
-
-	Object* pObj3 = new Enemy;
-	pObj3->SetPos({ SCREEN_WIDTH / 2.f,150.f });
-	pObj3->SetSize({ 100.f,200.f });
-	pObj3->SetName(L"Enemy");
-	AddObject(pObj3, LAYER::ENEMY);
-
-	Object* pObj4 = new Enemy;
-	pObj4->SetPos({ SCREEN_WIDTH / 2.f,150.f });
-	pObj4->SetSize({ 100.f,300.f });
-	pObj4->SetName(L"Enemy");
-	AddObject(pObj4, LAYER::ENEMY);
-
-	Object* pObj5 = new Enemy;
-	pObj5->SetPos({ SCREEN_WIDTH / 2.f,150.f });
-	pObj5->SetSize({ 100.f,120.f });
-	pObj5->SetName(L"Enemy");
-	AddObject(pObj5, LAYER::ENEMY);
 
 	Object* pPlayer6 = new Player;
 	pPlayer6->SetPos({ SCREEN_WIDTH / 2.f,500.f });
