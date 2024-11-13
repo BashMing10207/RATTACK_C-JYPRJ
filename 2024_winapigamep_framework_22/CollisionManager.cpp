@@ -1,9 +1,12 @@
 #include "pch.h"
+#include <cmath>
 #include "CollisionManager.h"
 #include "SceneManager.h"
 #include "Scene.h"
 #include "Object.h"
 #include "Collider.h"
+#include"RigidBody.h"
+#include "TimeManager.h"
 void CollisionManager::Update()
 {
 	for (UINT Row = 0; Row < (UINT)LAYER::END; ++Row)
@@ -85,7 +88,32 @@ void CollisionManager::CollisionLayerUpdate(LAYER _left, LAYER _right)
 				iter = m_mapCollisionInfo.find(colliderID.ID);
 			}
 
-			if (IsCollision(pLeftCollider, pRightCollider))
+			/*if (_left == LAYER::STATIC ? _right == LAYER::STATIC ? 
+				IsCollision(pLeftCollider, pRightCollider) : IsCollisionMinscope(pRightCollider,pLeftCollider) != Vec2(0, 0)
+				:(_right==LAYER::STATIC ? IsCollisionMinscope(pLeftCollider,pRightCollider)
+				:IsCollisionCircle(pLeftCollider,pRightCollider)) != Vec2(0,0))*/
+			bool isCollide = false;
+			Vec2 dir = Vec2(0, 0);
+
+			if (_left != LAYER::STATIC)
+			{
+				if (_right == LAYER::STATIC)
+				{
+					dir = IsCollisionMinscope(pLeftCollider, pRightCollider);
+					isCollide = dir != Vec2(0, 0);
+				}
+				else 
+				{
+					dir = IsCollisionCircle(pLeftCollider, pRightCollider);
+					isCollide = dir != Vec2(0, 0);
+				}
+			}
+			else if(_right == LAYER::STATIC)
+			{
+				isCollide = IsCollision(pLeftCollider, pRightCollider);
+			}
+
+			if(isCollide)
 			{
 				// 이전에도 충돌중
 				if (iter->second)
@@ -109,6 +137,14 @@ void CollisionManager::CollisionLayerUpdate(LAYER _left, LAYER _right)
 						pLeftCollider->EnterCollision(pRightCollider);
 						pRightCollider->EnterCollision(pLeftCollider);
 						iter->second = true;
+
+						if (dir != Vec2(0, 0))
+						{
+							if (pLeftCollider->GetOwner()->GetComponent<RigidBody>() != nullptr)
+							{
+								pLeftCollider->GetOwner()->GetComponent<RigidBody>()->AddForce(dir/fDT);
+							}
+						}
 					}
 				}
 			}
@@ -144,3 +180,39 @@ bool CollisionManager::IsCollision(Collider* _left, Collider* _right)
 
 	return false;*/
 }
+
+Vec2 CollisionManager::IsCollisionMinscope(Collider* _circle, Collider* _ractangle)
+{
+	Vec2 circlePos = _circle->GetLatedUpatedPos();
+	Vec2 vRightPos = _ractangle->GetLatedUpatedPos();
+	Vec2 circleSize = _circle->GetSize();
+	Vec2 vRightSize = _ractangle->GetSize();
+	vRightSize += circleSize;
+
+	if (!(vRightPos.x + vRightSize.x / 2 >= circlePos.x,
+		vRightPos.y + vRightSize.y / 2 >= circlePos.y,
+		vRightPos.x - vRightSize.x / 2 <= circlePos.x,
+		vRightPos.y - vRightSize.y / 2 <= circlePos.y))
+		return Vec2(0, 0);
+	//if(vRightPos.x  
+	//Vec2::A2BLineAndPoint(Vec2(vRightPos.x + vRightSize.x / 2, vRightPos.y),
+		//Vec2(vRightPos.x, vRightPos.y+vRightSize.y/2))
+}
+
+Vec2 CollisionManager::IsCollisionCircle(Collider* _left, Collider* _right)
+{
+	Vec2 vleftPos = _left->GetLatedUpatedPos();
+	Vec2 vRightPos = _right->GetLatedUpatedPos();
+	Vec2 vLeftSize = _left->GetSize();
+	Vec2 vRightSize = _right->GetSize();
+
+	Vec2 dir = (vleftPos - vRightPos);
+	float radius = vLeftSize.x + vRightSize.x;
+
+	float distance = dir.magnitude();
+	
+	return dir.Normalize() * max(radius - distance, 0);
+}
+
+
+
