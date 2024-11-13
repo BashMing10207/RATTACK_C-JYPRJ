@@ -38,6 +38,30 @@
     <Filter Include="Engine\PostPorcess">
       <UniqueIdentifier>{792f4d52-d76e-425e-8faf-85003b833eaf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\01. Core\HW">
+      <UniqueIdentifier>{5c75e3b7-1446-4565-bd15-c4f6f367412a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\02. Manager\HW">
+      <UniqueIdentifier>{da21493b-4af8-4541-84b6-abf77ebf30bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\03. Object\HW">
+      <UniqueIdentifier>{06be720b-55dc-4c75-b611-f007cbf68448}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\04. Scene\HW">
+      <UniqueIdentifier>{41ebaf2f-00a3-47bd-9926-f41f4559ee16}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\05. Resource\HW">
+      <UniqueIdentifier>{d75e96a0-b372-43e6-9aad-b393d87e0408}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\06. Component\HW">
+      <UniqueIdentifier>{c446962a-935e-41ab-b6e0-087bc02bf453}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\07. Module\HW">
+      <UniqueIdentifier>{9ce00bf5-f079-41d6-87b6-034e3abee83c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\99. Header\HW">
+      <UniqueIdentifier>{ac88c157-5a33-4e98-b475-537ebf4f0666}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="2024_winapigamep_framework_22.h">
@@ -131,6 +155,9 @@
       <Filter>Engine\06. Component</Filter>
     </ClInclude>
     <ClInclude Include="PostProcess.h" />
+    <ClInclude Include="HWScene.h">
+      <Filter>Engine\04. Scene\HW</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="2024_winapigamep_framework_22.rc">
@@ -216,5 +243,8 @@
       <Filter>Engine\06. Component</Filter>
     </ClCompile>
     <ClCompile Include="PostProcess.cpp" />
+    <ClCompile Include="HWScene.cpp">
+      <Filter>Engine\04. Scene\HW</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
