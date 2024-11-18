@@ -1,14 +1,16 @@
 #pragma once
 #include"pch.h"
 #include<assert.h>
-float Lerp(float a, float b, float t);
 struct Vec2
 {
+public:
+	float x = 0.f;
+	float y = 0.f;
 public:
 	Vec2() = default;
 	Vec2(float _x, float _y) : x(_x), y(_y) {}
 	Vec2(POINT _pt) : x((float)_pt.x), y((float)_pt.y) {}
-	Vec2(int _x, int _y) : x((float)_x), y((float)_y) {}
+	//Vec2(int _x, int _y) : x((float)_x), y((float)_y) {}
 	Vec2(const Vec2& _other) : x(_other.x), y(_other.y) {}
 public:
 	Vec2 operator + (const Vec2& _vOther)
@@ -50,9 +52,17 @@ public:
 		x -= _other.x;
 		y -= _other.y;
 	}
-	bool operator==(const Vec2& _other)
+	bool operator==(Vec2& _other)
 	{
-		return x == _other.x && y == _other.y;
+		bool a = true;
+		a &= x == _other.x;
+		a&= y == _other.y;
+		return a;
+	}
+
+	static float Lerp(float a, float b, float t)
+	{
+		return a * (t - 1) + b * t;
 	}
 
 	double magnitude() const {
@@ -120,7 +130,5 @@ public:
 		// 투영점에서 점 P로 가는 최단 거리 벡터
 		return P - projection;
 	}
-public:
-	float x = 0.f;
-	float y = 0.f;
+
 };

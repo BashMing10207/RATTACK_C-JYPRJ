@@ -1,6 +1,6 @@
 #pragma once
 #include"Component.h"
-//#include "RigidBody.h"
+#include"Collider.h"
 class RigidBody : public Component
 {
 public:
@@ -29,10 +29,14 @@ public:
     }
 
     Vec2 velocity = Vec2(0, 0);
+    Vec2 accelation = Vec2(0, 0);
+    float mass = 1.f, friction=0.1f;
     
     void AddForce(Vec2 dir)
     {
-        velocity += dir;
+        accelation = dir;//물리 적용
+
+        //velocity += dir;// 임시 물리x
     }
 
 private:

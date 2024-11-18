@@ -49,7 +49,3 @@ using std::wstring;
 using std::cout;
 using std::endl;
 
-float Lerp(float a, float b, float t)
-{
-	return a * (t - 1) + b * t;
-}
