@@ -189,6 +189,7 @@
     <ClInclude Include="HWScene.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="Item.h" />
+    <ClInclude Include="LineRenerer.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Player.h" />
@@ -206,7 +207,6 @@
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TimeManager.h" />
     <ClInclude Include="TitleScene.h" />
-    <ClInclude Include="UI.h" />
     <ClInclude Include="Vec2.h" />
   </ItemGroup>
   <ItemGroup>
@@ -224,6 +224,7 @@
     <ClCompile Include="HWScene.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Item.cpp" />
+    <ClCompile Include="LineRenerer.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -239,7 +240,6 @@
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TimeManager.cpp" />
     <ClCompile Include="TitleScene.cpp" />
-    <ClCompile Include="UI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="2024_winapigamep_framework_22.rc" />
