@@ -155,6 +155,10 @@
       <Filter>Engine\Bae</Filter>
     </ClInclude>
     <ClInclude Include="StaticObject.h" />
+    <ClInclude Include="HWScene.h" />
+    <ClInclude Include="MapManager.h">
+      <Filter>Engine\Park</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="2024_winapigamep_framework_22.rc">
@@ -255,5 +259,9 @@
       <Filter>Engine\Bae</Filter>
     </ClCompile>
     <ClCompile Include="StaticObject.cpp" />
+    <ClCompile Include="HWScene.cpp" />
+    <ClCompile Include="MapManager.cpp">
+      <Filter>Engine\Park</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

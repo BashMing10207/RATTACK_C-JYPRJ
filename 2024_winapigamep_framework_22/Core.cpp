@@ -8,6 +8,7 @@
 #include "CollisionManager.h"
 #include "EventManager.h"
 #include "PostProcess.h"
+#include "MapManager.h";
 bool Core::Init(HWND _hwnd)
 {
 	// 변수 초기화
@@ -79,28 +80,29 @@ void Core::MainUpdate()
 	GET_SINGLE(TimeManager)->Update();
 	GET_SINGLE(InputManager)->Update();
 	GET_SINGLE(SceneManager)->Update();
-	GET_SINGLE(CollisionManager)->Update();
+	//GET_SINGLE(CollisionManager)->Update();
 
 }
 
 void Core::MainRender()
 {
-	// 1. clear
-	/*::PatBlt(m_hBackDC, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, WHITENESS);*/
-	::PatBlt(m_hBackDC, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, BLACKNESS);
-	// 2. Render
-	GET_SINGLE(SceneManager)->Render(m_hBackDC);
+	GET_SINGLE(MapManager)->Render(m_hDC);
+	//// 1. clear
+	///*::PatBlt(m_hBackDC, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, WHITENESS);*/
+	//::PatBlt(m_hBackDC, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, BLACKNESS);
+	//// 2. Render
+	//GET_SINGLE(SceneManager)->Render(m_hBackDC);
+	//
+	////Blur(m_hBackDC, 2);
+	//
+	//Bloom(m_hBackDC, 1, 100, 2,0.2f);
+	//
+	////Blur(m_hDC, 25);
+	//// 3. display	
+	//::BitBlt(m_hDC, 0,0, SCREEN_WIDTH,SCREEN_HEIGHT,
+	//		m_hBackDC,0,0, SRCCOPY);
 
-	//Blur(m_hBackDC, 2);
-
-	Bloom(m_hBackDC, 1, 100, 2,0.2f);
-	
-	//Blur(m_hDC, 25);
-	// 3. display	
-	::BitBlt(m_hDC, 0,0, SCREEN_WIDTH,SCREEN_HEIGHT,
-			m_hBackDC,0,0, SRCCOPY);
-
- //	::TransparentBlt();
+	//::TransparentBlt();
 	//::StretchBlt();
 	//::PlgBlt();
 	//::AlphaBlend();
