@@ -154,6 +154,8 @@
     <ClInclude Include="Stone.h">
       <Filter>Engine\Bae</Filter>
     </ClInclude>
+    <ClInclude Include="StaticObject.h">
+      <Filter>Engine\Bae</Filter>
     <ClInclude Include="StaticObject.h" />
     <ClInclude Include="HWScene.h" />
     <ClInclude Include="MapManager.h">
@@ -258,6 +260,8 @@
     <ClCompile Include="Stone.cpp">
       <Filter>Engine\Bae</Filter>
     </ClCompile>
+    <ClCompile Include="StaticObject.cpp">
+      <Filter>Engine\Bae</Filter>
     <ClCompile Include="StaticObject.cpp" />
     <ClCompile Include="HWScene.cpp" />
     <ClCompile Include="MapManager.cpp">

@@ -100,7 +100,7 @@ void CollisionManager::CollisionLayerUpdate(LAYER _left, LAYER _right)
 				if (_right == LAYER::STATIC)
 				{
 					dir = IsCollisionMinscope(pLeftCollider, pRightCollider);
-					isCollide = dir != Vec2(0, 0);
+					isCollide = (dir == Vec2(0, 0));
 				}
 				else 
 				{
@@ -115,6 +115,8 @@ void CollisionManager::CollisionLayerUpdate(LAYER _left, LAYER _right)
 
 			if(isCollide)
 			{
+				pLeftCollider->dir = dir;
+				pRightCollider->dir = dir*-1;
 				// 이전에도 충돌중
 				if (iter->second)
 				{
@@ -138,13 +140,7 @@ void CollisionManager::CollisionLayerUpdate(LAYER _left, LAYER _right)
 						pRightCollider->EnterCollision(pLeftCollider);
 						iter->second = true;
 
-						if (dir != Vec2(0, 0))
-						{
-							if (pLeftCollider->GetOwner()->GetComponent<RigidBody>() != nullptr)
-							{
-								pLeftCollider->GetOwner()->GetComponent<RigidBody>()->AddForce(dir/fDT);
-							}
-						}
+
 					}
 				}
 			}

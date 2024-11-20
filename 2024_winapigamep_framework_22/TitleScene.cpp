@@ -16,7 +16,7 @@ void TitleScene::Init()
 	AddObject(pObj, LAYER::ENEMY);
 
 	Object* pObj2 = new Enemy;
-	pObj2->SetPos({ SCREEN_WIDTH,150.f });
+	pObj2->SetPos({(float)SCREEN_WIDTH,150.f });
 	pObj2->SetSize({ 100.f,100.f });
 	pObj2->SetName(L"Enemy");
 	AddObject(pObj2, LAYER::ENEMY);

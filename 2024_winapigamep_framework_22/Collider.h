@@ -26,6 +26,8 @@ public:
     {
         return m_vLatePos;
     }
+
+    Vec2 dir = Vec2(0, 0);
 private:
     bool m_showDebug = false;
     UINT m_ID; // 충돌체 고유 ID값

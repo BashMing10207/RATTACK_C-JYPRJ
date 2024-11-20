@@ -30,7 +30,7 @@ void Stone::Render(HDC _hdc)
 
 void Stone::EnterCollision(Collider* _other)
 {
-
+	GetComponent<RigidBody>()->AddForce(_other->dir);
 }
 
 void Stone::StayCollision(Collider* _other)
@@ -40,4 +40,5 @@ void Stone::StayCollision(Collider* _other)
 
 void Stone::ExitCollision(Collider* _other)
 {
+
 }
