@@ -7,6 +7,7 @@
 #include "Enemy.h"
 #include "CollisionManager.h"
 #include "ResourceManager.h"
+#include "MapManager.h"
 void TitleScene::Init()
 {
 	Object* pObj = new Enemy;
@@ -20,7 +21,6 @@ void TitleScene::Init()
 	pObj2->SetSize({ 100.f,100.f });
 	pObj2->SetName(L"Enemy");
 	AddObject(pObj2, LAYER::ENEMY);
-
 
 	Object* pPlayer6 = new Player;
 	pPlayer6->SetPos({ SCREEN_WIDTH / 2.f,500.f });

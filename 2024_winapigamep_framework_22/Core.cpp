@@ -86,12 +86,12 @@ void Core::MainUpdate()
 
 void Core::MainRender()
 {
-	GET_SINGLE(MapManager)->Render(m_hDC);
+	GET_SINGLE(MapManager)->Render(m_hBackDC);
 	//// 1. clear
 	///*::PatBlt(m_hBackDC, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, WHITENESS);*/
 	//::PatBlt(m_hBackDC, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, BLACKNESS);
 	//// 2. Render
-	//GET_SINGLE(SceneManager)->Render(m_hBackDC);
+	GET_SINGLE(SceneManager)->Render(m_hBackDC);
 	//
 	////Blur(m_hBackDC, 2);
 	//
