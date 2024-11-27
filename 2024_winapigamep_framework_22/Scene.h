@@ -12,6 +12,7 @@ public:
 	virtual void LateUpdate();
 	virtual void Render(HDC _hdc);
 	virtual void Release();
+
 public:
 	void AddObject(Object* _obj, LAYER _type)
 	{
@@ -21,6 +22,7 @@ public:
 	{
 		return m_vecObj[(UINT)_type];
 	}
+
 private:
 	//Object m_obj;
 	//Object* m_pObj;

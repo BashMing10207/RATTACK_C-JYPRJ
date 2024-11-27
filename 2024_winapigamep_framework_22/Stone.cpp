@@ -2,9 +2,10 @@
 #include "Stone.h"
 #include "Collider.h"
 #include "RigidBody.h"
-
+#include "LineComponent.h"
 Stone::Stone()
 {
+	this->AddComponent<LineComponent>();
 	this->AddComponent<RigidBody>();
 	this->AddComponent<Collider>();
 }
