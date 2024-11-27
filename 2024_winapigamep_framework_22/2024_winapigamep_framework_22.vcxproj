@@ -211,7 +211,6 @@
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TimeManager.h" />
     <ClInclude Include="TitleScene.h" />
-    <ClInclude Include="UI.h" />
     <ClInclude Include="Vec2.h" />
   </ItemGroup>
   <ItemGroup>
