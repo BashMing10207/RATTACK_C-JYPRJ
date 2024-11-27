@@ -86,12 +86,13 @@ void Core::MainUpdate()
 
 void Core::MainRender()
 {
-	GET_SINGLE(MapManager)->Render(m_hDC);
+	::PatBlt(m_hBackDC, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, BLACKNESS);
+	GET_SINGLE(MapManager)->Render(m_hBackDC);
 	//// 1. clear
 	///*::PatBlt(m_hBackDC, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, WHITENESS);*/
-	//::PatBlt(m_hBackDC, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, BLACKNESS);
+	
 	//// 2. Render
-	//GET_SINGLE(SceneManager)->Render(m_hBackDC);
+	GET_SINGLE(SceneManager)->Render(m_hBackDC);
 	//
 	////Blur(m_hBackDC, 2);
 	//
@@ -99,8 +100,8 @@ void Core::MainRender()
 	//
 	////Blur(m_hDC, 25);
 	//// 3. display	
-	//::BitBlt(m_hDC, 0,0, SCREEN_WIDTH,SCREEN_HEIGHT,
-	//		m_hBackDC,0,0, SRCCOPY);
+	::BitBlt(m_hDC, 0,0, SCREEN_WIDTH,SCREEN_HEIGHT,
+			m_hBackDC,0,0, SRCCOPY);
 
 	//::TransparentBlt();
 	//::StretchBlt();
