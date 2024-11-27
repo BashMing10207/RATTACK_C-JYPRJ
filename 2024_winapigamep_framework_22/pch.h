@@ -37,6 +37,8 @@ using std::wstring;
 #define SCREEN_WIDTH  1000
 #define SCREEN_HEIGHT 700
 
+#define INPUT GET_SINGLE(InputManager)
+
 // 디버깅용 콘솔창
 #ifdef _DEBUG
 #ifdef UNICODE

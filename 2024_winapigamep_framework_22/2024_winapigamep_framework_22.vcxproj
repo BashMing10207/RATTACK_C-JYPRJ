@@ -193,6 +193,7 @@
     <ClInclude Include="HWScene.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="Item.h" />
+    <ClInclude Include="LineComponent.h" />
     <ClInclude Include="MapManager.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="pch.h" />
@@ -228,6 +229,7 @@
     <ClCompile Include="HWScene.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Item.cpp" />
+    <ClCompile Include="LineComponent.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MapManager.cpp" />
     <ClCompile Include="Object.cpp" />

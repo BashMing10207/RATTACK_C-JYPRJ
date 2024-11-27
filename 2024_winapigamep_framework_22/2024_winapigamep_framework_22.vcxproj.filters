@@ -85,6 +85,7 @@
     <ClCompile Include="Scene.cpp">
       <Filter>Engine\04. Scene</Filter>
     </ClCompile>
+    <ClCompile Include="LineComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Item.h" />
@@ -192,6 +193,7 @@
     <ClInclude Include="Scene.h">
       <Filter>Engine\04. Scene</Filter>
     </ClInclude>
+    <ClInclude Include="LineComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="2024_winapigamep_framework_22.ico">
