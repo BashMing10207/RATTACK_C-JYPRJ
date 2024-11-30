@@ -201,7 +201,45 @@ void Bloom(
 
 
 #pragma region lagacyBloom
-void SIMD_BoxBloom_Processing(BYTE * bitmapData, int width, int height, int blurSize, int rowBytes, int startRow, int endRow, int threshold, float intensity, float lerp) {
+// SIMD를 활용한 box blur 처리
+void SIMD_BoxBlur_Processing(BYTE* bitmapData, int width, int height, int blurSize, int rowBytes, int startRow, int endRow) {
+    for (int y = startRow; y < endRow; ++y) {
+        for (int x = 0; x < width; ++x) {
+
+            int left = max(x - blurSize, 0);
+            int right = min(x + blurSize, width - 1);
+            int top = max(y - blurSize, 0);
+            int bottom = min(y + blurSize, height - 1);
+
+            int area = (right - left + 1) * (bottom - top + 1);
+
+            // 박스 블러 영역 계산
+            RGBColor sum(0, 0, 0);
+            for (int i = top; i <= bottom; ++i) {
+                for (int j = left; j <= right; ++j) {
+                    int idx = i * rowBytes + j * 3;
+                    sum.r += bitmapData[idx + 2];
+                    sum.g += bitmapData[idx + 1];
+                    sum.b += bitmapData[idx];
+                }
+            }
+
+            RGBColor avgColor = sum / area;
+
+            // 원래 색상과 평균 색상의 보간
+            int idx = y * rowBytes + x * 3;
+            RGBColor currentColor(bitmapData[idx + 2], bitmapData[idx + 1], bitmapData[idx]); // Correct RGB order
+            RGBColor finalColor = avgColor.ColorLerp(currentColor, 0.5f);
+
+            // 결과를 비트맵에 저장 (RGB 순서대로 저장)
+            bitmapData[idx + 2] = finalColor.r;
+            bitmapData[idx + 1] = finalColor.g;
+            bitmapData[idx] = finalColor.b;
+        }
+    }
+}
+
+void SIMD_BoxBloom_Processing(BYTE* bitmapData, int width, int height, int blurSize, int rowBytes, int startRow, int endRow, int threshold, float intensity, float lerp) {
 
     for (int y = startRow; y < endRow; ++y) {
         for (int x = 0; x < width; ++x) {
@@ -217,17 +255,8 @@ void SIMD_BoxBloom_Processing(BYTE * bitmapData, int width, int height, int blur
 
             int area = (right - left + 1) * (bottom - top + 1);
 
-            RGBColor current(1, 1, 1);
-            current.r += bitmapData[x + rowBytes * y + 3];
-            current.g += bitmapData[x + rowBytes * y + 1];
-            current.b += bitmapData[x + rowBytes * y];
-
-            if (threshold >= current.r && threshold >= current.g && threshold >= current.b)
-                continue;
-
-            current = current * intensity;
             // 박스 블러 영역 계산
-            RGBColor sum(1,1,1);
+            RGBColor sum(1, 1, 1);
             for (int i = top; i <= bottom; ++i) {
                 for (int j = left; j <= right; ++j) {
                     int idx = i * rowBytes + j * 3;
@@ -237,26 +266,25 @@ void SIMD_BoxBloom_Processing(BYTE * bitmapData, int width, int height, int blur
                 }
             }
 
-            RGBColor avgColor = sum / area;
-            //RGBColor finalColor = avgColor;
+            RGBColor avgColor = sum * intensity / area;
+            if (threshold >= avgColor.r || threshold >= sum.g || threshold >= sum.b)
+                continue;
+
             // 원래 색상과 평균 색상의 보간
             int idx = y * rowBytes + x * 3;
             RGBColor currentColor(bitmapData[idx + 2], bitmapData[idx + 1], bitmapData[idx]); // Correct RGB order
-            RGBColor finalColor = (avgColor * intensity).ColorLerp(currentColor, lerp);
-
+            RGBColor finalColor = avgColor.ColorLerp(currentColor, lerp);
 
             // 결과를 비트맵에 저장 (RGB 순서대로 저장)
-            bitmapData[idx + 2] = min(finalColor.r,254);
-            bitmapData[idx + 1] = min(finalColor.g,254);
-            bitmapData[idx] = min(finalColor.b,254);
+            bitmapData[idx + 2] = min(finalColor.r, 254);
+            bitmapData[idx + 1] = min(finalColor.g, 254);
+            bitmapData[idx] = min(finalColor.b, 254);
         }
     }
 }
 
-
-
-void LagcyBloom(HDC hdc, int blurSize, int threshold, float intensity, float lerp)
-    //hdc: hdc, blurSize:블러의 크기, threshold: 블룸 최소 밝기, 밝기, 흐림(낮을수록 강한효과)
+void LagacyBloom(HDC hdc, int blurSize, int threshold, float intensity, float lerp)
+//hdc: hdc, blurSize:블러의 크기, threshold: 블룸 최소 밝기, 밝기, 흐림(낮을수록 강한효과)
 {
     int width = SCREEN_WIDTH;
     int height = SCREEN_HEIGHT;
@@ -307,9 +335,59 @@ void LagcyBloom(HDC hdc, int blurSize, int threshold, float intensity, float ler
     DeleteDC(hMemDC);
 }
 
+// 비트맵을 처리하는 함수
+void LagacyBlur(HDC hdc, int blurSize) {
+    int width = SCREEN_WIDTH;
+    int height = SCREEN_HEIGHT;
+
+    // 원본 이미지 색상 데이터를 가져와서 저장
+    BITMAPINFO bi;
+    ZeroMemory(&bi, sizeof(BITMAPINFO));
+    bi.bmiHeader.biSize = sizeof(BITMAPINFOHEADER);
+    bi.bmiHeader.biWidth = width;
+    bi.bmiHeader.biHeight = -height;
+    bi.bmiHeader.biPlanes = 1;
+    bi.bmiHeader.biBitCount = 24;
+    bi.bmiHeader.biCompression = BI_RGB;
+
+    void* pBits;
+    HBITMAP hBitmap = CreateDIBSection(hdc, &bi, DIB_RGB_COLORS, &pBits, NULL, 0);
+    if (!hBitmap) return;
+
+    HDC hMemDC = CreateCompatibleDC(hdc);
+    HBITMAP hOldBitmap = (HBITMAP)SelectObject(hMemDC, hBitmap);
+    BitBlt(hMemDC, 0, 0, width, height, hdc, 0, 0, SRCCOPY);
+
+    BYTE* bitmapData = static_cast<BYTE*>(pBits);
+    int rowBytes = ((width * 3 + 3) & ~3); // 한 줄의 크기 계산 (3바이트 단위로 정렬)
+
+    // 멀티스레딩을 통한 처리
+    int numThreads = std::thread::hardware_concurrency();
+    std::vector<std::thread> threads;
+    int chunkHeight = height / numThreads;
+
+    for (int i = 0; i < numThreads; ++i) {
+        int startRow = i * chunkHeight;
+        int endRow = (i == numThreads - 1) ? height : (i + 1) * chunkHeight;
+        threads.push_back(std::thread(SIMD_BoxBlur_Processing, bitmapData, width, height, blurSize, rowBytes, startRow, endRow));
+    }
+
+    for (auto& t : threads) {
+        t.join();
+    }
+
+    // 결과를 hdc에 복사
+    BitBlt(hdc, 0, 0, width, height, hMemDC, 0, 0, SRCCOPY);
+
+    // 메모리 해제
+    SelectObject(hMemDC, hOldBitmap);
+    DeleteObject(hBitmap);
+    DeleteDC(hMemDC);
+}
+
 void LagacyPostProcsess(HDC hdc)
 {
-    LagcyBloom(hdc, 2, 150, 2.f, 0.1f);
+    LagacyBloom(hdc, 4, 100, 1.7f, 0.4f);
 }
  
 //void Blur(HDC hdc, int blurSize) {
