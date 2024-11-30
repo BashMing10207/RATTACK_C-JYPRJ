@@ -30,14 +30,9 @@ public:
 
     Vec2 velocity = Vec2(0, 0);
     Vec2 accelation = Vec2(0, 0);
-    float mass = 1.f, friction=0.1f;
+    float mass = 1.f, friction=5.f;
     
-    void AddForce(Vec2 dir)
-    {
-        accelation = dir;//물리 적용
-
-        //velocity += dir;// 임시 물리x
-    }
+    virtual void AddForce(Vec2 dir);
 
 private:
     bool m_showDebug = false;

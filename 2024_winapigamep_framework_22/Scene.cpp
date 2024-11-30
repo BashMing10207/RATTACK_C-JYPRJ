@@ -32,7 +32,7 @@ void Scene::Update()
 				m_vecObj[i][j]->Update();
 		}
 	}
-	
+	GET_SINGLE(CollisionManager)->Update();
 }
 
 void Scene::LateUpdate()

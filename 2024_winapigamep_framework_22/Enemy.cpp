@@ -8,6 +8,11 @@ Enemy::Enemy()
 	this->AddComponent<Collider>();
 }
 
+void Enemy:: Init()
+{
+	this->GetComponent<Collider>()->SetSize(GetSize());
+}
+
 Enemy::~Enemy()
 {
 }

@@ -54,6 +54,10 @@ void Object::ExitCollision(Collider* _other)
 {
 }
 
+void Object::Init()
+{
+}
+
 //void Object::Update()
 //{
 //	if (GET_KEY(KEY_TYPE::LEFT))

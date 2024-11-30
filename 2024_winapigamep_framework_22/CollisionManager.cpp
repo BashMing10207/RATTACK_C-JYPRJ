@@ -1,3 +1,4 @@
+#pragma once
 #include "pch.h"
 #include <cmath>
 #include "CollisionManager.h"
@@ -7,13 +8,14 @@
 #include "Collider.h"
 #include"RigidBody.h"
 #include "TimeManager.h"
+#include "Vec2.h"
 void CollisionManager::Update()
 {
 	for (UINT Row = 0; Row < (UINT)LAYER::END; ++Row)
 	{
 		for (UINT Col = Row; Col < (UINT)LAYER::END; ++Col)
 		{
-			if (m_arrLayer[Row] & (1 << Col))
+			//if (m_arrLayer[Row] & (1 << Col))
 			{
 				//int a = 0;
 				CollisionLayerUpdate((LAYER)Row, (LAYER)Col);
@@ -95,28 +97,35 @@ void CollisionManager::CollisionLayerUpdate(LAYER _left, LAYER _right)
 			bool isCollide = false;
 			Vec2 dir = Vec2(0, 0);
 
-			if (_left != LAYER::STATIC)
-			{
-				if (_right == LAYER::STATIC)
-				{
-					dir = IsCollisionMinscope(pLeftCollider, pRightCollider);
-					isCollide = (dir == Vec2(0, 0));
-				}
-				else 
-				{
-					dir = IsCollisionCircle(pLeftCollider, pRightCollider);
-					isCollide = dir != Vec2(0, 0);
-				}
-			}
-			else if(_right == LAYER::STATIC)
-			{
-				isCollide = IsCollision(pLeftCollider, pRightCollider);
-			}
+			dir = IsCollisionCircle(pLeftCollider, pRightCollider);
+			isCollide = dir != Vec2(0, 0);
+
+			//if (_left != LAYER::STATIC)
+			//{
+			//	if (_right == LAYER::STATIC)
+			//	{
+			//		dir = IsCollisionMinscope(pLeftCollider, pRightCollider);
+			//		isCollide = (dir != Vec2(0, 0));
+			//	}
+			//	else 
+			//	{
+			//		dir = IsCollisionCircle(pLeftCollider, pRightCollider);
+			//		isCollide = dir != Vec2(0, 0);
+			//	}
+			//}
+			//else
+			//if(_right == LAYER::STATIC)
+			//{
+			//	isCollide = IsCollision(pLeftCollider, pRightCollider);
+			//}
 
 			if(isCollide)
 			{
-				pLeftCollider->dir = dir;
-				pRightCollider->dir = dir*-1;
+				pLeftCollider->dir = dir*-1;
+				pRightCollider->dir = dir;
+
+				pLeftCollider->StayCollision(pRightCollider);
+				pRightCollider->StayCollision(pLeftCollider);
 				// 이전에도 충돌중
 				if (iter->second)
 				{
@@ -128,8 +137,7 @@ void CollisionManager::CollisionLayerUpdate(LAYER _left, LAYER _right)
 					}
 					else
 					{
-						pLeftCollider->StayCollision(pRightCollider);
-						pRightCollider->StayCollision(pLeftCollider);
+
 					}
 				}
 				else // 이전에 충돌 x
@@ -185,14 +193,13 @@ Vec2 CollisionManager::IsCollisionMinscope(Collider* _circle, Collider* _ractang
 	Vec2 vRightSize = _ractangle->GetSize();
 	vRightSize += circleSize;
 
-	if (!(vRightPos.x + vRightSize.x / 2 >= circlePos.x,
-		vRightPos.y + vRightSize.y / 2 >= circlePos.y,
-		vRightPos.x - vRightSize.x / 2 <= circlePos.x,
-		vRightPos.y - vRightSize.y / 2 <= circlePos.y))
+	//if (!(vRightPos.x + vRightSize.x / 2 >= circlePos.x,
+	//	vRightPos.y + vRightSize.y / 2 >= circlePos.y,
+	//	vRightPos.x - vRightSize.x / 2 <= circlePos.x,
+	//	vRightPos.y - vRightSize.y / 2 <= circlePos.y))
 		return Vec2(0, 0);
-	//if(vRightPos.x  
 	//Vec2::A2BLineAndPoint(Vec2(vRightPos.x + vRightSize.x / 2, vRightPos.y),
-		//Vec2(vRightPos.x, vRightPos.y+vRightSize.y/2))
+	//	Vec2(vRightPos.x, vRightPos.y+vRightSize.y/2),)
 }
 
 Vec2 CollisionManager::IsCollisionCircle(Collider* _left, Collider* _right)
@@ -202,10 +209,11 @@ Vec2 CollisionManager::IsCollisionCircle(Collider* _left, Collider* _right)
 	Vec2 vLeftSize = _left->GetSize();
 	Vec2 vRightSize = _right->GetSize();
 
-	Vec2 dir = (vleftPos - vRightPos);
-	float radius = vLeftSize.x + vRightSize.x;
 
-	float distance = dir.magnitude();
+	Vec2 dir = (vleftPos - vRightPos);
+	float radius = (vLeftSize.x + vRightSize.x)/2;
+
+	float distance = dir.Length();
 	
 	return dir.Normalize() * max(radius - distance, 0);
 }

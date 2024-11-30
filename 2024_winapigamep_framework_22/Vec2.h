@@ -33,6 +33,11 @@ public:
 	{
 		return Vec2(x * _val, y * _val);
 	}
+	void operator *= (float _val)
+	{
+		x *= _val;
+		y*= _val;
+	}
 	Vec2 operator / (float _val)
 	{
 		return Vec2(x / _val, y / _val);
@@ -42,7 +47,7 @@ public:
 		assert(!(0.f == _vOther.x || 0.f == _vOther.y));
 		return Vec2(x / _vOther.x, y / _vOther.y);
 	}
-	void operator+=(const Vec2& _other)
+	void operator+=(const Vec2 _other)
 	{
 		x += _other.x;
 		y += _other.y;
@@ -62,7 +67,10 @@ public:
 
 	static float Lerp(float a, float b, float t)
 	{
-		return a * (t - 1) + b * t;
+		float result = a * (t - 1) + b * t;
+		if (result < 0.001f)
+			result = 0.f;
+		return result;
 	}
 
 	double magnitude() const {
@@ -83,7 +91,7 @@ public:
 	{
 		float len = Length();
 		// 0ÀÌ¸é ¾ÈµÅ.
-		if (len < FLT_EPSILON)
+		if (len < 0.01f)
 			return Vec2(0,0);
 		return Vec2(x / len, y / len);
 	}
