@@ -10,6 +10,7 @@ public:
 	{
 		return eveType == other.eveType && obj == other.obj;
 	}
+
 };
 class EventManager
 {
@@ -18,9 +19,12 @@ public:
 	void Update();
 	void DeleteObject(Object* _pObj);
 	// todo..
+	bool isRenderFinished;
 private:
 	void Excute(const tEvent& _eve);
 private:
 	vector<tEvent> m_vecEvent;
 	vector<Object*> m_vecDead;
+public:
+	void Init();
 };

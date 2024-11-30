@@ -15,7 +15,7 @@ void CollisionManager::Update()
 	{
 		for (UINT Col = Row; Col < (UINT)LAYER::END; ++Col)
 		{
-			//if (m_arrLayer[Row] & (1 << Col))
+			if (m_arrLayer[Row] & (1 << Col))
 			{
 				//int a = 0;
 				CollisionLayerUpdate((LAYER)Row, (LAYER)Col);

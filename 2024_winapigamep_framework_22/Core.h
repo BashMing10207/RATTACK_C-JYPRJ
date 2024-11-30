@@ -11,6 +11,7 @@ class Core
 public:
 	bool Init(HWND _hwnd);
 	void GameLoop();
+	void GameLoop2();
 	void CleanUp();
 private:
 	void MainUpdate();

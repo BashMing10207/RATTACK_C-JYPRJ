@@ -2,6 +2,7 @@
 #include "BaseWindow.h"
 #include "Resource.h"
 #include "Core.h"
+#include <thread>
 BaseWindow::BaseWindow()
 	: m_hWnd(nullptr)
 	, m_hInst(nullptr)
@@ -108,8 +109,20 @@ void BaseWindow::updateWindow()
     ::UpdateWindow(m_hWnd); // WM_PAINT
 }
 
+bool isPlaying = true;
+
+void Rendering()
+{
+    while (isPlaying)
+    {
+        GET_SINGLE(Core)->GameLoop2();
+    }
+}
+
 int BaseWindow::MessageLoop()
 {
+    std::thread renderthread(Rendering);
+
     MSG msg;
     memset(&msg, 0, sizeof(msg)); // 0 초기화
     while (true)
@@ -125,8 +138,13 @@ int BaseWindow::MessageLoop()
         {
             // 메인 코드
             GET_SINGLE(Core)->GameLoop();
+            //GET_SINGLE(Core)->GameLoop2();
         }
     }
+    isPlaying = false;
+    renderthread.join();
+    //renderthread.detach();
     GET_SINGLE(Core)->CleanUp();
     return (int)msg.wParam;
 }
+

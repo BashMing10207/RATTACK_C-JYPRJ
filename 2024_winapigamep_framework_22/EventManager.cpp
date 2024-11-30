@@ -1,9 +1,18 @@
 #include "pch.h"
 #include "EventManager.h"
 #include "Object.h"
+
+void EventManager::Init()
+{
+	isRenderFinished = false;
+}
+
 void EventManager::Update()
 {
 	// 이전 프레임에서 등록해둔 
+	if (!isRenderFinished)
+		return;
+
 	for (Object* obj : m_vecDead)
 	{
 		if (obj != nullptr)
@@ -14,6 +23,8 @@ void EventManager::Update()
 	for (auto& eve : m_vecEvent)
 		Excute(eve);
 	m_vecEvent.clear();
+
+	isRenderFinished = false;
 }
 
 void EventManager::DeleteObject(Object* _pObj)

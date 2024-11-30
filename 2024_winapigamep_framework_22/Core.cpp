@@ -9,6 +9,10 @@
 #include "EventManager.h"
 #include "PostProcess.h"
 #include "MapManager.h";
+#include<thread>
+
+int postProcessthreadnum = 8;
+
 bool Core::Init(HWND _hwnd)
 {
 	// 변수 초기화
@@ -31,10 +35,12 @@ bool Core::Init(HWND _hwnd)
 	GET_SINGLE(InputManager)->Init();
 	GET_SINGLE(ResourceManager)->Init();
 	GET_SINGLE(SceneManager)->Init();
+	GET_SINGLE(EventManager)->Init();
 
 	//m_obj.SetPos(Vec2(SCREEN_WIDTH / 2
 	//				,SCREEN_HEIGHT/ 2));
 	//m_obj.SetSize(Vec2(100, 100));
+	postProcessthreadnum = min(std::thread::hardware_concurrency(), 8);
 	return true;
 }
 void Core::CleanUp()
@@ -68,11 +74,14 @@ void Core::GameLoop()
 	//	callcount = 0;
 	//}
 	MainUpdate();
-	MainRender();
+	//MainRender();
 	GET_SINGLE(EventManager)->Update();
 }
 
-
+void Core::GameLoop2() 
+{
+	MainRender();
+}
 
 void Core::MainUpdate()
 {
@@ -87,16 +96,26 @@ void Core::MainUpdate()
 void Core::MainRender()
 {
 	::PatBlt(m_hBackDC, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, BLACKNESS);
+
+	HBRUSH brush = CreateSolidBrush(RGB(128,128,128));
+	HBRUSH oldbrush = (HBRUSH)SelectObject(m_hBackDC, brush);
+
 	GET_SINGLE(MapManager)->Render(m_hBackDC);
+
+	DeleteObject(brush);
+	SelectObject(m_hBackDC, oldbrush);
 	//// 1. clear
 	///*::PatBlt(m_hBackDC, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, WHITENESS);*/
 	
 	//// 2. Render
 	GET_SINGLE(SceneManager)->Render(m_hBackDC);
+
+	GET_SINGLE(EventManager)-> isRenderFinished = true;
 	//
 	////Blur(m_hBackDC, 2);
 	//
-	//Bloom(m_hBackDC, 1, 100, 2,0.2f);
+	LagacyPostProcsess(m_hBackDC);
+	//Bloom(m_hBackDC, 4, 150, 2.f,0.1f,postProcessthreadnum);
 	//
 	////Blur(m_hDC, 25);
 	//// 3. display	

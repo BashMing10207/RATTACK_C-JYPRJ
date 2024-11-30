@@ -89,5 +89,5 @@ void Player::CreateProjectile()
 	//Vec2 b = { 0.f, 0.f };
 	//Vec2 c = a / b;
 
-	GET_SINGLE(SceneManager)->GetCurrentScene()->AddObject(pProj, LAYER::STATIC);
+	GET_SINGLE(SceneManager)->GetCurrentScene()->AddObject(pProj, LAYER::PROJECTILE);
 }

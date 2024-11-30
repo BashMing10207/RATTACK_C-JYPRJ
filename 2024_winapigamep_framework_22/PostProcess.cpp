@@ -1,10 +1,13 @@
 #include "pch.h"
 #include <vector>
 #include <thread>
-#include <immintrin.h> // AVX2를 위한 헤더
+#include <cmath>
+#include <algorithm>
+#include <cstring> // std::memcpy
+#include <immintrin.h> // SIMD
 #include "PostProcess.h"
 
-struct RGBColor {
+struct RGBColor{
     int r, g, b;
 
     RGBColor(int red = 0, int green = 0, int blue = 0) : r(red), g(green), b(blue) {}
@@ -34,53 +37,179 @@ struct RGBColor {
     }
 };
 
-// SIMD를 활용한 box blur 처리
-void SIMD_BoxBlur_Processing(BYTE* bitmapData, int width, int height, int blurSize, int rowBytes, int startRow, int endRow) {
-    for (int y = startRow; y < endRow; ++y) {
-        for (int x = 0; x < width; ++x) {
 
-            int left = max(x - blurSize, 0);
-            int right = min(x + blurSize, width - 1);
-            int top = max(y - blurSize, 0);
-            int bottom = min(y + blurSize, height - 1);
+// SIMD를 활용한 가우시안 커널 생성
+std::vector<float> CreateGaussianKernel(int blurSize) {
+    int kernelRadius = blurSize;
+    float sigma = blurSize / 2.0f;
+    float sum = 0.0f;
+    std::vector<float> kernel(2 * kernelRadius + 1);
 
-            int area = (right - left + 1) * (bottom - top + 1);
+    for (int i = -kernelRadius; i <= kernelRadius; ++i) {
+        kernel[i + kernelRadius] = std::exp(-0.5f * (i * i) / (sigma * sigma));
+        sum += kernel[i + kernelRadius];
+    }
 
-            // 박스 블러 영역 계산
-            RGBColor sum(0, 0, 0);
-            for (int i = top; i <= bottom; ++i) {
-                for (int j = left; j <= right; ++j) {
-                    int idx = i * rowBytes + j * 3;
-                    sum.r += bitmapData[idx + 2];
-                    sum.g += bitmapData[idx + 1];
-                    sum.b += bitmapData[idx];
+    for (auto& w : kernel) {
+        w /= sum;
+    }
+
+    return kernel;
+}
+
+// SIMD를 활용한 블러 처리
+void ApplyGaussianBlurSIMD(BYTE* bitmapData, int width, int height, int rowBytes, const std::vector<float>& kernel, int numThreads) {
+    int kernelRadius = kernel.size() / 2;
+
+    // 멀티스레드 처리
+    auto blurTask = [&](int startRow, int endRow) {
+        std::vector<float> tempRow(width * 3); // 1차원 임시 배열
+
+        for (int y = startRow; y < endRow; ++y) {
+            // 수평 블러
+            for (int x = 0; x < width; ++x) {
+                __m256 sumR = _mm256_setzero_ps();
+                __m256 sumG = _mm256_setzero_ps();
+                __m256 sumB = _mm256_setzero_ps();
+
+                for (int k = -kernelRadius; k <= kernelRadius; ++k) {
+                    int sampleX = std::clamp(x + k, 0, width - 1);
+                    int idx = y * rowBytes + sampleX * 3;
+
+                    __m256 weight = _mm256_set1_ps(kernel[k + kernelRadius]);
+                    __m256 colorR = _mm256_set1_ps(bitmapData[idx + 2]);
+                    __m256 colorG = _mm256_set1_ps(bitmapData[idx + 1]);
+                    __m256 colorB = _mm256_set1_ps(bitmapData[idx]);
+
+                    sumR = _mm256_fmadd_ps(colorR, weight, sumR);
+                    sumG = _mm256_fmadd_ps(colorG, weight, sumG);
+                    sumB = _mm256_fmadd_ps(colorB, weight, sumB);
                 }
+
+                int idx = y * rowBytes + x * 3;
+                bitmapData[idx + 2] = static_cast<BYTE>(std::clamp(_mm256_cvtss_f32(sumR), 0.0f, 255.0f));
+                bitmapData[idx + 1] = static_cast<BYTE>(std::clamp(_mm256_cvtss_f32(sumG), 0.0f, 255.0f));
+                bitmapData[idx] = static_cast<BYTE>(std::clamp(_mm256_cvtss_f32(sumB), 0.0f, 255.0f));
             }
-
-            RGBColor avgColor = sum / area;
-
-            // 원래 색상과 평균 색상의 보간
-            int idx = y * rowBytes + x * 3;
-            RGBColor currentColor(bitmapData[idx + 2], bitmapData[idx + 1], bitmapData[idx]); // Correct RGB order
-            RGBColor finalColor = avgColor.ColorLerp(currentColor, 0.5f);
-
-            // 결과를 비트맵에 저장 (RGB 순서대로 저장)
-            bitmapData[idx + 2] = finalColor.r;
-            bitmapData[idx + 1] = finalColor.g;
-            bitmapData[idx] = finalColor.b;
         }
+        };
+
+    std::vector<std::thread> threads;
+    int rowsPerThread = height / numThreads;
+
+    for (int t = 0; t < numThreads; ++t) {
+        int startRow = t * rowsPerThread;
+        int endRow = (t == numThreads - 1) ? height : startRow + rowsPerThread;
+        threads.emplace_back(blurTask, startRow, endRow);
+    }
+
+    for (auto& thread : threads) {
+        thread.join();
     }
 }
 
-void SIMD_BoxBloom_Processing(BYTE* bitmapData, int width, int height, int blurSize, int rowBytes, int startRow, int endRow, int threshold,float intensity,float lerp) {
+// 블룸 효과를 최적화하여 적용
+void ApplyBloomEffectSIMD(
+    BYTE* bitmapData,
+    int width,
+    int height,
+    int rowBytes,
+    int threshold,
+    float intensity,
+    float lerp,
+    int blurSize,
+    int numThreads)
+{
+    BYTE* tempData = new BYTE[height * rowBytes];
+    std::memcpy(tempData, bitmapData, height * rowBytes);
+
+    for (int y = 0; y < height; ++y) {
+        for (int x = 0; x < width; ++x) {
+            int idx = y * rowBytes + x * 3;
+            BYTE r = bitmapData[idx + 2];
+            BYTE g = bitmapData[idx + 1];
+            BYTE b = bitmapData[idx];
+
+            int brightness = max(r, max(g, b));
+
+            if (brightness < threshold) {
+                tempData[idx + 2] = tempData[idx + 1] = tempData[idx] = 0;
+            }
+            else {
+                tempData[idx + 2] = static_cast<BYTE>(r * intensity);
+                tempData[idx + 1] = static_cast<BYTE>(g * intensity);
+                tempData[idx] = static_cast<BYTE>(b * intensity);
+            }
+        }
+    }
+
+    std::vector<float> kernel = CreateGaussianKernel(blurSize);
+    ApplyGaussianBlurSIMD(tempData, width, height, rowBytes, kernel, numThreads);
+
+    for (int y = 0; y < height; ++y) {
+        for (int x = 0; x < width; ++x) {
+            int idx = y * rowBytes + x * 3;
+            bitmapData[idx] = min(255, bitmapData[idx] + tempData[idx]);
+            bitmapData[idx + 1] = min(255, bitmapData[idx + 1] + tempData[idx + 1]);
+            bitmapData[idx + 2] = min(255, bitmapData[idx + 2] + tempData[idx + 2]);
+        }
+    }
+
+    delete[] tempData;
+}
+
+void Bloom(
+    HDC hdc,
+    int blurSize,
+    int threshold,
+    float intensity,
+    float lerp,
+    int numThreads =8)
+{
     
+    int width = SCREEN_WIDTH;
+    int height = SCREEN_HEIGHT;
+
+    BITMAPINFO bi{};
+    bi.bmiHeader.biSize = sizeof(BITMAPINFOHEADER);
+    bi.bmiHeader.biWidth = width;
+    bi.bmiHeader.biHeight = -height;
+    bi.bmiHeader.biPlanes = 1;
+    bi.bmiHeader.biBitCount = 24;
+    bi.bmiHeader.biCompression = BI_RGB;
+
+    void* pBits;
+    HBITMAP hBitmap = CreateDIBSection(hdc, &bi, DIB_RGB_COLORS, &pBits, nullptr, 0);
+    if (!hBitmap) return;
+
+    HDC hMemDC = CreateCompatibleDC(hdc);
+    HBITMAP hOldBitmap = (HBITMAP)SelectObject(hMemDC, hBitmap);
+    BitBlt(hMemDC, 0, 0, width, height, hdc, 0, 0, SRCCOPY);
+
+    BYTE* bitmapData = static_cast<BYTE*>(pBits);
+    int rowBytes = ((width * 3 + 3) & ~3);
+
+    ApplyBloomEffectSIMD(bitmapData, width, height, rowBytes, threshold, intensity, lerp, blurSize, numThreads);
+
+    BitBlt(hdc, 0, 0, width, height, hMemDC, 0, 0, SRCCOPY);
+
+    SelectObject(hMemDC, hOldBitmap);
+    DeleteObject(hBitmap);
+    DeleteDC(hMemDC);
+}
+
+
+
+#pragma region lagacyBloom
+void SIMD_BoxBloom_Processing(BYTE * bitmapData, int width, int height, int blurSize, int rowBytes, int startRow, int endRow, int threshold, float intensity, float lerp) {
+
     for (int y = startRow; y < endRow; ++y) {
         for (int x = 0; x < width; ++x) {
 
-           /* if (threshold >= bitmapData[y * rowBytes + x * 3] || threshold >= bitmapData[y * rowBytes + x * 3 + 1] ||
-                threshold >= bitmapData[y * rowBytes + x * 3 + 2])
-                continue;*/
-            
+            /* if (threshold >= bitmapData[y * rowBytes + x * 3] || threshold >= bitmapData[y * rowBytes + x * 3 + 1] ||
+                 threshold >= bitmapData[y * rowBytes + x * 3 + 2])
+                 continue;*/
+
             int left = max(x - blurSize, 0);
             int right = min(x + blurSize, width - 1);
             int top = max(y - blurSize, 0);
@@ -88,6 +217,15 @@ void SIMD_BoxBloom_Processing(BYTE* bitmapData, int width, int height, int blurS
 
             int area = (right - left + 1) * (bottom - top + 1);
 
+            RGBColor current(1, 1, 1);
+            current.r += bitmapData[x + rowBytes * y + 3];
+            current.g += bitmapData[x + rowBytes * y + 1];
+            current.b += bitmapData[x + rowBytes * y];
+
+            if (threshold >= current.r && threshold >= current.g && threshold >= current.b)
+                continue;
+
+            current = current * intensity;
             // 박스 블러 영역 계산
             RGBColor sum(1,1,1);
             for (int i = top; i <= bottom; ++i) {
@@ -99,14 +237,13 @@ void SIMD_BoxBloom_Processing(BYTE* bitmapData, int width, int height, int blurS
                 }
             }
 
-            RGBColor avgColor = sum * intensity / area;
-            if (threshold >= avgColor.r || threshold >=sum.g ||threshold >= sum.b)
-                continue;
-
+            RGBColor avgColor = sum / area;
+            //RGBColor finalColor = avgColor;
             // 원래 색상과 평균 색상의 보간
             int idx = y * rowBytes + x * 3;
             RGBColor currentColor(bitmapData[idx + 2], bitmapData[idx + 1], bitmapData[idx]); // Correct RGB order
-            RGBColor finalColor = avgColor .ColorLerp(currentColor, lerp);
+            RGBColor finalColor = (avgColor * intensity).ColorLerp(currentColor, lerp);
+
 
             // 결과를 비트맵에 저장 (RGB 순서대로 저장)
             bitmapData[idx + 2] = min(finalColor.r,254);
@@ -116,8 +253,10 @@ void SIMD_BoxBloom_Processing(BYTE* bitmapData, int width, int height, int blurS
     }
 }
 
-void Bloom(HDC hdc, int blurSize, int threshold,float intensity,float lerp)
-//hdc: hdc, blurSize:블러의 크기, threshold: 블룸 최소 밝기, 밝기, 흐림(낮을수록 강한효과)
+
+
+void LagcyBloom(HDC hdc, int blurSize, int threshold, float intensity, float lerp)
+    //hdc: hdc, blurSize:블러의 크기, threshold: 블룸 최소 밝기, 밝기, 흐림(낮을수록 강한효과)
 {
     int width = SCREEN_WIDTH;
     int height = SCREEN_HEIGHT;
@@ -152,7 +291,7 @@ void Bloom(HDC hdc, int blurSize, int threshold,float intensity,float lerp)
         int startRow = i * chunkHeight;
         int endRow = (i == numThreads - 1) ? height : (i + 1) * chunkHeight;
         threads.push_back(std::thread(SIMD_BoxBloom_Processing, bitmapData, width, height, blurSize,
-            rowBytes, startRow, endRow,threshold,intensity,lerp));
+            rowBytes, startRow, endRow, threshold, intensity, lerp));
     }
 
     for (auto& t : threads) {
@@ -168,55 +307,62 @@ void Bloom(HDC hdc, int blurSize, int threshold,float intensity,float lerp)
     DeleteDC(hMemDC);
 }
 
-// 비트맵을 처리하는 함수
-void Blur(HDC hdc, int blurSize) {
-    int width = SCREEN_WIDTH;
-    int height = SCREEN_HEIGHT;
-
-    // 원본 이미지 색상 데이터를 가져와서 저장
-    BITMAPINFO bi;
-    ZeroMemory(&bi, sizeof(BITMAPINFO));
-    bi.bmiHeader.biSize = sizeof(BITMAPINFOHEADER);
-    bi.bmiHeader.biWidth = width;
-    bi.bmiHeader.biHeight = -height;
-    bi.bmiHeader.biPlanes = 1;
-    bi.bmiHeader.biBitCount = 24;
-    bi.bmiHeader.biCompression = BI_RGB;
-
-    void* pBits;
-    HBITMAP hBitmap = CreateDIBSection(hdc, &bi, DIB_RGB_COLORS, &pBits, NULL, 0);
-    if (!hBitmap) return;
-
-    HDC hMemDC = CreateCompatibleDC(hdc);
-    HBITMAP hOldBitmap = (HBITMAP)SelectObject(hMemDC, hBitmap);
-    BitBlt(hMemDC, 0, 0, width, height, hdc, 0, 0, SRCCOPY);
-
-    BYTE* bitmapData = static_cast<BYTE*>(pBits);
-    int rowBytes = ((width * 3 + 3) & ~3); // 한 줄의 크기 계산 (3바이트 단위로 정렬)
-
-    // 멀티스레딩을 통한 처리
-    int numThreads = std::thread::hardware_concurrency();
-    std::vector<std::thread> threads;
-    int chunkHeight = height / numThreads;
-
-    for (int i = 0; i < numThreads; ++i) {
-        int startRow = i * chunkHeight;
-        int endRow = (i == numThreads - 1) ? height : (i + 1) * chunkHeight;
-        threads.push_back(std::thread(SIMD_BoxBlur_Processing, bitmapData, width, height, blurSize, rowBytes, startRow, endRow));
-    }
-
-    for (auto& t : threads) {
-        t.join();
-    }
-
-    // 결과를 hdc에 복사
-    BitBlt(hdc, 0, 0, width, height, hMemDC, 0, 0, SRCCOPY);
-
-    // 메모리 해제
-    SelectObject(hMemDC, hOldBitmap);
-    DeleteObject(hBitmap);
-    DeleteDC(hMemDC);
+void LagacyPostProcsess(HDC hdc)
+{
+    LagcyBloom(hdc, 2, 150, 2.f, 0.1f);
 }
+ 
+//void Blur(HDC hdc, int blurSize) {
+//    int width = SCREEN_WIDTH;
+//    int height = SCREEN_HEIGHT;
+//
+//    // 원본 이미지 색상 데이터를 가져와서 저장
+//    BITMAPINFO bi;
+//    ZeroMemory(&bi, sizeof(BITMAPINFO));
+//    bi.bmiHeader.biSize = sizeof(BITMAPINFOHEADER);
+//    bi.bmiHeader.biWidth = width;
+//    bi.bmiHeader.biHeight = -height;
+//    bi.bmiHeader.biPlanes = 1;
+//    bi.bmiHeader.biBitCount = 24;
+//    bi.bmiHeader.biCompression = BI_RGB;
+//
+//    void* pBits;
+//    HBITMAP hBitmap = CreateDIBSection(hdc, &bi, DIB_RGB_COLORS, &pBits, NULL, 0);
+//    if (!hBitmap) return;
+//
+//    HDC hMemDC = CreateCompatibleDC(hdc);
+//    HBITMAP hOldBitmap = (HBITMAP)SelectObject(hMemDC, hBitmap);
+//    BitBlt(hMemDC, 0, 0, width, height, hdc, 0, 0, SRCCOPY);
+//
+//    BYTE* bitmapData = static_cast<BYTE*>(pBits);
+//    int rowBytes = ((width * 3 + 3) & ~3); // 한 줄의 크기 계산 (3바이트 단위로 정렬)
+//
+//    // 멀티스레딩을 통한 처리
+//    int numThreads = std::thread::hardware_concurrency();
+//    std::vector<std::thread> threads;
+//    int chunkHeight = height / numThreads;
+//
+//    for (int i = 0; i < numThreads; ++i) {
+//        int startRow = i * chunkHeight;
+//        int endRow = (i == numThreads - 1) ? height : (i + 1) * chunkHeight;
+//        threads.push_back(std::thread(SIMD_BoxBlur_Processing, bitmapData, width, height, blurSize, rowBytes, startRow, endRow));
+//    }
+//
+//    for (auto& t : threads) {
+//        t.join();
+//    }
+//
+//    // 결과를 hdc에 복사
+//    BitBlt(hdc, 0, 0, width, height, hMemDC, 0, 0, SRCCOPY);
+//
+//    // 메모리 해제
+//    SelectObject(hMemDC, hOldBitmap);
+//    DeleteObject(hBitmap);
+//    DeleteDC(hMemDC);
+//}
+#pragma endregion
+
+
 
 
 
