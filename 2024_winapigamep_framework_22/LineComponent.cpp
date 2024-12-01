@@ -19,7 +19,6 @@ void LineComponent::LateUpdate()
 	{
 		if (INPUT->GetKey(KEY_TYPE::LBUTTON) == KEY_STATE::DOWN)
 		{
-			int a = 0;
 			// 마우스를 클릭한 상태에서 선 그리기 시작
 			StartDrawing(GetOwner()->GetPos());
 		}
@@ -27,6 +26,7 @@ void LineComponent::LateUpdate()
 	}
 
 	if (m_isDrawing)
+	{
 		if (INPUT->GetKey(KEY_TYPE::LBUTTON) == KEY_STATE::PRESS)
 		{
 			// 드래그 중일 때 선 업데이트
@@ -37,6 +37,7 @@ void LineComponent::LateUpdate()
 			// 드래그 종료
 			StopDrawing();
 		}
+	}
 }
 
 bool LineComponent::IsMouseOverObject()
@@ -72,6 +73,11 @@ void LineComponent::UpdateDrawing(Vec2 mousePos)
 void LineComponent::StopDrawing()
 {
 	m_isDrawing = false;  // 선 그리기 종료
+}
+
+Vec2 LineComponent::GetDistance()
+{
+	return m_startPos - m_endPos;
 }
 
 void LineComponent::Render(HDC _hdc)
