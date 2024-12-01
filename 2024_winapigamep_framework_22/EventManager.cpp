@@ -10,21 +10,22 @@ void EventManager::Init()
 void EventManager::Update()
 {
 	// 이전 프레임에서 등록해둔 
-	if (!isRenderFinished)
-		return;
-
-	for (Object* obj : m_vecDead)
+	if (isRenderFinished)
 	{
-		if (obj != nullptr)
-			delete obj;
+		for (Object* obj : m_vecDead)
+		{
+			if (obj != nullptr)
+				delete obj;
+		}
+		m_vecDead.clear();
+		isRenderFinished = false;
 	}
-	m_vecDead.clear();
 
 	for (auto& eve : m_vecEvent)
 		Excute(eve);
 	m_vecEvent.clear();
 
-	isRenderFinished = false;
+
 }
 
 void EventManager::DeleteObject(Object* _pObj)

@@ -115,12 +115,13 @@ void Core::MainRender()
 	////Blur(m_hBackDC, 2);
 	//
 	LagacyPostProcsess(m_hBackDC);
-	//Bloom(m_hBackDC, 4, 150, 2.f,0.1f,postProcessthreadnum);
+	//Bloom(m_hBackDC, 2, 150, 2.f,0.1f,postProcessthreadnum);
 	//
 	////Blur(m_hDC, 25);
 	//// 3. display	
 	::BitBlt(m_hDC, 0,0, SCREEN_WIDTH,SCREEN_HEIGHT,
 			m_hBackDC,0,0, SRCCOPY);
+
 
 	//::TransparentBlt();
 	//::StretchBlt();

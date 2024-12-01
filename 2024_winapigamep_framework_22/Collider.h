@@ -28,6 +28,7 @@ public:
     }
 
     Vec2 dir = Vec2(0, 0);
+    float bounce = 1.f;
 private:
     bool m_showDebug = false;
     UINT m_ID; // 충돌체 고유 ID값

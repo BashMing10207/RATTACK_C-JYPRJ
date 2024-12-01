@@ -41,6 +41,7 @@ void Scene::LateUpdate()
 	{
 		for (UINT j = 0; j < m_vecObj[i].size(); ++j)
 		{
+			if (!m_vecObj[i][j]->GetIsDead())
 			m_vecObj[i][j]->LateUpdate();
 		}
 	}
