@@ -2,9 +2,11 @@
 #include "Enemy.h"
 #include "Collider.h"
 #include "EventManager.h"
+#include "LineComponent.h"
 Enemy::Enemy()
 	: m_hp(5)
 {
+	this->AddComponent<LineComponent>();
 	this->AddComponent<Collider>();
 }
 
