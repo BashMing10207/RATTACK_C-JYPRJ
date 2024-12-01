@@ -11,9 +11,10 @@ public:
     void StartDrawing(Vec2 startPos);  // 선 그리기 시작
     void UpdateDrawing(Vec2 mousePos); // 선 그리기 업데이트
     void StopDrawing();                // 선 그리기 종료
+    Vec2 GetDistance();                // 돌과 마우스의 거리
     void LateUpdate() override;
     void Render(HDC _hdc) override;    // 선 그리기 렌더링
-    bool IsMouseOverObject();
+    bool IsMouseInStone();
 
 private:
     bool m_isDrawing;  // 선을 그리고 있니?
