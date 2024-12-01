@@ -10,6 +10,7 @@
 #include "PostProcess.h"
 #include "MapManager.h";
 #include<thread>
+#include"CameraShake.h"
 
 int postProcessthreadnum = 8;
 
@@ -73,9 +74,10 @@ void Core::GameLoop()
 	//	prev = cur;
 	//	callcount = 0;
 	//}
+	GET_SINGLE(EventManager)->Update();
 	MainUpdate();
 	//MainRender();
-	GET_SINGLE(EventManager)->Update();
+
 }
 
 void Core::GameLoop2() 
@@ -88,6 +90,7 @@ void Core::MainUpdate()
 	// === Manager Update === 
 	GET_SINGLE(TimeManager)->Update();
 	GET_SINGLE(InputManager)->Update();
+	GET_SINGLE(CameraShake)->Update();
 	GET_SINGLE(SceneManager)->Update();
 	//GET_SINGLE(CollisionManager)->Update();
 
@@ -119,8 +122,8 @@ void Core::MainRender()
 	//
 	////Blur(m_hDC, 25);
 	//// 3. display	
-	::BitBlt(m_hDC, 0,0, SCREEN_WIDTH,SCREEN_HEIGHT,
-			m_hBackDC,0,0, SRCCOPY);
+	::BitBlt(m_hDC, camx, camy, SCREEN_WIDTH, SCREEN_HEIGHT,
+			m_hBackDC, 0, 0, SRCCOPY);
 
 
 	//::TransparentBlt();

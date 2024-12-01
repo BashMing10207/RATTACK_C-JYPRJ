@@ -7,6 +7,7 @@
 #include "Enemy.h"
 #include "Stone.h"
 #include "CollisionManager.h"
+#include "Collider.h"
 #include "ResourceManager.h"
 void TitleScene::Init()
 {
@@ -30,11 +31,12 @@ void TitleScene::Init()
 	pObj3->Init();
 	AddObject(pObj3, LAYER::PLAYER);
 
-	Object* pObj4 = new Stone(-100);
+	Object* pObj4 = new Stone(-300);
 	pObj4->SetPos({ 0,150.f });
 	pObj4->SetSize({ 100.f,100.f });
 	pObj4->SetName(L"Stone");
 	pObj4->Init();
+	pObj4->GetComponent<Collider>()->mass = 90;
 	AddObject(pObj4, LAYER::PLAYER);
 
 	Object* pPlayer6 = new Player;

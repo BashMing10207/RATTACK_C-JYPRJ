@@ -5,6 +5,7 @@
 #include "ResourceManager.h"
 #include "Collider.h"
 #include "EventManager.h"
+#include "CameraShake.h"
 Projectile::Projectile()
 //	: m_dir(-1.f)
 	: m_angle(0.f)
@@ -61,6 +62,9 @@ void Projectile::Render(HDC _hdc)
 void Projectile::EnterCollision(Collider* _other)
 {
 	Object* pOtherObj = _other->GetOwner();
+	GET_SINGLE(CameraShake)->AddTime(0.3f);
+	GET_SINGLE(CameraShake)->SetPower(15.f);
+
 	// if (pOtherObj->GetName() == L"Enemy")
 	{
 		GET_SINGLE(EventManager)->DeleteObject(this);

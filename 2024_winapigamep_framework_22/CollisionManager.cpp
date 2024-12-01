@@ -122,8 +122,8 @@ void CollisionManager::CollisionLayerUpdate(LAYER _left, LAYER _right)
 			if(isCollide)
 			{
 				float bouncess = (pLeftCollider->bounce + pRightCollider->bounce) / 2;
-				pLeftCollider->dir = dir*-1*bouncess;
-				pRightCollider->dir = dir*bouncess;
+				pLeftCollider->dir = dir*-1*bouncess * (pLeftCollider->mass/(pLeftCollider->mass+pRightCollider->mass));
+				pRightCollider->dir = dir * bouncess * (pRightCollider->mass / (pLeftCollider->mass + pRightCollider->mass));
 
 				pLeftCollider->StayCollision(pRightCollider);
 				pRightCollider->StayCollision(pLeftCollider);

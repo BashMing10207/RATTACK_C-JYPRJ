@@ -80,7 +80,7 @@ void Stone::EnterCollision(Collider* _other)
 
 void Stone::StayCollision(Collider* _other)
 {
-	GetComponent<RigidBody>()->AddForce(_other->dir*1.5f);
+	GetComponent<RigidBody>()->StayCollision(_other);
 }
 
 void Stone::ExitCollision(Collider* _other)

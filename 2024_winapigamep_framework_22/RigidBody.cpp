@@ -50,6 +50,7 @@ void RigidBody::EnterCollision(Collider* _other)
 
 void RigidBody::StayCollision(Collider* _other)
 {
+    AddForce(_other->dir * 1.5f);
 }
 
 void RigidBody::ExitCollision(Collider* _other)
