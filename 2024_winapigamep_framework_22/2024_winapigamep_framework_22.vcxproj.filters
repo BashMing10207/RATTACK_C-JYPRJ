@@ -87,6 +87,7 @@
     </ClCompile>
     <ClCompile Include="LineComponent.cpp" />
     <ClCompile Include="CameraShake.cpp" />
+    <ClCompile Include="GamePlayer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Item.h" />
@@ -196,6 +197,7 @@
     </ClInclude>
     <ClInclude Include="LineComponent.h" />
     <ClInclude Include="CameraShake.h" />
+    <ClInclude Include="GamePlayer.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="2024_winapigamep_framework_22.ico">
