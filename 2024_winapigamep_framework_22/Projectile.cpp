@@ -45,18 +45,29 @@ void Projectile::Update()
 void Projectile::Render(HDC _hdc)
 {
 	Vec2 vPos = GetPos();
+
 	Vec2 vSize = GetSize();
-	//ELLIPSE_RENDER(_hdc, vPos.x, vPos.y
-	//	, vSize.x, vSize.y);
-	int width = m_pTex->GetWidth();
-	int height = m_pTex->GetHeight();
-	::TransparentBlt(_hdc
-		, (int)(vPos.x - width / 2)
-		, (int)(vPos.y - height / 2)
-		, width, height,
-		m_pTex->GetTexDC()
-		, 0, 0, width, height, RGB(255, 0, 255));
-	ComponentRender(_hdc);
+
+	HBRUSH brush = CreateSolidBrush(RGB(255, 1, 1));
+	HBRUSH oldbrush = (HBRUSH)SelectObject(_hdc, brush);
+
+	ELLIPSE_RENDER(_hdc, vPos.x, vPos.y
+		, vSize.x, vSize.y);
+
+	DeleteObject(brush);
+	SelectObject(_hdc, oldbrush);
+
+	// 
+	//int width = m_pTex->GetWidth();
+	//int height = m_pTex->GetHeight();
+	//::TransparentBlt(_hdc
+	//	, (int)(vPos.x - width / 2)
+	//	, (int)(vPos.y - height / 2)
+	//	, width, height,
+	//	m_pTex->GetTexDC()
+	//	, 0, 0, width, height, RGB(255, 0, 255));
+	
+	//ComponentRender(_hdc);
 }
 
 void Projectile::EnterCollision(Collider* _other)

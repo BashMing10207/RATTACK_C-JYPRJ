@@ -276,9 +276,9 @@ void SIMD_BoxBloom_Processing(BYTE* bitmapData, int width, int height, int blurS
             RGBColor finalColor = avgColor.ColorLerp(currentColor, lerp);
 
             // 결과를 비트맵에 저장 (RGB 순서대로 저장)
-            bitmapData[idx + 2] = min(finalColor.r, 254);
-            bitmapData[idx + 1] = min(finalColor.g, 254);
-            bitmapData[idx] = min(finalColor.b, 254);
+            bitmapData[idx + 2] = min(finalColor.r, 255);
+            bitmapData[idx + 1] = min(finalColor.g, 255);
+            bitmapData[idx] = min(finalColor.b, 255);
         }
     }
 }
@@ -325,6 +325,8 @@ void LagacyBloom(HDC hdc, int blurSize, int threshold, float intensity, float le
     for (auto& t : threads) {
         t.join();
     }
+
+    threads.clear();
 
     // 결과를 hdc에 복사
     BitBlt(hdc, 0, 0, width, height, hMemDC, 0, 0, SRCCOPY);
@@ -387,7 +389,7 @@ void LagacyBlur(HDC hdc, int blurSize) {
 
 void LagacyPostProcsess(HDC hdc)
 {
-    LagacyBloom(hdc, 4, 100, 1.7f, 0.4f);
+    LagacyBloom(hdc,2, 100, 1.7f, 0.35f);
 }
  
 //void Blur(HDC hdc, int blurSize) {

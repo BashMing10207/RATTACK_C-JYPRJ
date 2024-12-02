@@ -36,7 +36,7 @@ void TitleScene::Init()
 	pObj4->SetSize({ 100.f,100.f });
 	pObj4->SetName(L"Stone");
 	pObj4->Init();
-	pObj4->GetComponent<Collider>()->mass = 90;
+	pObj4->GetComponent<Collider>()->mass = 30;
 	AddObject(pObj4, LAYER::PLAYER);
 
 	Object* pPlayer6 = new Player;

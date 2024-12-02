@@ -118,7 +118,7 @@ void Core::MainRender()
 	////Blur(m_hBackDC, 2);
 	//
 	LagacyPostProcsess(m_hBackDC);
-	//Bloom(m_hBackDC, 2, 150, 2.f,0.1f,postProcessthreadnum);
+	//Bloom(m_hBackDC, 10, 150, 2.f,0.1f,postProcessthreadnum);
 	//
 	////Blur(m_hDC, 25);
 	//// 3. display	
