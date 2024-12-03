@@ -49,12 +49,15 @@ void Projectile::Render(HDC _hdc)
 	Vec2 vSize = GetSize();
 
 	HBRUSH brush = CreateSolidBrush(RGB(255, 1, 1));
+	HPEN hpen = CreatePen(PS_NULL, 0, RGB(0, 0, 0));
+	SelectObject(_hdc, hpen);
 	HBRUSH oldbrush = (HBRUSH)SelectObject(_hdc, brush);
 
 	ELLIPSE_RENDER(_hdc, vPos.x, vPos.y
 		, vSize.x, vSize.y);
 
 	DeleteObject(brush);
+	DeleteObject(hpen);
 	SelectObject(_hdc, oldbrush);
 
 	// 
@@ -77,6 +80,7 @@ void Projectile::EnterCollision(Collider* _other)
 	GET_SINGLE(CameraShake)->SetPower(15.f);
 
 	// if (pOtherObj->GetName() == L"Enemy")
+	if(!GetIsDead())
 	{
 		GET_SINGLE(EventManager)->DeleteObject(this);
 	}
@@ -84,6 +88,7 @@ void Projectile::EnterCollision(Collider* _other)
 
 void Projectile::StayCollision(Collider* _other)
 {
+
 }
 
 void Projectile::ExitCollision(Collider* _other)

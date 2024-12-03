@@ -25,6 +25,7 @@ bool Core::Init(HWND _hwnd)
 	// 더블 버퍼링
 	// 1. 생성(세팅)
 	m_hBackBit = ::CreateCompatibleBitmap(m_hDC, SCREEN_WIDTH, SCREEN_HEIGHT);
+
 	m_hBackDC =::CreateCompatibleDC(m_hDC);
 
 	// 2. 연결
@@ -99,6 +100,14 @@ void Core::MainUpdate()
 void Core::MainRender()
 {
 	::PatBlt(m_hBackDC, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, BLACKNESS);
+
+	//HBRUSH brush = CreateSolidBrush(RGB(60, 60, 60));
+	//HBRUSH oldbrush = (HBRUSH)SelectObject(m_hBackDC, brush);
+
+	//Rectangle(m_hBackDC, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+
+	//DeleteObject(brush);
+	//SelectObject(m_hBackDC, oldbrush);
 
 
 	HBRUSH brush = CreateSolidBrush(RGB(128,128,128));

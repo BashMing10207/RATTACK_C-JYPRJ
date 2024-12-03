@@ -73,8 +73,8 @@ void BaseWindow::createWindow()
     int ResolutionX = GetSystemMetrics(SM_CXSCREEN);
     int ResolutionY = GetSystemMetrics(SM_CYSCREEN);
 
-    int Winposx = ResolutionX / 2 - SCREEN_WIDTH / 2;
-    int Winposy = ResolutionY / 2 - SCREEN_HEIGHT / 2;
+    int Winposx = 0;//ResolutionX / 2 - SCREEN_WIDTH / 2;
+    int Winposy = 0;//ResolutionY / 2 - SCREEN_HEIGHT / 2;
 
     m_hWnd = CreateWindowW(
         L"2-2 Gamep", // 윈도우 클래스 식별자

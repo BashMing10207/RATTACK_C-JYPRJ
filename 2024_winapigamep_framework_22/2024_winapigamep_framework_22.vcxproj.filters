@@ -88,6 +88,12 @@
     <ClCompile Include="LineComponent.cpp" />
     <ClCompile Include="CameraShake.cpp" />
     <ClCompile Include="GamePlayer.cpp" />
+    <ClCompile Include="BlackHole.cpp" />
+    <ClCompile Include="NewPorjectile.cpp" />
+    <ClCompile Include="Trigger.cpp" />
+    <ClCompile Include="Granade.cpp" />
+    <ClCompile Include="OilSplash.cpp" />
+    <ClCompile Include="Explosion.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Item.h" />
@@ -198,6 +204,12 @@
     <ClInclude Include="LineComponent.h" />
     <ClInclude Include="CameraShake.h" />
     <ClInclude Include="GamePlayer.h" />
+    <ClInclude Include="BlackHole.h" />
+    <ClInclude Include="NewPorjectile.h" />
+    <ClInclude Include="Trigger.h" />
+    <ClInclude Include="Granade.h" />
+    <ClInclude Include="OilSplash.h" />
+    <ClInclude Include="Explosion.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="2024_winapigamep_framework_22.ico">

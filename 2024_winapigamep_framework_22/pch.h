@@ -34,8 +34,8 @@ using std::wstring;
 
 // °¢Á¾ define
 #define PI 3.14159265f
-#define SCREEN_WIDTH  1000
-#define SCREEN_HEIGHT 700
+#define SCREEN_WIDTH  1920
+#define SCREEN_HEIGHT 1080
 
 #define INPUT GET_SINGLE(InputManager)
 

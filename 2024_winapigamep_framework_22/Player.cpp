@@ -10,6 +10,8 @@
 #include "Collider.h"
 #include "Animator.h"
 #include "Animation.h"
+#include "Granade.h"
+#include "RigidBody.h"
 Player::Player()
 	: m_pTex(nullptr)
 {
@@ -73,18 +75,38 @@ void Player::Render(HDC _hdc)
 
 void Player::CreateProjectile()
 {
-	Projectile* pProj = new Projectile;
+	//Projectile* pProj = new Projectile;
+	//Vec2 vPos = GetPos();
+	//vPos.y -= GetSize().y / 2.f;
+	//pProj->SetPos(vPos);
+	//pProj->SetSize({30.f,30.f});
+	//// 도 -> 라디안: PI / 180
+	////pProj->SetAngle(PI / 4 * 7.f); // 1
+	////static float angle = 0.f;
+	////pProj->SetAngle(angle * PI / 180); // 2
+	////angle += 10.f;
+	//pProj->SetDir({0.f, -1.f});
+	//pProj->SetName(L"PlayerBullet");
+	////Vec2 a = { 10.f, 10.f };
+	////Vec2 b = { 0.f, 0.f };
+	////Vec2 c = a / b;
+
+	//GET_SINGLE(SceneManager)->GetCurrentScene()->AddObject(pProj, LAYER::PROJECTILE);
+	Granade *pProj = new Granade;
+
+	Vec2 dir = Vec2(0, -500);
+
 	Vec2 vPos = GetPos();
 	vPos.y -= GetSize().y / 2.f;
-	pProj->SetPos(vPos);
-	pProj->SetSize({30.f,30.f});
+	pProj->SetPos(vPos + dir.Normalize()*10);
+	pProj->SetSize({ 20.f,20.f });
 	// 도 -> 라디안: PI / 180
 	//pProj->SetAngle(PI / 4 * 7.f); // 1
 	//static float angle = 0.f;
 	//pProj->SetAngle(angle * PI / 180); // 2
 	//angle += 10.f;
-	pProj->SetDir({0.f, -1.f});
-	pProj->SetName(L"PlayerBullet");
+	pProj->GetComponent<RigidBody>()->AddForce(dir);
+	pProj->SetName(L"Granade");
 	//Vec2 a = { 10.f, 10.f };
 	//Vec2 b = { 0.f, 0.f };
 	//Vec2 c = a / b;

@@ -253,6 +253,8 @@ void SIMD_BoxBloom_Processing(BYTE* bitmapData, int width, int height, int blurS
             int top = max(y - blurSize, 0);
             int bottom = min(y + blurSize, height - 1);
 
+            int verybrightness = 0;
+
             int area = (right - left + 1) * (bottom - top + 1);
 
             // 박스 블러 영역 계산
@@ -263,12 +265,16 @@ void SIMD_BoxBloom_Processing(BYTE* bitmapData, int width, int height, int blurS
                     sum.r += bitmapData[idx + 2];
                     sum.g += bitmapData[idx + 1];
                     sum.b += bitmapData[idx];
+
+                    verybrightness = max(verybrightness, bitmapData[idx + 2],bitmapData[idx+1],bitmapData[idx]);
+
                 }
             }
+            
+            if (threshold >= verybrightness)
+                continue;
 
             RGBColor avgColor = sum * intensity / area;
-            if (threshold >= avgColor.r || threshold >= sum.g || threshold >= sum.b)
-                continue;
 
             // 원래 색상과 평균 색상의 보간
             int idx = y * rowBytes + x * 3;
@@ -283,7 +289,7 @@ void SIMD_BoxBloom_Processing(BYTE* bitmapData, int width, int height, int blurS
     }
 }
 
-void LagacyBloom(HDC hdc, int blurSize, int threshold, float intensity, float lerp)
+void LagacyBloom(HDC hdc, int blurSize, int threshold, float intensity, float lerp, int inten2=1)
 //hdc: hdc, blurSize:블러의 크기, threshold: 블룸 최소 밝기, 밝기, 흐림(낮을수록 강한효과)
 {
     int width = SCREEN_WIDTH;
@@ -315,18 +321,22 @@ void LagacyBloom(HDC hdc, int blurSize, int threshold, float intensity, float le
     std::vector<std::thread> threads;
     int chunkHeight = height / numThreads;
 
-    for (int i = 0; i < numThreads; ++i) {
-        int startRow = i * chunkHeight;
-        int endRow = (i == numThreads - 1) ? height : (i + 1) * chunkHeight;
-        threads.push_back(std::thread(SIMD_BoxBloom_Processing, bitmapData, width, height, blurSize,
-            rowBytes, startRow, endRow, threshold, intensity, lerp));
-    }
+    for (int q = 0; q < inten2; q++)
+    {
+        for (int i = 0; i < numThreads; ++i) {
+            int startRow = i * chunkHeight;
+            int endRow = (i == numThreads - 1) ? height : (i + 1) * chunkHeight;
+            threads.push_back(std::thread(SIMD_BoxBloom_Processing, bitmapData, width, height, blurSize,
+                rowBytes, startRow, endRow, threshold, intensity, lerp));
+        }
 
-    for (auto& t : threads) {
-        t.join();
-    }
+        for (auto& t : threads) {
+            t.join();
+        }
 
-    threads.clear();
+        threads.clear();
+    }
+    
 
     // 결과를 hdc에 복사
     BitBlt(hdc, 0, 0, width, height, hMemDC, 0, 0, SRCCOPY);
@@ -389,7 +399,8 @@ void LagacyBlur(HDC hdc, int blurSize) {
 
 void LagacyPostProcsess(HDC hdc)
 {
-    LagacyBloom(hdc,2, 100, 1.7f, 0.35f);
+    LagacyBlur(hdc, 2);
+   //LagacyBloom(hdc,2, 200, 1.9f, 0.3f,2);
 }
  
 //void Blur(HDC hdc, int blurSize) {

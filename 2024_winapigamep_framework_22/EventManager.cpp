@@ -15,7 +15,7 @@ void EventManager::Update()
 		for (Object* obj : m_vecDead)
 		{
 			if (obj != nullptr)
-				delete obj;
+  				delete obj;
 		}
 		m_vecDead.clear();
 		isRenderFinished = false;

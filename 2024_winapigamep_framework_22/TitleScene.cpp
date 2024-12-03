@@ -18,11 +18,11 @@ void TitleScene::Init()
 	//pObj->Init();
 	//AddObject(pObj, LAYER::STATIC);
 
-	Object* pObj2 = new Enemy;
-	pObj2->SetPos({(float)SCREEN_WIDTH,150.f });
-	pObj2->SetSize({ 100.f,100.f });
-	pObj2->SetName(L"Enemy");
-	AddObject(pObj2, LAYER::ENEMY);
+	//Object* pObj2 = new Enemy;
+	//pObj2->SetPos({(float)SCREEN_WIDTH,150.f });
+	//pObj2->SetSize({ 100.f,100.f });
+	//pObj2->SetName(L"Enemy");
+	//AddObject(pObj2, LAYER::ENEMY);
 
 	Object* pObj3 = new Stone(900);
 	pObj3->SetPos({ (float)SCREEN_WIDTH,150.f });
