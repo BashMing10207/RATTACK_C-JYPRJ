@@ -9,7 +9,6 @@ public:
 	virtual void Init() abstract;
 	virtual void Update() abstract;
 	virtual void Render(HDC _hdc) abstract;
-	virtual void DrawUI(HDC _hdc) abstract;
 	virtual void RenderText(HDC _hdc) abstract;
 public:
 	void SetPos(Vec2 _vPos) { m_vPos = _vPos; }
