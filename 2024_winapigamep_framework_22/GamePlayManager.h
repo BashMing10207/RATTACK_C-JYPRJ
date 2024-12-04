@@ -10,13 +10,13 @@ public:
 	
 	bool IsBlackTurn;
 
-	GamePlayer gamePlayers[2]{GamePlayer(),GamePlayer()};
+	GamePlayer gamePlayers[2]{GamePlayer(true),GamePlayer(false)};
 
-	void TurnEnd() 
-	{
-		IsBlackTurn = !IsBlackTurn;
-	}
+	void TurnEnd() {IsBlackTurn = !IsBlackTurn;}
 
+	GamePlayer CurrentGamePlayer() {return gamePlayers[IsBlackTurn ? 0 : 1];}
+
+	void LateUpdate();
 
 };
 

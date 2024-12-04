@@ -4,14 +4,19 @@
 class GamePlayer
 {
 public:
-	int stonecnt = 6;
-
+	int stonecnt = 6, selectecIndex=0;
+	bool isNigger = true;
 	vector<Stone> stones;
 	vector<Item> items;
 
-	GamePlayer();
+	GamePlayer(bool isNigger);
 	~GamePlayer();
 	void Init();
-	void ShowPlayerState();
+	void SetPlayer();
 
+	void AddItem(Item item);
+	void UseItemIdx(int idx);
+	void LataUpdate();
+
+	void UseItem() {items.erase(items.begin() + selectecIndex);}
 };

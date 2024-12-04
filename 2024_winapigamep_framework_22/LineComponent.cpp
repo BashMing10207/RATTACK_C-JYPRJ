@@ -2,6 +2,7 @@
 #include "LineComponent.h"
 #include "Object.h"
 #include "InputManager.h"
+#include "GamePlayManager.h"
 
 LineComponent::LineComponent()
 	: m_isDrawing(false), m_startPos(Vec2()), m_endPos(Vec2())
@@ -22,7 +23,6 @@ void LineComponent::LateUpdate()
 			// 마우스를 클릭한 상태에서 선 그리기 시작
 			StartDrawing(GetOwner()->GetPos());
 		}
-
 	}
 
 	if (m_isDrawing)
@@ -36,9 +36,16 @@ void LineComponent::LateUpdate()
 		{
 			// 드래그 종료
 			StopDrawing();
+
+			if (!IsMouseInStone())
+			{
+				DoAction();
+			}
 		}
 	}
 }
+
+
 
 bool LineComponent::IsMouseInStone()
 {
@@ -87,4 +94,9 @@ void LineComponent::Render(HDC _hdc)
 		MoveToEx(_hdc, m_startPos.x, m_startPos.y, NULL);
 		LineTo(_hdc, m_endPos.x, m_endPos.y);  // 선을 그린다
 	}
+}
+
+void LineComponent::DoAction()
+{
+	//GET_SINGLE(GamePlayManager)->CurrentGamePlayer()->
 }

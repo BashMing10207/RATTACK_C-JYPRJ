@@ -14,6 +14,7 @@
 #include "RigidBody.h"
 #include "BlackHoleGranade.h"
 #include "OilGranade.h"
+#include "TreeSeed.h"
 Player::Player()
 	: m_pTex(nullptr)
 {
@@ -94,9 +95,9 @@ void Player::CreateProjectile()
 	////Vec2 c = a / b;
 
 	//GET_SINGLE(SceneManager)->GetCurrentScene()->AddObject(pProj, LAYER::PROJECTILE);
-	Granade *pProj = new Granade;
+	TreeSeed *pProj = new TreeSeed;
 
-	Vec2 dir = Vec2(0, -500);
+	Vec2 dir = Vec2(0, -300);
 
 	Vec2 vPos = GetPos();
 	vPos.y -= GetSize().y / 2.f;

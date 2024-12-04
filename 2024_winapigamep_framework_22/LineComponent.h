@@ -14,6 +14,7 @@ public:
     Vec2 GetDistance();                // 돌과 마우스의 거리
     void LateUpdate() override;
     void Render(HDC _hdc) override;    // 선 그리기 렌더링
+    void DoAction();
     bool IsMouseInStone();
 
 private:
