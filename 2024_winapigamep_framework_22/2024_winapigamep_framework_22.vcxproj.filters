@@ -94,6 +94,18 @@
     <ClCompile Include="Granade.cpp" />
     <ClCompile Include="OilSplash.cpp" />
     <ClCompile Include="Explosion.cpp" />
+    <ClCompile Include="BlackHoleGranade.cpp" />
+    <ClCompile Include="GamePlayManager.cpp" />
+    <ClCompile Include="OilGranade.cpp" />
+    <ClCompile Include="UI.cpp">
+      <Filter>Engine\08.UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>Engine\08.UI</Filter>
+    </ClCompile>
+    <ClCompile Include="UIManager.cpp">
+      <Filter>Engine\08.UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Item.h" />
@@ -210,6 +222,18 @@
     <ClInclude Include="Granade.h" />
     <ClInclude Include="OilSplash.h" />
     <ClInclude Include="Explosion.h" />
+    <ClInclude Include="BlackHoleGranade.h" />
+    <ClInclude Include="GamePlayManager.h" />
+    <ClInclude Include="OilGranade.h" />
+    <ClInclude Include="UI.h">
+      <Filter>Engine\08.UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>Engine\08.UI</Filter>
+    </ClInclude>
+    <ClInclude Include="UIManager.h">
+      <Filter>Engine\08.UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="2024_winapigamep_framework_22.ico">
@@ -252,6 +276,9 @@
     </Filter>
     <Filter Include="Engine\99. Header">
       <UniqueIdentifier>{21778444-7ac9-410c-a480-dc485a29c22c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\08.UI">
+      <UniqueIdentifier>{cf55e36c-329c-49ca-8f70-597ea0aad44d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

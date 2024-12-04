@@ -28,4 +28,3 @@ private:
 	bool m_isClick;
 	bool m_isHover;
 };
-

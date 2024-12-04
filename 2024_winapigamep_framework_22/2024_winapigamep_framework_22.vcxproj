@@ -181,6 +181,7 @@
     <ClInclude Include="BaseWindow.h" />
     <ClInclude Include="BlackHole.h" />
     <ClInclude Include="BlackHoleGranade.h" />
+    <ClInclude Include="Button.h" />
     <ClInclude Include="CameraShake.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="CollisionManager.h" />
@@ -223,6 +224,8 @@
     <ClInclude Include="TimeManager.h" />
     <ClInclude Include="TitleScene.h" />
     <ClInclude Include="Trigger.h" />
+    <ClInclude Include="UI.h" />
+    <ClInclude Include="UIManager.h" />
     <ClInclude Include="Vec2.h" />
   </ItemGroup>
   <ItemGroup>
@@ -231,6 +234,7 @@
     <ClCompile Include="BaseWindow.cpp" />
     <ClCompile Include="BlackHole.cpp" />
     <ClCompile Include="BlackHoleGranade.cpp" />
+    <ClCompile Include="Button.cpp" />
     <ClCompile Include="CameraShake.cpp" />
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
@@ -268,6 +272,8 @@
     <ClCompile Include="TimeManager.cpp" />
     <ClCompile Include="TitleScene.cpp" />
     <ClCompile Include="Trigger.cpp" />
+    <ClCompile Include="UI.cpp" />
+    <ClCompile Include="UIManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="2024_winapigamep_framework_22.rc" />

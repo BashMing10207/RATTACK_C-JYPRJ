@@ -50,4 +50,3 @@ protected:
 	UI* m_parent;                // 부모 UI
 	std::vector<UI*> m_children; // 자식 UI 리스트
 };
-
