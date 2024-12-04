@@ -8,8 +8,20 @@
 #include "Stone.h"
 #include "CollisionManager.h"
 #include "ResourceManager.h"
+#include "UI.h"
+#include "Button.h"
 void TitleScene::Init()
 {
+
+	{
+		Button* btn = new Button;
+		btn->SetActive(true);
+		btn->SetPos({ SCREEN_WIDTH / 2.f, SCREEN_HEIGHT / 2.f });
+		btn->SetSize({ 100.f, 150.f });
+		btn->SetText({ L"¾È³çÇÏ¼¼¿ä" });
+		btn->Init();
+		AddUI(btn, LAYER::UI);
+	}
 	//Object* pObj = new Enemy;
 	//pObj->SetPos({ SCREEN_WIDTH / 2.f,150.f });
 	//pObj->SetSize({ 100.f,100.f });

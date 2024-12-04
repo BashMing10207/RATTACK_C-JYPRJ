@@ -2,13 +2,23 @@
 enum class LAYER
 {
 	DEFAULT,
+	UI,
 	BACKGROUND,
 	PLAYER,
 	PROJECTILE,
 	ENEMY,
 	STATIC,
 	// UI
-	END = 30
+	END
+};
+
+enum class ButtonState
+{
+	Default,
+	Hover,
+	Click,
+	Press,
+	END
 };
 
 enum class PEN_TYPE

@@ -16,6 +16,9 @@
 #define _USE_MATH_DEFINES
 #include<math.h>
 
+#include <format>
+#include <string>
+
 // My Header
 #include "Define.h"
 #include "Enums.h"
