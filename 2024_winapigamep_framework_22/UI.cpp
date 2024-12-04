@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "InputManager.h"
 #include "UI.h"
 
@@ -27,13 +27,11 @@ void UI::Update()
 
 void UI::Render(HDC _hdc)
 {
-	// ºÎ¸ð ·»´õ¸µ
 	DrawUI(_hdc);
 
-	// ÀÚ½Ä ·»´õ¸µ
 	for (auto& child : m_children)
 	{
-		if (child && child->GetActive()) // È°¼ºÈ­µÈ ÀÚ½Ä¸¸
+		if (child && child->GetActive()) 
 		{
 			child->Render(_hdc);
 		}
