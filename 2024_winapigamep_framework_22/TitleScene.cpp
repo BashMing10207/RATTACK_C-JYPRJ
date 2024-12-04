@@ -17,8 +17,8 @@ void TitleScene::Init()
 	{
 		Button* btn = new Button;
 		btn->SetActive(true);
-		btn->SetPos({ SCREEN_WIDTH / 2.f, SCREEN_HEIGHT / 2.f });
-		btn->SetSize({ 100.f, 150.f });
+		btn->SetPos({ 100,100 });
+		btn->SetSize({ 100.f, 100.f });
 		btn->SetText({ L"¾È³çÇÏ¼¼¿ä" });
 		btn->Init();
 		AddUI(btn, LAYER::UI);

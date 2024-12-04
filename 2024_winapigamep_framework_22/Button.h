@@ -6,6 +6,7 @@ class Button :
 public:
 	// UI을(를) 통해 상속됨
 	void Update() override;
+	void Test();
 	void Render(HDC _hdc) override;
 	void DrawUI(HDC _hdc) override;
 	bool IsMouseHover();	//마우스가 Ui 위에 있는지
@@ -27,4 +28,5 @@ public:
 private:
 	bool m_isClick;
 	bool m_isHover;
+	SIZE textSize;
 };

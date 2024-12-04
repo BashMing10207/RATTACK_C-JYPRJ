@@ -26,18 +26,18 @@ public:
 
 	void AddUI(UI* _ui, LAYER _type)
 	{
-		m_vecUI[(UINT)_type].push_back(_ui);
+		m_vecUI.push_back(_ui);
 	}
 
 	const vector<UI*>& GetLayerUIs(LAYER _type)
 	{
-		return m_vecUI[(UINT)_type];
+		return m_vecUI;
 	}
 
 private:
 	//Object m_obj;
 	//Object* m_pObj;
 	vector<Object*> m_vecObj[(UINT)LAYER::END];
-	vector<UI*> m_vecUI[(UINT)LAYER::END];
+	vector<UI*> m_vecUI;
 };
 
