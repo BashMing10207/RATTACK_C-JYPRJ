@@ -31,6 +31,12 @@ void Scene::Update()
 			if (!m_vecObj[i][j]->GetIsDead())
 				m_vecObj[i][j]->Update();
 		}
+
+		for (size_t j = 0; j < m_vecUI[i].size(); ++j)
+		{
+			if (m_vecUI[i][j]->GetActive() == true)
+				m_vecUI[i][j]->Update();
+		}
 	}
 }
 
@@ -65,6 +71,12 @@ void Scene::Render(HDC _hdc)
 			else
 				m_vecObj[i].erase(m_vecObj[i].begin() + j);
 		}
+
+		for (UINT j = 0; j < m_vecUI[i].size(); ++j)
+		{
+			if (m_vecUI[i][j]->GetActive() == true)
+				m_vecUI[i][j]->Update();
+		}
 	}
 
 
@@ -78,8 +90,14 @@ void Scene::Release()
 		for (UINT j = 0; j < m_vecObj[i].size(); ++j)
 		{
 			delete m_vecObj[i][j];
+
+		}
+		for (UINT j = 0; j < m_vecUI[i].size(); ++j)
+		{
+			delete m_vecUI[i][j];
 		}
 		m_vecObj[i].clear();
+		m_vecUI[i].clear();
 	}
 	GET_SINGLE(CollisionManager)->CheckReset();
 }
