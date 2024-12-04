@@ -7,7 +7,11 @@ public:
 	{
 		Sword,
 		Bow,
-		Fire
+		Fire,
+		Magnet,
+		Electric,
+		Potal,
+
 	};
 public:
 	int sword;

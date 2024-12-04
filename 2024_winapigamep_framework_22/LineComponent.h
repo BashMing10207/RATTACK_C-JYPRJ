@@ -20,4 +20,6 @@ private:
     bool m_isDrawing;  // 선을 그리고 있니?
     Vec2 m_startPos;   // 선의 시작 위치
     Vec2 m_endPos;     // 선의 끝 위치(마우스의 위치)
+
+
 };

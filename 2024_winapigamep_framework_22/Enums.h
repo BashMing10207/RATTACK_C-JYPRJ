@@ -2,12 +2,22 @@
 enum class LAYER
 {
 	DEFAULT,
+	UI,
 	BACKGROUND,
 	PLAYER,
 	PROJECTILE,
 	ENEMY,
 	STATIC,
 	// UI
+	END
+};
+
+enum class ButtonState
+{
+	Default,
+	Hover,
+	Click,
+	Press,
 	END
 };
 
