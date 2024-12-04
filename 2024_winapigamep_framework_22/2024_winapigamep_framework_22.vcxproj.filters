@@ -85,6 +85,12 @@
     <ClCompile Include="Scene.cpp">
       <Filter>Engine\04. Scene</Filter>
     </ClCompile>
+    <ClCompile Include="UIManager.cpp">
+      <Filter>Engine\02. Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="IntroScene.cpp">
+      <Filter>Engine\02. Manager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Item.h" />
@@ -191,6 +197,12 @@
     </ClInclude>
     <ClInclude Include="Scene.h">
       <Filter>Engine\04. Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="UIManager.h">
+      <Filter>Engine\02. Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="IntroScene.h">
+      <Filter>Engine\02. Manager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

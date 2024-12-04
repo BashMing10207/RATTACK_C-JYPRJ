@@ -9,6 +9,7 @@
 #include "EventManager.h"
 #include "PostProcess.h"
 #include "MapManager.h";
+#include "UIManager.h"
 bool Core::Init(HWND _hwnd)
 {
 	// ���� �ʱ�ȭ
@@ -93,6 +94,7 @@ void Core::MainRender()
 	
 	//// 2. Render
 	GET_SINGLE(SceneManager)->Render(m_hBackDC);
+	GET_SINGLE(UIManager)->Render(m_hBackDC);
 	//
 	////Blur(m_hBackDC, 2);
 	//

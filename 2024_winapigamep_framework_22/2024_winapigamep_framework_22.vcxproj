@@ -192,6 +192,7 @@
     <ClInclude Include="GDISelector.h" />
     <ClInclude Include="HWScene.h" />
     <ClInclude Include="InputManager.h" />
+    <ClInclude Include="IntroScene.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="MapManager.h" />
     <ClInclude Include="Object.h" />
@@ -211,6 +212,7 @@
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TimeManager.h" />
     <ClInclude Include="TitleScene.h" />
+    <ClInclude Include="UIManager.h" />
     <ClInclude Include="Vec2.h" />
   </ItemGroup>
   <ItemGroup>
@@ -227,6 +229,7 @@
     <ClCompile Include="GDISelector.cpp" />
     <ClCompile Include="HWScene.cpp" />
     <ClCompile Include="InputManager.cpp" />
+    <ClCompile Include="IntroScene.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MapManager.cpp" />
@@ -244,6 +247,7 @@
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TimeManager.cpp" />
     <ClCompile Include="TitleScene.cpp" />
+    <ClCompile Include="UIManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="2024_winapigamep_framework_22.rc" />

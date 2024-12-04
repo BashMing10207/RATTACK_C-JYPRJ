@@ -5,13 +5,17 @@ class MapManager
 {
 	DECLARE_SINGLE(MapManager);
 public:
-	MapManager();
-	~MapManager();
+	//MapManager();
+	//~MapManager();
 public:
 	void Render(HDC _hdc);
+	void RenderMing(HDC _hdc);
 public:
-	int mapW = 10;
+	int mapW = 16;
 	int mapH = 10;
-	int mapArr[10][10] = {0, {0,} };
+	int mapArr[16][10] = {0, {0,} };
+public:
+	bool isLoadMap = true;
+	bool canStart = false;
 };
 
