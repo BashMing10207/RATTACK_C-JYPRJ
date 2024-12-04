@@ -69,7 +69,7 @@ void Projectile::Render(HDC _hdc)
 	//	, width, height,
 	//	m_pTex->GetTexDC()
 	//	, 0, 0, width, height, RGB(255, 0, 255));
-	
+	//
 	//ComponentRender(_hdc);
 }
 

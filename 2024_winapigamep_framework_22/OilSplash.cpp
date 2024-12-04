@@ -5,13 +5,15 @@
 
 
 
-OilSplash::OilSplash()
-{
-	
-}
+
 
 OilSplash::~OilSplash()
 {
+}
+
+void OilSplash::Init()
+{
+	this->GetComponent<Collider>()->mass =0.001f;
 }
 
 void OilSplash::EnterCollision(Collider* _other)

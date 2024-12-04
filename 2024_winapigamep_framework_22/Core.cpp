@@ -93,7 +93,7 @@ void Core::MainUpdate()
 	GET_SINGLE(InputManager)->Update();
 	GET_SINGLE(CameraShake)->Update();
 	GET_SINGLE(SceneManager)->Update();
-	//GET_SINGLE(CollisionManager)->Update();
+	GET_SINGLE(CollisionManager)->Update();
 
 }
 
@@ -101,17 +101,17 @@ void Core::MainRender()
 {
 	::PatBlt(m_hBackDC, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, BLACKNESS);
 
-	//HBRUSH brush = CreateSolidBrush(RGB(60, 60, 60));
-	//HBRUSH oldbrush = (HBRUSH)SelectObject(m_hBackDC, brush);
-
-	//Rectangle(m_hBackDC, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-
-	//DeleteObject(brush);
-	//SelectObject(m_hBackDC, oldbrush);
-
-
-	HBRUSH brush = CreateSolidBrush(RGB(128,128,128));
+	HBRUSH brush = CreateSolidBrush(RGB(60, 60, 60));
 	HBRUSH oldbrush = (HBRUSH)SelectObject(m_hBackDC, brush);
+
+	Rectangle(m_hBackDC, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+
+	DeleteObject(brush);
+	SelectObject(m_hBackDC, oldbrush);
+
+
+	 brush = CreateSolidBrush(RGB(128,128,128));
+	 oldbrush = (HBRUSH)SelectObject(m_hBackDC, brush);
 
 	GET_SINGLE(MapManager)->Render(m_hBackDC);
 

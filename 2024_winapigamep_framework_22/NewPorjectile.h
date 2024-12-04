@@ -25,7 +25,7 @@ public:
 	virtual void EnterCollision(Collider* _other) override;
 	virtual void StayCollision(Collider* _other) override;
 	virtual void ExitCollision(Collider* _other) override;
-private:
+public:
 	//float m_dir;
 	float m_angle;
 	Vec2 m_vDir;

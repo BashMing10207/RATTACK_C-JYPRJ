@@ -12,6 +12,8 @@
 #include "Animation.h"
 #include "Granade.h"
 #include "RigidBody.h"
+#include "BlackHoleGranade.h"
+#include "OilGranade.h"
 Player::Player()
 	: m_pTex(nullptr)
 {

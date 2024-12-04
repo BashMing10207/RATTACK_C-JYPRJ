@@ -12,6 +12,7 @@ NewPorjectile::NewPorjectile()
 	GetComponent<RigidBody>()->friction = 1.2f;
 	//GetComponent<Collider>()->bounce = 0.5f;
 	GetComponent<RigidBody>()->mass = 6.f;
+	this->Init();
 }
 
 NewPorjectile::~NewPorjectile()

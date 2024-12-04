@@ -5,7 +5,17 @@
 #include"SceneManager.h"
 #include"Collider.h"
 #include "Scene.h"
+#include "OilSplash.h"
+#include "CameraShake.h"
+#include "Texture.h"
+#include "ResourceManager.h"
 
+void Granade::Init()
+{
+	m_pTex = GET_SINGLE(ResourceManager)->TextureLoad(L"Granade", L"Texture\\ShinGranade.bmp");
+	GET_SINGLE(ResourceManager)->LoadSound(L"GrenadeThrow", L"Sound\\GrenadeOut.wav", false);
+	GET_SINGLE(ResourceManager)->Play(L"GrenadeThrow");
+}
 void Granade::Render(HDC hdc)
 {
 	Vec2 vPos = GetPos();
@@ -17,16 +27,30 @@ void Granade::Render(HDC hdc)
 	//SelectObject(hdc, hpen);
 	//HBRUSH oldbrush = (HBRUSH)SelectObject(hdc, brush);
 
-	ELLIPSE_RENDER(hdc, vPos.x, vPos.y
-		, vSize.x, vSize.y);
+	//ELLIPSE_RENDER(hdc, vPos.x, vPos.y
+	//	, vSize.x, vSize.y);
 
 	//DeleteObject(brush);
 	//DeleteObject(hpen);
 	//SelectObject(hdc, oldbrush);
+
+	int width = m_pTex->GetWidth();
+	int height = m_pTex->GetHeight();
+	::TransparentBlt(hdc
+		, (int)(vPos.x - width / 2)
+		, (int)(vPos.y - height / 2)
+		, width, height,
+		m_pTex->GetTexDC()
+		, 0, 0, width, height, RGB(255, 0, 255));
+
+	ComponentRender(hdc);
 }
 void Granade::Summoner()
 {
-	Explosion* pProj = new Explosion;
+	GET_SINGLE(ResourceManager)->LoadSound(L"GrenadeBoom", L"Sound\\TntBoom.wav", false);
+	GET_SINGLE(ResourceManager)->Play(L"GrenadeBoom");
+
+	Explosion *pProj = new Explosion;
 	Vec2 vPos = GetPos();
 	vPos.y -= GetSize().y / 2.f;
 	pProj->SetPos(vPos);
@@ -35,6 +59,9 @@ void Granade::Summoner()
 	pProj->SetName(L"Explostion");
 
 	GET_SINGLE(SceneManager)->GetCurrentScene()->AddObject(pProj, LAYER::PROJECTILE);
+
+	GET_SINGLE(CameraShake)->SetPower(10);
+	GET_SINGLE(CameraShake)->SetTIME(0.3f);
 
 	if (!GetIsDead())
 	{
