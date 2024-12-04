@@ -15,4 +15,3 @@ public:
 	void Init();
 	void Render(HDC _hdc);
 };
-
