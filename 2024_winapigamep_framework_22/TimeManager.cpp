@@ -45,4 +45,24 @@ void TimeManager::Update()
 		::SetWindowText(GET_SINGLE(Core)->GetHwnd()
 						, buf);
 	}
+
+	for (auto it = m_delayedTasks.begin(); it != m_delayedTasks.end();)
+	{
+		it->remainingTime -= m_dT; // 남은 시간을 감소
+		if (it->remainingTime <= 0.f)
+		{
+			it->func();                // 시간이 되었으면 함수 실행
+			it = m_delayedTasks.erase(it); // 실행된 작업은 제거
+		}
+		else
+		{
+			++it;
+		}
+	}
 }
+
+void TimeManager::AddDelayedTask(std::function<void()> func, float delay)
+{
+	// 새로운 지연 작업 추가
+	m_delayedTasks.push_back({ func, delay });
+}	
