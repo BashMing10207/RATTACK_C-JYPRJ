@@ -106,9 +106,9 @@
     <ClCompile Include="UIManager.cpp">
       <Filter>Engine\08.UI</Filter>
     </ClCompile>
-    <ClCompile Include="SkillExcutor.cpp" />
-    <ClCompile Include="TreeSeed.cpp" />
-    <ClCompile Include="TreeWood.cpp" />
+    <ClCompile Include="Utils.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Item.h" />
@@ -237,9 +237,9 @@
     <ClInclude Include="UIManager.h">
       <Filter>Engine\08.UI</Filter>
     </ClInclude>
-    <ClInclude Include="SkillExcutor.h" />
-    <ClInclude Include="TreeSeed.h" />
-    <ClInclude Include="TreeWood.h" />
+    <ClInclude Include="Utils.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="2024_winapigamep_framework_22.ico">
