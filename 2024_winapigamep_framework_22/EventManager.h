@@ -18,6 +18,7 @@ class EventManager
 public:
 	void Update();
 	void DeleteObject(Object* _pObj);
+	void NewDeleteObject();
 	// todo..
 	bool isRenderFinished;
 private:

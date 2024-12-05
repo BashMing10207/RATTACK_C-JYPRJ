@@ -15,6 +15,7 @@ void SceneManager::Init()
 
 	// ¾À ·Îµå
 	LoadScene(L"IntroScene");
+	//LoadScene(L"TitleScene");
 }
 
 void SceneManager::Update()

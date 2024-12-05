@@ -10,6 +10,7 @@ public:
 public:
 	virtual void Init() abstract;
 	virtual void Update();
+	virtual void DeleteLoop();
 	virtual void LateUpdate();
 	virtual void Render(HDC _hdc);
 	virtual void Release();

@@ -75,7 +75,6 @@ void Core::GameLoop()
 	//	prev = cur;
 	//	callcount = 0;
 	//}
-	GET_SINGLE(EventManager)->Update();
 	MainUpdate();
 	//MainRender();
 
@@ -94,6 +93,7 @@ void Core::MainUpdate()
 	GET_SINGLE(CameraShake)->Update();
 	GET_SINGLE(SceneManager)->Update();
 	GET_SINGLE(CollisionManager)->Update();
+	GET_SINGLE(EventManager)->Update();
 
 }
 
@@ -123,7 +123,7 @@ void Core::MainRender()
 	//// 2. Render
 	GET_SINGLE(SceneManager)->Render(m_hBackDC);
 
-	GET_SINGLE(EventManager)-> isRenderFinished = true;
+
 	//
 	////Blur(m_hBackDC, 2);
 	//

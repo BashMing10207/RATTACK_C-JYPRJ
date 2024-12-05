@@ -18,3 +18,4 @@ class SkillExcutor :
     void Tetkkai(Vec2 direction);
 };
 
+
