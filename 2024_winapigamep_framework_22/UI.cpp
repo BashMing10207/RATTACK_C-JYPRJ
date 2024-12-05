@@ -29,7 +29,6 @@ void UI::Update()
 
 void UI::Render(HDC _hdc)
 {
-
 	for (auto& child : m_children)
 	{
 		if (child && child->GetActive()) 
