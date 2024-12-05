@@ -27,16 +27,16 @@ void MapManager::RenderMing(HDC _hdc)
         {
             isLoadMap = false;
             canStart = true;
+            //GET_SINGLE(SceneManager)->LoadScene(L"TitleScene");
         }
         lastTime = currentTime; // 시간 갱신
     }
 
     if (canStart)
     {
-        if (GET_KEYDOWN(KEY_TYPE::SPACE))
+        if (GET_KEY(KEY_TYPE::SPACE))
         {
             GET_SINGLE(SceneManager)->LoadScene(L"TitleScene");
-            
         }
     }
 
