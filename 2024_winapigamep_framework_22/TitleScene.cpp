@@ -16,7 +16,7 @@ void TitleScene::Init()
 {
 
 	{
-		UI* btn = new Button;
+		Button* btn = new Button;
 		btn->SetActive(true);
 		btn->SetPos({ 100,100 });
 		btn->SetSize({ 100.f, 100.f });
@@ -26,7 +26,7 @@ void TitleScene::Init()
 	}
 
 	{
-		UI* panel = new Panel;
+		Panel* panel = new Panel;
 		panel->SetActive(true);
 		panel->SetPos({ 300,100 });
 		panel->SetSize({ 0, 0 });

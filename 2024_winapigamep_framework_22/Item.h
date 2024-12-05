@@ -1,22 +1,20 @@
 #pragma once
+enum ItemType
+{
+	Move,
+	Grenade,
+	OilGrenade,
+	ThrowMagnet,
+	Magnet,
+	Boom,
+	Potal,
+	Seed,
+	Joo
 
+};
 class Item
 {
 public:
-	enum ItemType
-	{
-		Sword,
-		Bow,
-		Fire,
-		Magnet,
-		Electric,
-		Potal,
-
-	};
-public:
-	int sword;
-	int bow;
-	int fire;
 
 	ItemType _itemType;
 
@@ -26,5 +24,5 @@ protected:
 public:
 	void Init();
 	void Update();
-	void Render();
+	void Render(HDC hdc, Vec2 pos);
 };

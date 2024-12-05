@@ -14,7 +14,7 @@
 
 void TreeSeed::Init()
 {
-	m_pTex = GET_SINGLE(ResourceManager)->TextureLoad(L"Seed", L"Texture\\Bullet.bmp");
+	m_pTex = GET_SINGLE(ResourceManager)->TextureLoad(L"Seed", L"Texture\\Seed2.bmp");
 	GET_SINGLE(ResourceManager)->LoadSound(L"Seed", L"Sound\\SeedThrow.mp3", false);
 	GET_SINGLE(ResourceManager)->Play(L"Seed");
 }

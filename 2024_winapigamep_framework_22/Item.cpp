@@ -9,15 +9,36 @@ void Item::Update()
 {
 }
 
-void Item::Render()
+void Item::Render(HDC hdc, Vec2 pos)
 {
-	switch (GetItemType())
+	switch (ItemType())
 	{
-	case Item::Sword:
+	case Move:
+
 		break;
-	case Item::Bow:
+	case Grenade:
+
 		break;
-	case Item::Fire:
+	case OilGrenade:
+
+		break;
+	case ThrowMagnet:
+
+		break;
+	case Magnet:
+
+		break;
+	case Boom:
+
+		break;
+	case Potal:
+
+		break;
+	case Seed:
+
+		break;
+	case Joo:
+
 		break;
 	default:
 		break;

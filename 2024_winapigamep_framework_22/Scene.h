@@ -10,6 +10,7 @@ public:
 public:
 	virtual void Init() abstract;
 	virtual void Update();
+	virtual void DeleteLoop();
 	virtual void LateUpdate();
 	virtual void Render(HDC _hdc);
 	virtual void Release();
@@ -38,6 +39,7 @@ private:
 	//Object m_obj;
 	//Object* m_pObj;
 	vector<Object*> m_vecObj[(UINT)LAYER::END];
+protected:
 	vector<UI*> m_vecUI;
 };
 
