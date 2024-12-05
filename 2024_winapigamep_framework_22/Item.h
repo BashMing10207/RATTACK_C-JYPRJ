@@ -15,8 +15,6 @@ enum ItemType
 class Item
 {
 public:
-	
-public:
 
 	ItemType _itemType;
 
@@ -26,5 +24,5 @@ protected:
 public:
 	void Init();
 	void Update();
-	void Render();
+	void Render(HDC hdc, Vec2 pos);
 };
