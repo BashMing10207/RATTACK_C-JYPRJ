@@ -11,17 +11,28 @@
 #include "ResourceManager.h"
 #include "UI.h"
 #include "Button.h"
+#include "Panel.h"
 void TitleScene::Init()
 {
 
 	{
-		Button* btn = new Button;
+		UI* btn = new Button;
 		btn->SetActive(true);
 		btn->SetPos({ 100,100 });
 		btn->SetSize({ 100.f, 100.f });
 		btn->SetText({ L"¾È³çÇÏ¼¼¿ä" });
 		btn->Init();
 		AddUI(btn, LAYER::UI);
+	}
+
+	{
+		UI* panel = new Panel;
+		panel->SetActive(true);
+		panel->SetPos({ 100,100 });
+		panel->SetSize({ 100.f, 100.f });
+		panel->SetText({ L"¾È³çÇÏ¼¼¿ä" });
+		panel->Init();
+		AddUI(panel, LAYER::UI);
 	}
 	//Object* pObj = new Enemy;
 	//pObj->SetPos({ SCREEN_WIDTH / 2.f,150.f });

@@ -3,7 +3,6 @@
 
 void Panel::Init()
 {
-
 }
 
 void Panel::Update()

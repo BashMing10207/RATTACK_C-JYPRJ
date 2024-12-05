@@ -14,10 +14,12 @@ UI::UI()
 
 UI::~UI()
 {
+
 }
 
 void UI::Init()
 {
+
 }
 
 void UI::Update()
