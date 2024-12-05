@@ -21,6 +21,7 @@ Stone::Stone(float speeed)
 {
 	this->speed = speeed;
 	this->m_hp = 100;
+	this->AddComponent<LineComponent>();
 	this->AddComponent<RigidBody>();
 	this->AddComponent<Collider>();
 }

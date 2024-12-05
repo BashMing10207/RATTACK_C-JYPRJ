@@ -84,13 +84,15 @@ void SkillExcutor::ExplosionSkill(Vec2 direction)
 	Vec2 vPos = GetOwner()->GetPos();
 	vPos.y -= GetOwner()->GetSize().y / 2.f;
 	pProj->SetPos(vPos);
-	pProj->SetSize({ 420,420 });
-	pProj->GetComponent<Collider>()->SetSize({ 420,420 });
+	float size = min(direction.Length(),450);
+
+	pProj->SetSize({ size,size });
+	pProj->GetComponent<Collider>()->SetSize({ size,size });
 	pProj->SetName(L"Explostion");
 
 	GET_SINGLE(SceneManager)->GetCurrentScene()->AddObject(pProj, LAYER::PROJECTILE);
 
-	GET_SINGLE(CameraShake)->SetPower(10);
+	GET_SINGLE(CameraShake)->SetPower(15);
 	GET_SINGLE(CameraShake)->SetTIME(0.3f);
 
 }

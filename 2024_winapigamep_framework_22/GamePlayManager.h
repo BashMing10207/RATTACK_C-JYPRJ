@@ -1,5 +1,4 @@
 #pragma once
-#include"pch.h"
 #include"GamePlayer.h"
 
 class GamePlayManager
@@ -10,13 +9,15 @@ public:
 	
 	bool IsBlackTurn;
 
-	GamePlayer gamePlayers[2]{GamePlayer(true),GamePlayer(false)};
+	GamePlayer gamePlayers[2] = {GamePlayer(true), GamePlayer(false)};
 
 	void TurnEnd() {IsBlackTurn = !IsBlackTurn;}
 
 	GamePlayer CurrentGamePlayer() {return gamePlayers[IsBlackTurn ? 0 : 1];}
 
 	void LateUpdate();
+
+	void Win(bool isBlack);
 
 };
 

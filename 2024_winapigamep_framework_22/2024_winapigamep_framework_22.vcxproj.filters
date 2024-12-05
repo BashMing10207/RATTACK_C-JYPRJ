@@ -87,7 +87,6 @@
     </ClCompile>
     <ClCompile Include="LineComponent.cpp" />
     <ClCompile Include="CameraShake.cpp" />
-    <ClCompile Include="GamePlayer.cpp" />
     <ClCompile Include="BlackHole.cpp" />
     <ClCompile Include="NewPorjectile.cpp" />
     <ClCompile Include="Trigger.cpp" />
@@ -107,6 +106,12 @@
       <Filter>Engine\08.UI</Filter>
     </ClCompile>
     <ClCompile Include="Utils.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="SkillExcutor.cpp" />
+    <ClCompile Include="TreeSeed.cpp" />
+    <ClCompile Include="TreeWood.cpp" />
+    <ClCompile Include="GamePlayer.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
   </ItemGroup>
@@ -218,7 +223,6 @@
     </ClInclude>
     <ClInclude Include="LineComponent.h" />
     <ClInclude Include="CameraShake.h" />
-    <ClInclude Include="GamePlayer.h" />
     <ClInclude Include="BlackHole.h" />
     <ClInclude Include="NewPorjectile.h" />
     <ClInclude Include="Trigger.h" />
@@ -238,6 +242,12 @@
       <Filter>Engine\08.UI</Filter>
     </ClInclude>
     <ClInclude Include="Utils.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="SkillExcutor.h" />
+    <ClInclude Include="TreeSeed.h" />
+    <ClInclude Include="TreeWood.h" />
+    <ClInclude Include="GamePlayer.h">
       <Filter>Engine</Filter>
     </ClInclude>
   </ItemGroup>

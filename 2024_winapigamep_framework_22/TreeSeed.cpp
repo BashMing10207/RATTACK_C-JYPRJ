@@ -52,8 +52,8 @@ void TreeSeed::Summoner()
 
 	GET_SINGLE(SceneManager)->GetCurrentScene()->AddObject(pProj, LAYER::PROJECTILE);
 
-	GET_SINGLE(CameraShake)->SetPower(10);
-	GET_SINGLE(CameraShake)->SetTIME(0.3f);
+	GET_SINGLE(CameraShake)->SetPower(5);
+	GET_SINGLE(CameraShake)->SetTIME(0.2f);
 
 	if (!GetIsDead())
 	{

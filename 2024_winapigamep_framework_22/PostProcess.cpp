@@ -399,7 +399,7 @@ void LagacyBlur(HDC hdc, int blurSize) {
 
 void LagacyPostProcsess(HDC hdc)
 {
-    LagacyBlur(hdc, 2);
+    LagacyBlur(hdc, 1);
    //LagacyBloom(hdc,2, 200, 1.9f, 0.3f,2);
 }
  
