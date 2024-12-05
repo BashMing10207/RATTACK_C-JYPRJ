@@ -19,7 +19,7 @@ void MapManager::RenderMing(HDC _hdc)
     auto currentTime = std::chrono::steady_clock::now();
     std::chrono::duration<double> elapsedTime = currentTime - lastTime;
 
-    if (elapsedTime.count() >= 0.3f && isLoadMap) // 10초 이상 경과했는지 확인
+    if (elapsedTime.count() >= 0.1f && isLoadMap) // 10초 이상 경과했는지 확인
     {
         x++;
         y = 10;
