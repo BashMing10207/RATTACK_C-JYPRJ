@@ -50,9 +50,10 @@ void Button::Update()
 	}
 }
 
-
 void Button::Render(HDC _hdc)
 {
+	if (this == nullptr) return;
+
 	Utils::RenderRect(_hdc, m_vPos, m_vSize.x, m_vSize.y);
 
 	RenderText(_hdc);
