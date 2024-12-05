@@ -28,9 +28,9 @@ void TitleScene::Init()
 	{
 		UI* panel = new Panel;
 		panel->SetActive(true);
-		panel->SetPos({ 100,100 });
-		panel->SetSize({ 100.f, 100.f });
-		panel->SetText({ L"안녕하세요" });
+		panel->SetPos({ 150,100 });
+		panel->SetSize({ 0, 0 });
+		panel->SetText({ L"패널입니다." });
 		panel->Init();
 		AddUI(panel, LAYER::UI);
 	}

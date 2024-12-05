@@ -14,4 +14,3 @@ public:
 	void Render(HDC _hdc) override;
 	Texture* m_pTex;
 };
-
