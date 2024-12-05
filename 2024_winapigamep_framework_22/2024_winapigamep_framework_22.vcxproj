@@ -207,6 +207,7 @@
     <ClInclude Include="Object.h" />
     <ClInclude Include="OilGranade.h" />
     <ClInclude Include="OilSplash.h" />
+    <ClInclude Include="Panel.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PostProcess.h" />
@@ -217,15 +218,12 @@
     <ClInclude Include="RigidBody.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
-    <ClInclude Include="SkillExcutor.h" />
     <ClInclude Include="StaticObject.h" />
     <ClInclude Include="Stone.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TimeManager.h" />
     <ClInclude Include="TitleScene.h" />
-    <ClInclude Include="TreeSeed.h" />
-    <ClInclude Include="TreeWood.h" />
     <ClInclude Include="Trigger.h" />
     <ClInclude Include="UI.h" />
     <ClInclude Include="UIManager.h" />
@@ -262,6 +260,7 @@
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="OilGranade.cpp" />
     <ClCompile Include="OilSplash.cpp" />
+    <ClCompile Include="Panel.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PostProcess.cpp" />
     <ClCompile Include="Projectile.cpp" />
@@ -270,14 +269,11 @@
     <ClCompile Include="RigidBody.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
-    <ClCompile Include="SkillExcutor.cpp" />
     <ClCompile Include="StaticObject.cpp" />
     <ClCompile Include="Stone.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TimeManager.cpp" />
     <ClCompile Include="TitleScene.cpp" />
-    <ClCompile Include="TreeSeed.cpp" />
-    <ClCompile Include="TreeWood.cpp" />
     <ClCompile Include="Trigger.cpp" />
     <ClCompile Include="UI.cpp" />
     <ClCompile Include="UIManager.cpp" />

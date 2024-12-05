@@ -58,10 +58,6 @@ void Button::Render(HDC _hdc)
 	RenderText(_hdc);
 }
 
-void Button::DrawUI(HDC _hdc)
-{
-
-}
 
 bool Button::IsMouseHover()
 {
