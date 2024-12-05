@@ -85,7 +85,6 @@
     <ClCompile Include="Scene.cpp">
       <Filter>Engine\04. Scene</Filter>
     </ClCompile>
-    <ClCompile Include="LineComponent.cpp" />
     <ClCompile Include="CameraShake.cpp" />
     <ClCompile Include="BlackHole.cpp" />
     <ClCompile Include="NewPorjectile.cpp" />
@@ -108,12 +107,18 @@
     <ClCompile Include="Utils.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
-    <ClCompile Include="SkillExcutor.cpp" />
-    <ClCompile Include="TreeSeed.cpp" />
-    <ClCompile Include="TreeWood.cpp" />
     <ClCompile Include="GamePlayer.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
+    <ClCompile Include="Panel.cpp">
+      <Filter>Engine\08.UI</Filter>
+    </ClCompile>
+    <ClCompile Include="LineComponent.cpp">
+      <Filter>Engine\06. Component</Filter>
+    </ClCompile>
+    <ClCompile Include="IntroScene.cpp" />
+    <ClCompile Include="TreeSeed.cpp" />
+    <ClCompile Include="TreeWood.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Item.h" />
@@ -221,7 +226,6 @@
     <ClInclude Include="Scene.h">
       <Filter>Engine\04. Scene</Filter>
     </ClInclude>
-    <ClInclude Include="LineComponent.h" />
     <ClInclude Include="CameraShake.h" />
     <ClInclude Include="BlackHole.h" />
     <ClInclude Include="NewPorjectile.h" />
@@ -244,12 +248,18 @@
     <ClInclude Include="Utils.h">
       <Filter>Engine</Filter>
     </ClInclude>
-    <ClInclude Include="SkillExcutor.h" />
-    <ClInclude Include="TreeSeed.h" />
-    <ClInclude Include="TreeWood.h" />
     <ClInclude Include="GamePlayer.h">
       <Filter>Engine</Filter>
     </ClInclude>
+    <ClInclude Include="Panel.h">
+      <Filter>Engine\08.UI</Filter>
+    </ClInclude>
+    <ClInclude Include="LineComponent.h">
+      <Filter>Engine\06. Component</Filter>
+    </ClInclude>
+    <ClInclude Include="IntroScene.h" />
+    <ClInclude Include="TreeSeed.h" />
+    <ClInclude Include="TreeWood.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="2024_winapigamep_framework_22.ico">
