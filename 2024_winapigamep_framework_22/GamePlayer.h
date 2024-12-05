@@ -18,7 +18,7 @@ public:
 
 	void AddItem(Item item);
 	void UseItemIdx(int idx);
-	void LataUpdate();
+	void Update();
 
 	void UseItem() {items.erase(items.begin() + selectecIndex);}
 };

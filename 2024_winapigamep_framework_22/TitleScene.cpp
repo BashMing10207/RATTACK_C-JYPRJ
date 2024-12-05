@@ -76,8 +76,7 @@ void TitleScene::Init()
 	GET_SINGLE(CollisionManager)->CheckLayer(LAYER::PLAYER, LAYER::OBSTACLE);
 	/*GET_SINGLE(ResourceManager)->LoadSound(L"BGM", L"Sound\\Retro_bgm.wav", true);
 	GET_SINGLE(ResourceManager)->Play(L"BGM");*/
-	GET_SINGLE(ResourceManager)->LoadSound(L"OpenBGM", L"Sound\\Opening.wav", true);
-	GET_SINGLE(ResourceManager)->Play(L"OpenBGM");
+
 }
 
 void TitleScene::Update()

@@ -15,7 +15,7 @@ public:
 
 	GamePlayer CurrentGamePlayer() {return gamePlayers[IsBlackTurn ? 0 : 1];}
 
-	void LateUpdate();
+	void Update();
 
 	void Win(bool isBlack);
 

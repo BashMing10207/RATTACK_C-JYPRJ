@@ -46,8 +46,8 @@ using uint64 = unsigned __int64;
 
 // °¢Á¾ define
 #define PI 3.14159265f
-#define SCREEN_WIDTH  1920
-#define SCREEN_HEIGHT 1080
+#define SCREEN_WIDTH  1530
+#define SCREEN_HEIGHT 760
 
 #define INPUT GET_SINGLE(InputManager)
 

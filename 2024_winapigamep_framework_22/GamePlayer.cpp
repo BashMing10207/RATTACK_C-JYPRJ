@@ -3,6 +3,7 @@
 #include"GamePlayManager.h"
 #include"Stone.h"
 #include"LineComponent.h"
+#include "InputManager.h"
 
 GamePlayer::GamePlayer(bool isNigger)
 {
@@ -35,14 +36,14 @@ void GamePlayer::UseItemIdx(int idx)
 	items.erase(items.begin() + idx);
 }
 
-void GamePlayer::LataUpdate()
+void GamePlayer::Update()
 {
 	for (int i = 0; i < stones.size(); i++)
 	{
 		stones[i].GetComponent<LineComponent>()->LateUpdate(); // 일단 모든 돌의 상호작용을 업데이트 시키기.
 		Vec2 pos = stones[i].GetPos();
 
-		if (!(pos.x > 110 && pos.x < 1810 && pos.y>90 && pos.y < 990))
+		if (!(pos.x > 220 && pos.x < 1700 && pos.y> 135 && pos.y < 945))
 		{
 			stones.erase(stones.begin() + i);
 			deadStonecnt++;
@@ -52,6 +53,11 @@ void GamePlayer::LataUpdate()
 				GET_SINGLE(GamePlayManager)->Win(isNigger);
 			}
 		}
+	}
+
+	if (::GET_KEY(KEY_TYPE::ENTER))
+	{
+		GET_SINGLE(GamePlayManager)->TurnEnd();
 	}
 
 }

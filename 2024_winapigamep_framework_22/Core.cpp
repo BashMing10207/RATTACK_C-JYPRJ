@@ -11,6 +11,7 @@
 #include "MapManager.h";
 #include<thread>
 #include"CameraShake.h"
+#include"GamePlayManager.h"
 
 int postProcessthreadnum = 8;
 
@@ -91,6 +92,7 @@ void Core::MainUpdate()
 	GET_SINGLE(TimeManager)->Update();
 	GET_SINGLE(InputManager)->Update();
 	GET_SINGLE(CameraShake)->Update();
+	GET_SINGLE(GamePlayManager)->Update();
 	GET_SINGLE(SceneManager)->Update();
 	GET_SINGLE(CollisionManager)->Update();
 	GET_SINGLE(EventManager)->Update();

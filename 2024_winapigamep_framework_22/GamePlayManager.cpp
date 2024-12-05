@@ -3,9 +3,9 @@
 #include "GamePlayManager.h"
 
 
-void GamePlayManager::LateUpdate()
+void GamePlayManager::Update()
 {
-	gamePlayers[IsBlackTurn ? 0 : 1].LataUpdate();
+	gamePlayers[IsBlackTurn ? 0 : 1].Update();
 }
 
 void GamePlayManager::Win(bool isBlack)

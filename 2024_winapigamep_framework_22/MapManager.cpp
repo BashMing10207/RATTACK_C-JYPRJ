@@ -51,35 +51,39 @@ void MapManager::RenderMing(HDC _hdc)
         }
     }
 
-    // 그리기
-    for (int i = 0; i < mapW; i++)
+    if (!canStart)
     {
-        for (int j = 0; j < mapH; j++)
+        // 그리기
+        for (int i = 0; i < mapW; i++)
         {
-            int r = 255;
-
-            HBRUSH brush;
-            if (mapArr[i][j] == 1 && isLoadMap)
+            for (int j = 0; j < mapH; j++)
             {
-                brush = CreateSolidBrush(RGB(rand() % r, rand() % r, rand() % r));
-            }
-            else if (isLoadMap)
-            {
-                brush = CreateSolidBrush(RGB(0, 0, 0));
-            }
-            else
-            {
-                brush = CreateSolidBrush(RGB(255, 255, 255));
-            }
-            HBRUSH oldbrush = (HBRUSH)SelectObject(_hdc, brush);
+                int r = 255;
 
-            Rectangle(_hdc, ((n * i) + i * m) + 100, ((n * j) + j * m) + 100, ((n * i) + i * m + 50) + 100, ((n * j) + j * m + 50) + 100);
-            SelectObject(_hdc, oldbrush);
+                HBRUSH brush;
+                if (mapArr[i][j] == 1 && isLoadMap)
+                {
+                    brush = CreateSolidBrush(RGB(rand() % r, rand() % r, rand() % r));
+                }
+                else if (isLoadMap)
+                {
+                    brush = CreateSolidBrush(RGB(0, 0, 0));
+                }
+                else
+                {
+                    brush = CreateSolidBrush(RGB(255, 255, 255));
+                }
+                HBRUSH oldbrush = (HBRUSH)SelectObject(_hdc, brush);
 
-            DeleteObject(oldbrush);
-            DeleteObject(brush);
+                Rectangle(_hdc, ((n * i) + i * m) + 100, ((n * j) + j * m) + 100, ((n * i) + i * m + 50) + 100, ((n * j) + j * m + 50) + 100);
+                SelectObject(_hdc, oldbrush);
+
+                DeleteObject(oldbrush);
+                DeleteObject(brush);
+            }
         }
     }
+    
 
     // mapArr 초기화
     for (int i = 0; i < x; i++)
