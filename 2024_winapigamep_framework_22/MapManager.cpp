@@ -27,6 +27,7 @@ void MapManager::RenderMing(HDC _hdc)
         {
             isLoadMap = false;
             canStart = true;
+            //GET_SINGLE(SceneManager)->LoadScene(L"TitleScene");
         }
         lastTime = currentTime; // 시간 갱신
     }

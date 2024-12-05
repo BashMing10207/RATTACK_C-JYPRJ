@@ -28,7 +28,7 @@ void TitleScene::Init()
 	{
 		Panel* panel = new Panel;
 		panel->SetActive(true);
-		panel->SetPos({ 150,100 });
+		panel->SetPos({ 300,100 });
 		panel->SetSize({ 0, 0 });
 		panel->SetText({ L"패널입니다." });
 		panel->Init();
