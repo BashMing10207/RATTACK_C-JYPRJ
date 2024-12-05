@@ -27,7 +27,6 @@ void UI::Update()
 
 void UI::Render(HDC _hdc)
 {
-	DrawUI(_hdc);
 
 	for (auto& child : m_children)
 	{
