@@ -135,7 +135,7 @@ void SkillExcutor::ThrowSeed(Vec2 direction)
 
 void SkillExcutor::Magnet(Vec2 direction)
 {
-	float scale = direction.Length()*1.3f;
+	float scale = direction.Length()*1.6f;
 	BlackHole* pProj = new BlackHole;
 	Vec2 vPos = GetOwner()->GetPos();
 	//vPos.y -= GetOwner()->GetSize().y / 2.f;
@@ -156,7 +156,7 @@ void SkillExcutor::ExplosionSkill(Vec2 direction)
 	Vec2 vPos = GetOwner()->GetPos();
 	//vPos.y -= GetOwner()->GetSize().y / 2.f;
 	pProj->SetPos(vPos);
-	float size = direction.Length() * 1.3f;
+	float size = direction.Length() * 1.5f;
 
 	pProj->SetSize({ size,size });
 	pProj->GetComponent<Collider>()->SetSize({ size,size });
