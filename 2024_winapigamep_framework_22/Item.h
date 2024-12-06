@@ -1,6 +1,7 @@
 #pragma once
 enum ItemType
 {
+	None,
 	Move,
 	Grenade,
 	OilGrenade,
@@ -9,7 +10,8 @@ enum ItemType
 	Boom,
 	Potal,
 	Seed,
-	Joo
+	Joo,
+	End
 
 };
 class Item

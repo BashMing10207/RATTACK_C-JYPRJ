@@ -3,7 +3,7 @@
 #include "ResourceManager.h"
 BackGroundObject::BackGroundObject(wstring str,bool isTrans)
 {
-	m_pTex = GET_SINGLE(ResourceManager)->TextureLoad(L"Map", str);
+	m_pTex = GET_SINGLE(ResourceManager)->TextureLoad(str, str);
 	isTransfer = isTrans;
 }
 

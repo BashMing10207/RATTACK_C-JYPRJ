@@ -19,6 +19,7 @@ public:
 	void AddItem(Item item);
 	void UseItemIdx(int idx);
 	void Update();
+	void LateUpdate();
 
 	void UseItem() {items.erase(items.begin() + selectecIndex);}
 };

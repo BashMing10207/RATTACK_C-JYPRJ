@@ -103,7 +103,7 @@ void Core::MainRender()
 {
 	::PatBlt(m_hBackDC, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, BLACKNESS);
 
-	HBRUSH brush = CreateSolidBrush(RGB(60, 60, 60));
+	HBRUSH brush = CreateSolidBrush(GET_SINGLE(GamePlayManager)->IsBlackTurn ? RGB(35, 35, 35) : RGB(80, 80, 80) );
 	HBRUSH oldbrush = (HBRUSH)SelectObject(m_hBackDC, brush);
 
 	Rectangle(m_hBackDC, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);

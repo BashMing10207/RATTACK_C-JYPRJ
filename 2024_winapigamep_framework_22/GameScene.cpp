@@ -15,7 +15,9 @@ void GameScene::Init()
 	}*/
 
 	Object* obj = new BackGroundObject(L"Texture\\Map.bmp",false);
-	obj->SetPos({ SCREEN_WIDTH / 2,SCREEN_HEIGHT / 2 });
+	obj->SetPos({ SCREEN_WIDTH / 2,SCREEN_HEIGHT / 2-80 });
 	AddObject(obj, LAYER::BACKGROUND);
+
+
 
 }

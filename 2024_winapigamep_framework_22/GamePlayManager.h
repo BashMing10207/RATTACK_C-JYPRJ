@@ -7,7 +7,7 @@ class GamePlayManager
 
 public:
 	
-	bool IsBlackTurn;
+	bool IsBlackTurn = true;
 
 	GamePlayer gamePlayers[2] = {GamePlayer(true), GamePlayer(false)};
 
