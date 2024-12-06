@@ -13,6 +13,7 @@ void Button::Init()
 
 void Button::Update()
 {
+	cout << "’ó";
 	if (IsMouseHover())
 	{
 		m_isHover = true;
@@ -53,7 +54,6 @@ void Button::Update()
 void Button::Render(HDC _hdc)
 {
 	if (this == nullptr) return;
-
 	Utils::RenderRect(_hdc, m_vPos, m_vSize.x, m_vSize.y);
 
 	RenderText(_hdc);
@@ -67,7 +67,7 @@ bool Button::IsMouseHover()
 	float left = m_vPos.x - m_vSize.x / 2;
 	float top = m_vPos.y - m_vSize.y / 2;
 	float right = m_vPos.x + m_vSize.x / 2;
-	float bottom = m_vPos.y + m_vSize.x / 2;
+	float bottom = m_vPos.y + m_vSize.y / 2;
 
 	return (mousePos.x >= left && mousePos.x <= right && mousePos.y >= top && mousePos.y <= bottom);
 }
