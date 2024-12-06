@@ -25,5 +25,9 @@ public:
 	void Update();
 	void LateUpdate();
 
-	void UseItem() {items.erase(items.begin() + selectecIndex);}
+	void UseItem() 
+	{
+		if(!items.empty())
+		items.erase(items.begin() + selectecIndex);
+	}
 };

@@ -130,15 +130,15 @@ void ApplyBloomEffectSIMD(
             BYTE g = bitmapData[idx + 1];
             BYTE b = bitmapData[idx];
 
-            int brightness = max(r, max(g, b));
+            int brightness = max(b, max(g, r));
 
             if (brightness < threshold) {
                 tempData[idx + 2] = tempData[idx + 1] = tempData[idx] = 0;
             }
             else {
-                tempData[idx + 2] = static_cast<BYTE>(r * intensity);
-                tempData[idx + 1] = static_cast<BYTE>(g * intensity);
-                tempData[idx] = static_cast<BYTE>(b * intensity);
+                tempData[idx + 2] = min(255, static_cast<BYTE>(r * intensity));
+                tempData[idx + 1] = min(255, static_cast<BYTE>(g * intensity));
+                tempData[idx] = min(255, static_cast<BYTE>(b * intensity));
             }
         }
     }
@@ -399,8 +399,8 @@ void LagacyBlur(HDC hdc, int blurSize) {
 
 void LagacyPostProcsess(HDC hdc)
 {
-    //LagacyBlur(hdc, 1);
    LagacyBloom(hdc,2, 248, 2.f, 0.5f,1);
+   //LagacyBlur(hdc, 1);
 }
  
 //void Blur(HDC hdc, int blurSize) {

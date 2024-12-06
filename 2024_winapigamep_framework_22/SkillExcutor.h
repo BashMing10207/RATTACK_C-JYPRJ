@@ -4,7 +4,11 @@
 class SkillExcutor :
     public Component
 {
-    void GetAction(Item item,Vec2 direction);
+public:
+    void LateUpdate() override;
+    void Render(HDC hdc) override;
+
+    void GetAction(ItemType item,Vec2 direction);
     void Move(Vec2 direction);
     void Gun(Vec2 direction);
     void Grenade(Vec2 direction);

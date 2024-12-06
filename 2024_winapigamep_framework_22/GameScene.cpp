@@ -5,6 +5,8 @@
 #include"Stone.h"
 #include"Collider.h"
 #include "GamePlayManager.h"
+#include "Item.h"
+#include"CollisionManager.h"
 void GameScene::Init()
 {
 	/*for (size_t i = 0; i < 100; i++)
@@ -16,6 +18,12 @@ void GameScene::Init()
 		AddObject(obj, LAYER::ENEMY);
 
 	}*/
+
+	GET_SINGLE(CollisionManager)->CheckLayer(LAYER::PLAYER, LAYER::PLAYER);
+	GET_SINGLE(CollisionManager)->CheckLayer(LAYER::PLAYER, LAYER::ENEMY);
+	GET_SINGLE(CollisionManager)->CheckLayer(LAYER::PLAYER, LAYER::PROJECTILE);
+	GET_SINGLE(CollisionManager)->CheckLayer(LAYER::PROJECTILE, LAYER::ENEMY);
+	GET_SINGLE(CollisionManager)->CheckLayer(LAYER::PLAYER, LAYER::OBSTACLE);
 
 	Object* obj = new BackGroundObject(L"Texture\\Map.bmp",false);
 	obj->SetPos({ SCREEN_WIDTH / 2,SCREEN_HEIGHT / 2-80 });
@@ -48,9 +56,18 @@ void GameScene::Init()
 		
 	}
 
+	GET_SINGLE(GamePlayManager)->gamePlayers[0].AddItem(Item(ItemType::Boom));
+	GET_SINGLE(GamePlayManager)->gamePlayers[0].AddItem(Item(ItemType::Grenade));
+	GET_SINGLE(GamePlayManager)->gamePlayers[0].AddItem(Item(ItemType::Gun));
+	GET_SINGLE(GamePlayManager)->gamePlayers[0].AddItem(Item(ItemType::Move));
+	GET_SINGLE(GamePlayManager)->gamePlayers[0].AddItem(Item(ItemType::Boom));
+	GET_SINGLE(GamePlayManager)->gamePlayers[0].AddItem(Item(ItemType::Boom));
+
 
 }
 
 void GameScene::Update()
 {
+	Scene::Update();
+	Scene::LateUpdate();
 }

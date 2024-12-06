@@ -136,7 +136,7 @@ void GameLoopv2() {
         //}
         GET_SINGLE(Core)->GameLoop();
         // CPU 사용량 조절 (Optional)
-        //std::this_thread::sleep_for(milliseconds(1));
+        std::this_thread::sleep_for(milliseconds(2));
     }
 }
 
@@ -207,7 +207,7 @@ int BaseWindow::MessageLoop() {
         }
 
         // 메시지 큐가 비었을 때도 계속 루프
-        std::this_thread::sleep_for(std::chrono::milliseconds(1));
+        //std::this_thread::sleep_for(std::chrono::milliseconds(1));
     }
 
     // 스레드 종료

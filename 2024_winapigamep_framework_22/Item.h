@@ -11,16 +11,18 @@ enum ItemType
 	Potal,
 	Seed,
 	Joo,
+	Gun,
 	End
 
 };
-class Item
+struct Item
 {
 public:
+	Item(ItemType);
 
 	ItemType _itemType;
 
-protected:
+public:
 	ItemType GetItemType() { return _itemType; }
 
 public:

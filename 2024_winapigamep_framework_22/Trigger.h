@@ -8,7 +8,7 @@ public:
 	float existTime = 0.2f;
 	Trigger();
 	~Trigger();
-	void Update() override;
+	virtual void Update() override;
  	virtual void Render(HDC _hdc) override;
 	void Init() override;
 public:

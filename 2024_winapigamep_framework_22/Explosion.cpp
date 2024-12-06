@@ -26,14 +26,14 @@ void Explosion::ExitCollision(Collider* _other)
 void Explosion::Update()
 {
 	existTime -= fDT;
-	if (existTime <= 0)
+	if (existTime < 0)
 	{
 		if (!GetIsDead())
 		{
 			GET_SINGLE(EventManager)->DeleteObject(this);
 		}
 	}
-
+	cout << "aaa";
 }
 
 void Explosion::Render(HDC hdc)

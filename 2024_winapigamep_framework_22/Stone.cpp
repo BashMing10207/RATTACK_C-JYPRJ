@@ -9,7 +9,7 @@
 #include "Scene.h"
 #include "GamePlayManager.h"
 #include "EventManager.h"
-
+#include"SkillExcutor.h"
 #include "LineComponent.h"
 //Stone::Stone()
 //{
@@ -25,6 +25,7 @@ Stone::Stone(bool isBlack)
 	this->AddComponent<LineComponent>();
 	this->AddComponent<RigidBody>();
 	this->AddComponent<Collider>();
+	this->AddComponent<SkillExcutor>();
 	this->isBlack = isBlack;
 	Init();
 }
@@ -54,7 +55,16 @@ void Stone::Render(HDC _hdc)
 	HBRUSH brush = CreateSolidBrush(isBlack ? RGB(25, 25, 25) : RGB(120, 120, 120));
 	HBRUSH oldbrush = (HBRUSH)SelectObject(_hdc, brush);
 
+	//HPEN brush2 = CreatePen(PS_SOLID, isBlack ? 4:2, isBlack? RGB(80, 200, 255): RGB(255,150,0));
+	//HPEN oldbrush2 = (HPEN)SelectObject(_hdc, brush2);
+	HPEN brush2 = CreatePen(PS_NULL,10,RGB(100, 100, 100));
+	HPEN oldbrush2 = (HPEN)SelectObject(_hdc, brush2);
+
 	ELLIPSE_RENDER(_hdc, vPos.x, vPos.y, vSize.x, vSize.y);
+
+	DeleteObject(brush2);
+	SelectObject(_hdc, oldbrush2);
+
 
 	DeleteObject(brush);
 	SelectObject(_hdc, oldbrush);

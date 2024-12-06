@@ -1,6 +1,11 @@
 #include "pch.h"
 #include "Item.h"
 
+Item::Item(ItemType a)
+{
+	_itemType = a;
+}
+
 void Item::Init()
 {
 }

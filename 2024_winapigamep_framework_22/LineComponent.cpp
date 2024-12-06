@@ -3,6 +3,7 @@
 #include "Object.h"
 #include "InputManager.h"
 #include "GamePlayManager.h"
+#include"SkillExcutor.h"
 
 LineComponent::LineComponent()
 	: m_isDrawing(false), m_startPos(Vec2()), m_endPos(Vec2())
@@ -136,5 +137,17 @@ void LineComponent::Render(HDC _hdc)
 
 void LineComponent::DoAction()
 {
-	//GET_SINGLE(GamePlayManager)->CurrentGamePlayer()->
+	GamePlayer gameplayer = GET_SINGLE(GamePlayManager)->CurrentGamePlayer();
+
+	if (gameplayer.items.size() > gameplayer.selectecIndex)
+	{
+		Vec2 mousePos = INPUT->GetMousePos();
+		Vec2 dir = mousePos - GetOwner()->GetPos();
+		dir = dir.Normalize() * min(500, dir.Length()); //최대세기 두기 ㅎㅎ
+
+		GetOwner()->GetComponent<SkillExcutor>()->GetAction(gameplayer.items[gameplayer.selectecIndex]._itemType, dir);
+		gameplayer.UseItem();
+	}
+
+
 }
