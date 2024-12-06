@@ -220,6 +220,7 @@
     <ClInclude Include="RigidBody.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="Setting.h" />
     <ClInclude Include="SkillExcutor.h" />
     <ClInclude Include="StaticObject.h" />
     <ClInclude Include="Stone.h" />
@@ -276,6 +277,7 @@
     <ClCompile Include="RigidBody.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="Setting.cpp" />
     <ClCompile Include="SkillExcutor.cpp" />
     <ClCompile Include="StaticObject.cpp" />
     <ClCompile Include="Stone.cpp" />

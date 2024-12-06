@@ -4,6 +4,7 @@
 #include "TitleScene.h"
 #include "GameScene.h"
 #include "IntroScene.h"
+#include "Setting.h"
 void SceneManager::Init()
 {
 	m_pCurrentScene = nullptr;
@@ -12,7 +13,8 @@ void SceneManager::Init()
 	RegisterScene(L"TitleScene",std::make_shared<TitleScene>());
 	RegisterScene(L"GameScene",std::make_shared<GameScene>());
 	RegisterScene(L"IntroScene", std::make_shared<IntroScene>());
-
+	RegisterScene(L"Setting", std::make_shared<Setting>());
+	
 	// ¾À ·Îµå
 	LoadScene(L"IntroScene");
 	//LoadScene(L"TitleScene");

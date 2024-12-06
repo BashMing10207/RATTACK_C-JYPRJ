@@ -119,6 +119,9 @@
     <ClCompile Include="IntroScene.cpp" />
     <ClCompile Include="TreeSeed.cpp" />
     <ClCompile Include="TreeWood.cpp" />
+    <ClCompile Include="BackGroundObject.cpp" />
+    <ClCompile Include="SkillExcutor.cpp" />
+    <ClCompile Include="Setting.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Item.h" />
@@ -260,6 +263,9 @@
     <ClInclude Include="IntroScene.h" />
     <ClInclude Include="TreeSeed.h" />
     <ClInclude Include="TreeWood.h" />
+    <ClInclude Include="BackGroundObject.h" />
+    <ClInclude Include="SkillExcutor.h" />
+    <ClInclude Include="Setting.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="2024_winapigamep_framework_22.ico">
