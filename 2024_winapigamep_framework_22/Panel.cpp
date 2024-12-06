@@ -22,8 +22,7 @@ void Panel::Update()
 	if (IsMouseHover())
 	{
 		m_isHover = true;
-
-		cout << "마우스가 UI 위에 있음\n";
+		SetPos();
 	}
 
 	if (IsMouseDown())
@@ -42,12 +41,12 @@ void Panel::Update()
 	}
 	if (IsMouseHold())
 	{
-		m_isHover = true;
+		
 		cout << "Panel누르고있음\n";
 	}
 	else
 	{
-		m_isHover = false;
+		
 	}
 
 	if (m_isClick)

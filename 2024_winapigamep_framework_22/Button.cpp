@@ -13,7 +13,6 @@ void Button::Init()
 
 void Button::Update()
 {
-	cout << "’ó";
 	if (IsMouseHover())
 	{
 		m_isHover = true;
