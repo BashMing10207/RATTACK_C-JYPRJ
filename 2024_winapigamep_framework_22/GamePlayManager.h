@@ -11,7 +11,7 @@ public:
 
 	vector<GamePlayer> gamePlayers{GamePlayer(true), GamePlayer(false)};
 
-	void TurnEnd() {IsBlackTurn = !IsBlackTurn;}
+	void TurnEnd();
 
 	GamePlayer CurrentGamePlayer() {return gamePlayers[IsBlackTurn ? 0 : 1];}
 

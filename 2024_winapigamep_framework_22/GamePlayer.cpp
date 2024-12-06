@@ -55,8 +55,14 @@ void GamePlayer::Update()
 		}
 	}
 
-
-
+	if (::GET_KEYDOWN(KEY_TYPE::ENTER))
+	{
+		for (int i = 0; i < deadStonecnt; i++)
+		{	
+			AddItem(Item((ItemType)(rand() % 9)));
+		}
+		GET_SINGLE(GamePlayManager)->TurnEnd();
+	}
 }
 
 void GamePlayer::LateUpdate()

@@ -22,7 +22,7 @@ void Panel::Update()
 	if (IsMouseHover())
 	{
 		m_isHover = true;
-		SetPos();
+		//SetPos();
 	}
 
 	if (IsMouseDown())
