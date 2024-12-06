@@ -7,8 +7,22 @@
 #include "GamePlayManager.h"
 #include "Item.h"
 #include"CollisionManager.h"
+#include "Panel.h"
+#include "Button.h"
+
 void GameScene::Init()
 {
+
+	for (int i = 0; i < 5; i++)
+	{
+		Panel* panel = new Panel;
+		panel->SetActive(true);
+		panel->SetHasPanel(true);
+		panel->SetPos({ 465 + i * 150.f, SCREEN_HEIGHT - 80.f });
+		panel->SetSize({ 100.f, 150.f });
+		panel->Init();
+		AddUI(panel, LAYER::UI);
+	}
 	/*for (size_t i = 0; i < 100; i++)
 	{
 		Object* obj = new Enemy;
