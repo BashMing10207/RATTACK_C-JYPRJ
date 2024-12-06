@@ -1,8 +1,18 @@
+#pragma once
 #include "pch.h"
 #include "BaseWindow.h"
 #include "Resource.h"
 #include "Core.h"
 #include <thread>
+#include <atomic>
+#include <condition_variable>
+#include <chrono>
+
+// 전역 변수
+std::atomic<bool> isPlaying(true);
+std::mutex renderMutex;
+std::condition_variable renderCV;
+
 BaseWindow::BaseWindow()
 	: m_hWnd(nullptr)
 	, m_hInst(nullptr)
@@ -108,43 +118,103 @@ void BaseWindow::updateWindow()
 {
     ::UpdateWindow(m_hWnd); // WM_PAINT
 }
+using namespace std::chrono;
+const milliseconds frameTime(16); // 약 60 FPS
+void GameLoopv2() {
+    auto lastTime = steady_clock::now();
 
-bool isPlaying = true;
 
-void Rendering()
-{
-    while (isPlaying)
-    {
-        GET_SINGLE(Core)->GameLoop2();
+    while (isPlaying) {
+        //auto currentTime = steady_clock::now();
+        //auto deltaTime = duration_cast<milliseconds>(currentTime - lastTime);
+
+        //if (deltaTime >= frameTime) {
+        //    lastTime = currentTime;
+
+        //    // 게임 업데이트 및 렌더링 호출
+
+        //}
+        GET_SINGLE(Core)->GameLoop();
+        // CPU 사용량 조절 (Optional)
+        //std::this_thread::sleep_for(milliseconds(1));
     }
 }
 
-int BaseWindow::MessageLoop()
-{
-    std::thread renderthread(Rendering);
+void Rendering() {
+    while (isPlaying) {
+        GET_SINGLE(Core)->GameLoop2(); // 렌더링 함수 호출
 
+        //std::this_thread::sleep_for(std::chrono::milliseconds(16)); // 약 60 FPS
+    }
+}
+
+
+//int BaseWindow::MessageLoop()
+//{
+//    
+//
+//    MSG msg;
+//    memset(&msg, 0, sizeof(msg)); // 0 초기화
+//    while (true)
+//    {
+//        if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
+//        {
+//            if (msg.message == WM_QUIT)
+//                break;
+//            TranslateMessage(&msg);
+//            DispatchMessage(&msg);
+//        }
+//        else
+//        {
+//            cout << "aa";
+//            // 메인 코드
+//            //GET_SINGLE(Core)->GameLoop();
+//            //GET_SINGLE(Core)->GameLoop2();
+//            vector<std::thread> threads;
+//
+//            threads.push_back(std::thread(GameLoopv2));
+//            threads.push_back(std::thread(Rendering));
+//            //gamethread.join();
+//            //std::thread renderthread(Rendering);
+//            //renderthread.join();
+//            for (auto& t : threads) 
+//            {
+//                t.join();
+//            }
+//
+//        }
+//    }
+//    isPlaying = false;
+//
+//    //renderthread.detach();
+//    GET_SINGLE(Core)->CleanUp();
+//    return (int)msg.wParam;
+//}
+//
+int BaseWindow::MessageLoop() {
     MSG msg;
-    memset(&msg, 0, sizeof(msg)); // 0 초기화
-    while (true)
-    {
-        if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
-        {
-            if (msg.message == WM_QUIT)
+    std::thread gameThread(GameLoopv2); // GameLoop 실행 스레드
+    std::thread renderThread(Rendering); // Rendering 실행 스레드
+
+    while (isPlaying) {
+        if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE)) {
+            if (msg.message == WM_QUIT) {
+                isPlaying = false;
                 break;
+            }
             TranslateMessage(&msg);
             DispatchMessage(&msg);
         }
-        else
-        {
-            // 메인 코드
-            GET_SINGLE(Core)->GameLoop();
-            //GET_SINGLE(Core)->GameLoop2();
-        }
-    }
-    isPlaying = false;
-    renderthread.join();
-    //renderthread.detach();
-    GET_SINGLE(Core)->CleanUp();
-    return (int)msg.wParam;
-}
 
+        // 메시지 큐가 비었을 때도 계속 루프
+        std::this_thread::sleep_for(std::chrono::milliseconds(1));
+    }
+
+    // 스레드 종료
+    isPlaying = false;
+    if (gameThread.joinable()) gameThread.join();
+    if (renderThread.joinable()) renderThread.join();
+
+    GET_SINGLE(Core)->CleanUp();
+    return static_cast<int>(msg.wParam);
+}

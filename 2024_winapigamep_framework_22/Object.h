@@ -26,7 +26,7 @@ public:
 	const wstring& GetName() const { return m_name; }
 	virtual void Init ();
 private:
-	bool m_IsDie;
+	bool m_IsDie = false;
 	wstring m_name;
 public:
 	template<typename T>
@@ -37,7 +37,7 @@ public:
 		m_vecComponents.push_back(com);
 	}
 	template<typename T>
-	T* GetComponent()
+	 T* GetComponent()
 	{
 		T* component = nullptr;
 		for (Component* com : m_vecComponents)

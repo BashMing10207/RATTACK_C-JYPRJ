@@ -51,7 +51,7 @@ void EventManager::Excute(const tEvent& _eve)
 	{
 		Object* pDeadObj = _eve.obj;
 		pDeadObj->SetDead();
-		m_vecDead.push_back(pDeadObj);
+		//m_vecDead.push_back(pDeadObj);
 	}
 	break;
 	case EVENT_TYPE::CREATE_OBJECT:

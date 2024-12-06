@@ -7,23 +7,26 @@
 #include "ResourceManager.h"
 #include "SceneManager.h"
 #include "Scene.h"
+#include "GamePlayManager.h"
+#include "EventManager.h"
 
 #include "LineComponent.h"
-Stone::Stone()
+//Stone::Stone()
+//{
+//	this->AddComponent<LineComponent>();
+//	this->AddComponent<RigidBody>();
+//	this->AddComponent<Collider>();
+//	m_hp = 10;
+//	Init();
+//}
+Stone::Stone(bool isBlack)
 {
-	this->AddComponent<LineComponent>();
-	this->AddComponent<RigidBody>();
-	this->AddComponent<Collider>();
-	m_hp = 10;
-	Init();
-}
-Stone::Stone(float speeed)
-{
-	this->speed = speeed;
 	this->m_hp = 100;
 	this->AddComponent<LineComponent>();
 	this->AddComponent<RigidBody>();
 	this->AddComponent<Collider>();
+	this->isBlack = isBlack;
+	Init();
 }
 Stone::~Stone()
 {
@@ -36,10 +39,10 @@ void Stone::Init()
 }
 void Stone::Update()
 {
-	if (GET_KEYDOWN(KEY_TYPE::A))
-		GetComponent<RigidBody>()->AddForce(Vec2(-speed,0));
-	if (GET_KEYDOWN(KEY_TYPE::D))
-		GetComponent<RigidBody>()->AddForce(Vec2(speed, 0));
+	//if (GET_KEYDOWN(KEY_TYPE::A))
+	//	GetComponent<RigidBody>()->AddForce(Vec2(-speed,0));
+	//if (GET_KEYDOWN(KEY_TYPE::D))
+	//	GetComponent<RigidBody>()->AddForce(Vec2(speed, 0));
 }
 
 
@@ -48,9 +51,15 @@ void Stone::Render(HDC _hdc)
 {
 	Vec2 vPos = GetPos();
 	Vec2 vSize = GetSize();
+	HBRUSH brush = CreateSolidBrush(isBlack ? RGB(25, 25, 25) : RGB(120, 120, 120));
+	HBRUSH oldbrush = (HBRUSH)SelectObject(_hdc, brush);
 
-	ELLIPSE_RENDER(_hdc, vPos.x, vPos.y
-		, vSize.x, vSize.y);
+	ELLIPSE_RENDER(_hdc, vPos.x, vPos.y, vSize.x, vSize.y);
+
+	DeleteObject(brush);
+	SelectObject(_hdc, oldbrush);
+
+
 	ComponentRender(_hdc);
 }
 
@@ -73,6 +82,11 @@ void Stone::CreateProjectile()
 	//Vec2 c = a / b;
 
 	GET_SINGLE(SceneManager)->GetCurrentScene()->AddObject(pProj, LAYER::STATIC);
+}
+
+void Stone::Die()
+{
+	GET_SINGLE(EventManager)->DeleteObject(this);
 }
 
 void Stone::EnterCollision(Collider* _other)

@@ -15,7 +15,7 @@
 
 void SkillExcutor::GetAction(Item item,Vec2 direction)
 {
-
+	
 }
 
 void SkillExcutor::Move(Vec2 direction)

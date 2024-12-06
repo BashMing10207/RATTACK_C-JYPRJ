@@ -14,6 +14,7 @@ Object::~Object()
 {
 	for (Component* com : m_vecComponents)
 	{
+		//if(this-> != nullptr)
 		if (com != nullptr)
 			delete com;
 	}
@@ -24,7 +25,7 @@ void Object::LateUpdate()
 {
 	for (Component* com : m_vecComponents)
 	{
-		if (com)
+		if (com != nullptr)
 		{
 			com->LateUpdate();
 		}

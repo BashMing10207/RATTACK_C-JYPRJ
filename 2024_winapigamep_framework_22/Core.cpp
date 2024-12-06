@@ -92,16 +92,15 @@ void Core::MainUpdate()
 	GET_SINGLE(TimeManager)->Update();
 	GET_SINGLE(InputManager)->Update();
 	GET_SINGLE(CameraShake)->Update();
-	GET_SINGLE(GamePlayManager)->Update();
-	GET_SINGLE(SceneManager)->Update();
 	GET_SINGLE(CollisionManager)->Update();
 	GET_SINGLE(EventManager)->Update();
-
+	GET_SINGLE(SceneManager)->Update();
+	GET_SINGLE(GamePlayManager)->Update();
 }
 
 void Core::MainRender()
 {
-	::PatBlt(m_hBackDC, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, BLACKNESS);
+	//::PatBlt(m_hBackDC, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, BLACKNESS);
 
 	HBRUSH brush = CreateSolidBrush(GET_SINGLE(GamePlayManager)->IsBlackTurn ? RGB(35, 35, 35) : RGB(80, 80, 80) );
 	HBRUSH oldbrush = (HBRUSH)SelectObject(m_hBackDC, brush);

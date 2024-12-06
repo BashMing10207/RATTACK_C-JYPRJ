@@ -9,7 +9,7 @@ public:
 	
 	bool IsBlackTurn = true;
 
-	GamePlayer gamePlayers[2] = {GamePlayer(true), GamePlayer(false)};
+	vector<GamePlayer> gamePlayers{GamePlayer(true), GamePlayer(false)};
 
 	void TurnEnd() {IsBlackTurn = !IsBlackTurn;}
 

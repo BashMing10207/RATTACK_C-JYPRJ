@@ -34,12 +34,12 @@ void TitleScene::Init()
 		panel->Init();
 		AddUI(panel, LAYER::UI);
 	}
-	//Object* pObj = new Enemy;
-	//pObj->SetPos({ SCREEN_WIDTH / 2.f,150.f });
-	//pObj->SetSize({ 100.f,100.f });
-	//pObj->SetName(L"Enemy");
-	//pObj->Init();
-	//AddObject(pObj, LAYER::STATIC);
+	Object* pObj = new Enemy;
+	pObj->SetPos({ SCREEN_WIDTH / 2.f,150.f });
+	pObj->SetSize({ 100.f,100.f });
+	pObj->SetName(L"Enemy");
+	pObj->Init();
+	AddObject(pObj, LAYER::STATIC);
 
 	//Object* pObj2 = new Enemy;
 	//pObj2->SetPos({(float)SCREEN_WIDTH,150.f });
@@ -47,14 +47,14 @@ void TitleScene::Init()
 	//pObj2->SetName(L"Enemy");
 	//AddObject(pObj2, LAYER::ENEMY);
 
-	Object* pObj3 = new Stone(900);
+	Object* pObj3 = new Stone(true);
 	pObj3->SetPos({ (float)SCREEN_WIDTH,150.f });
 	pObj3->SetSize({ 100.f,100.f });
 	pObj3->SetName(L"Stone");
 	pObj3->Init();
 	AddObject(pObj3, LAYER::PLAYER);
 
-	Object* pObj4 = new Stone(-300);
+	Stone* pObj4 = new Stone(false);
 	pObj4->SetPos({ 0,150.f });
 	pObj4->SetSize({ 100.f,100.f });
 	pObj4->SetName(L"Stone");
@@ -62,11 +62,11 @@ void TitleScene::Init()
 	pObj4->GetComponent<Collider>()->mass = 30;
 	AddObject(pObj4, LAYER::PLAYER);
 
-	Object* pPlayer6 = new Player;
-	pPlayer6->SetPos({ SCREEN_WIDTH / 2.f,500.f });
-	pPlayer6->SetSize({ 100.f,100.f });
-	pPlayer6->Init();
-	AddObject(pPlayer6, LAYER::PLAYER);
+	//Object* pPlayer6 = new Player;
+	//pPlayer6->SetPos({ SCREEN_WIDTH / 2.f,500.f });
+	//pPlayer6->SetSize({ 100.f,100.f });
+	//pPlayer6->Init();
+	//AddObject(pPlayer6, LAYER::PLAYER);
 
 	//GET_SINGLE(CollisionManager)->CheckLayer(LAYER::STATIC, LAYER::STATIC);
 	GET_SINGLE(CollisionManager)->CheckLayer(LAYER::PLAYER, LAYER::PLAYER);

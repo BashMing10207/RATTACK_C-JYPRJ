@@ -2,7 +2,13 @@
 #include "MapManager.h"
 #include "SceneManager.h"
 #include "InputManager.h"
+#include "TimeManager.h"
 #include <chrono> // 시간 측정을 위한 라이브러리
+
+void SetCanStart()
+{
+    GET_SINGLE(MapManager)->canStart = true;
+}
 
 void MapManager::Render(HDC _hdc)
 {
@@ -15,11 +21,11 @@ void MapManager::RenderMing(HDC _hdc)
     static int x = 0; // 초기 x 난수 값
     static int y = 0; // 초기 y 난수 값
 
-    // 10초 경과 시 x와 y 갱신
+     //10초 경과 시 x와 y 갱신
     auto currentTime = std::chrono::steady_clock::now();
     std::chrono::duration<double> elapsedTime = currentTime - lastTime;
 
-    if (elapsedTime.count() >= 0.1f && isLoadMap) // 10초 이상 경과했는지 확인
+    if (elapsedTime.count() >= 0.25f && isLoadMap) // 10초 이상 경과했는지 확인
     {
         x++;
         y = 10;
@@ -32,13 +38,8 @@ void MapManager::RenderMing(HDC _hdc)
         lastTime = currentTime; // 시간 갱신
     }
 
-    if (canStart)
-    {
-        if (GET_KEY(KEY_TYPE::SPACE))
-        {
-            GET_SINGLE(SceneManager)->LoadScene(L"TitleScene");
-        }
-    }
+    //GET_SINGLE(TimeManager)->AddDelayedTask(&SetCanStart, 3.f);
+
 
     int n = 40; // 크기
     int m = 10; // 간격
@@ -94,4 +95,13 @@ void MapManager::RenderMing(HDC _hdc)
             mapArr[i][j] = 0;
         }
     }
+    if(canStart)
+    {
+        if (GET_KEY(KEY_TYPE::SPACE))
+        {
+            GET_SINGLE(SceneManager)->LoadScene(L"TitleScene");
+        }
+    }
 }
+
+

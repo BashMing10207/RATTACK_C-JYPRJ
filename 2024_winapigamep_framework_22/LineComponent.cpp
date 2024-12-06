@@ -13,7 +13,7 @@ LineComponent::~LineComponent()
 {
 }
 
-void LineComponent::LateUpdate()
+void LineComponent::LateUpdate2()
 {
 
 	if (IsMouseInStone() == true) // 마우스가 오브젝트 위에 있을 때
@@ -43,6 +43,37 @@ void LineComponent::LateUpdate()
 			}
 		}
 	}
+}
+
+void LineComponent::LateUpdate()
+{
+	//if (IsMouseInStone() == true) // 마우스가 오브젝트 위에 있을 때
+	//{
+	//	if (INPUT->GetKey(KEY_TYPE::LBUTTON) == KEY_STATE::DOWN)
+	//	{
+	//		// 마우스를 클릭한 상태에서 선 그리기 시작
+	//		StartDrawing(GetOwner()->GetPos());
+	//	}
+	//}
+
+	//if (m_isDrawing)
+	//{
+	//	if (INPUT->GetKey(KEY_TYPE::LBUTTON) == KEY_STATE::PRESS)
+	//	{
+	//		// 드래그 중일 때 선 업데이트
+	//		UpdateDrawing(INPUT->GetMousePos());
+	//	}
+	//	else if (INPUT->GetKey(KEY_TYPE::LBUTTON) == KEY_STATE::UP)
+	//	{
+	//		// 드래그 종료
+	//		StopDrawing();
+
+	//		if (!IsMouseInStone())
+	//		{
+	//			DoAction();
+	//		}
+	//	}
+	//}
 }
 
 
@@ -91,8 +122,15 @@ void LineComponent::Render(HDC _hdc)
 {
 	if (m_isDrawing)
 	{
+		HPEN brush = CreatePen(PS_SOLID,5,RGB(255, 255, 255));
+		HPEN oldbrush = (HPEN)SelectObject(_hdc, brush);
+
 		MoveToEx(_hdc, m_startPos.x, m_startPos.y, NULL);
 		LineTo(_hdc, m_endPos.x, m_endPos.y);  // 선을 그린다
+
+		DeleteObject(brush);
+		SelectObject(_hdc, oldbrush);
+
 	}
 }
 

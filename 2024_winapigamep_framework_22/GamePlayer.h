@@ -7,14 +7,18 @@ class GamePlayer
 public:
 
 	int stonecnt = 6, selectecIndex=0, deadStonecnt=0;
-	bool isNigger = true;
-	vector<Stone> stones;
+	bool isBlack = true;
+	vector<Stone*> stones;
 	vector<Item> items;
 
 	GamePlayer(bool isNigger);
 	~GamePlayer();
 	void Init();
 	void SetPlayer();
+	void AddObject(Stone* _obj)
+	{
+		stones.push_back(_obj);
+	}
 
 	void AddItem(Item item);
 	void UseItemIdx(int idx);

@@ -5,6 +5,7 @@ class BackGroundObject : public Object
 {
 public:
 	BackGroundObject(wstring str,bool isTrasn);
+	~BackGroundObject();
 	void Init() override;
 	void Update() override;
 	void Render(HDC _hdc) override;

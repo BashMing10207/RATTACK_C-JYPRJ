@@ -7,6 +7,11 @@ BackGroundObject::BackGroundObject(wstring str,bool isTrans)
 	isTransfer = isTrans;
 }
 
+BackGroundObject::~BackGroundObject()
+{
+
+}
+
 void BackGroundObject::Init()
 {
 
