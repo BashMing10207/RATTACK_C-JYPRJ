@@ -14,7 +14,6 @@ Scene::~Scene()
 
 void Scene::Update()
 {
-	cout << "¾ö";
 	//for (UINT i = 0; i < (UINT)LAYER::END; ++i)
 	//{
 	//	for (size_t j = 0; j < m_vecObj[i].size();)
