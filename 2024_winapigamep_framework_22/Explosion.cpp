@@ -33,7 +33,6 @@ void Explosion::Update()
 			GET_SINGLE(EventManager)->DeleteObject(this);
 		}
 	}
-	cout << "aaa";
 }
 
 void Explosion::Render(HDC hdc)
