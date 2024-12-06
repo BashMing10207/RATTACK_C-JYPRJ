@@ -5,8 +5,22 @@
 #include"Stone.h"
 #include"Collider.h"
 #include "GamePlayManager.h"
+#include "Panel.h"
+#include "Button.h"
 void GameScene::Init()
 {
+
+	for(int i = 0; i < 5; i++)
+	{
+		Button* panel = new Button;
+		panel->SetActive(true);
+		//panel->SetHasPanel(true);
+		panel->SetPos({ 465 + i * 150.f, SCREEN_HEIGHT - 100.f });
+		panel->SetSize({ 100.f, 150.f });
+		panel->Init();
+		AddUI(panel, LAYER::UI);
+	}
+
 	/*for (size_t i = 0; i < 100; i++)
 	{
 		Object* obj = new Enemy;
@@ -45,10 +59,7 @@ void GameScene::Init()
 			pObj2->GetComponent<Collider>()->mass = 20;
 			AddObject(pObj2, LAYER::PLAYER);
 			GET_SINGLE(GamePlayManager)->gamePlayers[1].stones.push_back(pObj2);
-		
 	}
-
-
 }
 
 void GameScene::Update()

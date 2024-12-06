@@ -42,8 +42,6 @@ void IntroScene::Update()
 			AddUI(panel, LAYER::UI);
 		}
 	}
-
-
 }
 
 void IntroScene::Render(HDC _hdc)
