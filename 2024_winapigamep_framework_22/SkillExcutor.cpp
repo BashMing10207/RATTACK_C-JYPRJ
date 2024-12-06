@@ -12,6 +12,7 @@
 #include"CameraShake.h"
 #include "TreeSeed.h"
 #include "BlackHole.h"
+#include "Stone.h"
 
 void SkillExcutor::LateUpdate()
 {
@@ -181,4 +182,19 @@ void SkillExcutor::BeWater(Vec2 direction)
 void SkillExcutor::Tetkkai(Vec2 direction)
 {
 
+}
+
+void SkillExcutor::Teleport(Vec2 direction)
+{
+	Object* owner = GetOwner();
+
+	Vec2 dir = owner->GetComponent<RigidBody>()->velocity.Normalize();
+
+	
+
+	Vec2 currentPos = owner->GetPos(); // 현재 위치 가져오기
+
+	float slope = direction.y / direction.x;
+
+	//owner->SetPos();
 }
