@@ -68,8 +68,11 @@ void GamePlayer::LateUpdate()
 }
 
 void GamePlayer::UseItem()
-{
-	cout << items[selectecIndex]._itemType;
-		items.erase(items.begin() + selectecIndex);
+{		
+	for (int i = 0; i < items.size(); i++)
+	{
+		cout << (int)items[i]._itemType;
+	}
+	items.erase(items.begin() + selectecIndex);
 }
 
