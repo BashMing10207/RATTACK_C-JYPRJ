@@ -95,13 +95,7 @@ void MapManager::RenderMing(HDC _hdc)
             mapArr[i][j] = 0;
         }
     }
-    if(canStart)
-    {
-        if (GET_KEY(KEY_TYPE::SPACE))
-        {
-            GET_SINGLE(SceneManager)->LoadScene(L"TitleScene");
-        }
-    }
+    
 }
 
 

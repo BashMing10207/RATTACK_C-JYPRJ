@@ -26,7 +26,7 @@ void GamePlayer::SetPlayer()
 
 }
 
-void GamePlayer::AddItem(Item item)
+void GamePlayer::AddItem(ItemType item)
 {
 	items.push_back(item);
 }
@@ -38,6 +38,7 @@ void GamePlayer::UseItemIdx(int idx)
 
 void GamePlayer::Update()
 {
+
 	for (int i = 0; i < stones.size(); i++)
 	{
 		Vec2 pos = stones[i]->GetPos();
@@ -55,14 +56,7 @@ void GamePlayer::Update()
 		}
 	}
 
-	if (::GET_KEYDOWN(KEY_TYPE::ENTER))
-	{
-		for (int i = 0; i < deadStonecnt; i++)
-		{	
-			AddItem(Item((ItemType)(rand() % 9)));
-		}
-		GET_SINGLE(GamePlayManager)->TurnEnd();
-	}
+
 }
 
 void GamePlayer::LateUpdate()
@@ -73,12 +67,19 @@ void GamePlayer::LateUpdate()
 	}
 }
 
+void GamePlayer::EndTurnReward()
+{
+	AddItem((ItemType::Move));
+	for (int i = 0; i < deadStonecnt; i++)
+	{
+		AddItem((ItemType)(rand() % 8));
+	}
+}
+
 void GamePlayer::UseItem()
 {		
-	for (int i = 0; i < items.size(); i++)
-	{
-		cout << (int)items[i]._itemType;
-	}
+	cout << items.size();
 	items.erase(items.begin() + selectecIndex);
+	
 }
 

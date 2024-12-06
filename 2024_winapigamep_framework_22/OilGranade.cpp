@@ -34,7 +34,7 @@ void OilGranade::Summoner()
 	pProj->SetPos(vPos);
 	pProj->SetSize({ 300.f,300.f });
 	pProj->GetComponent<Collider>()->SetSize({ 300,300 });
-	pProj->SetName(L"Explostion");
+	pProj->SetName(L"OilSplash");
 
 	GET_SINGLE(SceneManager)->GetCurrentScene()->AddObject(pProj, LAYER::OBSTACLE);
 

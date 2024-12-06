@@ -9,15 +9,17 @@ public:
 	
 	bool IsBlackTurn = true;
 
-	vector<GamePlayer> gamePlayers{GamePlayer(true), GamePlayer(false)};
+	vector<GamePlayer*> gamePlayers{new GamePlayer(true), new GamePlayer(false)};
 
-	void TurnEnd();
 
-	GamePlayer CurrentGamePlayer() {return gamePlayers[IsBlackTurn ? 0 : 1];}
+	GamePlayer* CurrentGamePlayer() {return gamePlayers[IsBlackTurn ? 0 : 1];}
 
 	void Update();
 
 	void Win(bool isBlack);
+
+	void TurnEnd();
+
 
 };
 

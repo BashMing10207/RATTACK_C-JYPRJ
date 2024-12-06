@@ -118,10 +118,10 @@ void BaseWindow::updateWindow()
 {
     ::UpdateWindow(m_hWnd); // WM_PAINT
 }
-using namespace std::chrono;
-const milliseconds frameTime(16); // ¾à 60 FPS
+//using namespace std::chrono;
+//const milliseconds frameTime(16); // ¾à 60 FPS
 void GameLoopv2() {
-    auto lastTime = steady_clock::now();
+    //auto lastTime = steady_clock::now();
 
 
     while (isPlaying) {

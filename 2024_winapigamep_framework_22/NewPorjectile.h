@@ -10,7 +10,7 @@ public:
 	virtual void Render(HDC _hdc) override;
 	virtual void Init() override;
 	virtual void Summoner();
-	float lifetime = 3;
+	float lifetime = 1.8f;
 public:
 	void SetAngle(float _f)
 	{
@@ -30,6 +30,6 @@ public:
 	float m_angle;
 	Vec2 m_vDir;
 	Texture* m_pTex;
-	float gravity = 2;
+	float gravity = 0.05f;
 	bool renderming = false;
 };

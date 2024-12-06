@@ -54,7 +54,7 @@ void GameScene::Init()
 			pObj4->Init();
 			pObj4->GetComponent<Collider>()->mass = 20;
 			AddObject(pObj4, LAYER::PLAYER);
-			GET_SINGLE(GamePlayManager)->gamePlayers[0].stones.push_back(pObj4);
+			GET_SINGLE(GamePlayManager)->gamePlayers[0]->stones.push_back(pObj4);
 		
 
 		//Object* stone2 = new Stone;
@@ -66,16 +66,16 @@ void GameScene::Init()
 			pObj2->Init();
 			pObj2->GetComponent<Collider>()->mass = 20;
 			AddObject(pObj2, LAYER::PLAYER);
-			GET_SINGLE(GamePlayManager)->gamePlayers[1].stones.push_back(pObj2);
+			GET_SINGLE(GamePlayManager)->gamePlayers[1]->stones.push_back(pObj2);
 		
 	}
 
-	GET_SINGLE(GamePlayManager)->gamePlayers[0].AddItem(Item(ItemType::Boom));
-	GET_SINGLE(GamePlayManager)->gamePlayers[0].AddItem(Item(ItemType::Grenade));
-	GET_SINGLE(GamePlayManager)->gamePlayers[0].AddItem(Item(ItemType::Gun));
-	GET_SINGLE(GamePlayManager)->gamePlayers[0].AddItem(Item(ItemType::Move));
-	GET_SINGLE(GamePlayManager)->gamePlayers[0].AddItem(Item(ItemType::Boom));
-	GET_SINGLE(GamePlayManager)->gamePlayers[0].AddItem(Item(ItemType::Boom));
+	GET_SINGLE(GamePlayManager)->gamePlayers[0]->AddItem(ItemType::Boom);
+	GET_SINGLE(GamePlayManager)->gamePlayers[0]->AddItem(ItemType::Grenade);
+	GET_SINGLE(GamePlayManager)->gamePlayers[0]->AddItem(ItemType::Gun);
+	GET_SINGLE(GamePlayManager)->gamePlayers[0]->AddItem(ItemType::Move);
+	GET_SINGLE(GamePlayManager)->gamePlayers[0]->AddItem(ItemType::Boom);
+	GET_SINGLE(GamePlayManager)->gamePlayers[0]->AddItem(ItemType::Boom);
 
 
 }

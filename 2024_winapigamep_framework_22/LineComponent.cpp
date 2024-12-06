@@ -137,17 +137,18 @@ void LineComponent::Render(HDC _hdc)
 
 void LineComponent::DoAction()
 {
-	GamePlayer gameplayer = GET_SINGLE(GamePlayManager)->CurrentGamePlayer();
+	GamePlayer* gameplayer = GET_SINGLE(GamePlayManager)->CurrentGamePlayer();
 
-	if (gameplayer.items.size() > gameplayer.selectecIndex)
+	if (gameplayer->items.size() > gameplayer->selectecIndex)
 	{
 		Vec2 mousePos = INPUT->GetMousePos();
 		Vec2 dir = mousePos - GetOwner()->GetPos();
-		dir = dir.Normalize() * min(500, dir.Length()); //최대세기 두기 ㅎㅎ
+		dir = dir.Normalize() * -min(500, dir.Length()); //최대세기 두기 ㅎㅎ
 
-		GetOwner()->GetComponent<SkillExcutor>()->GetAction(gameplayer.items[gameplayer.selectecIndex]._itemType, dir);
-		gameplayer.UseItem();
+		GetOwner()->GetComponent<SkillExcutor>()->GetAction(gameplayer->items[gameplayer->selectecIndex], dir);
+		gameplayer->UseItem();
 	}
 
 
 }
+

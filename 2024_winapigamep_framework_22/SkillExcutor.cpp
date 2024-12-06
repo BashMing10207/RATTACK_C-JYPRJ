@@ -27,7 +27,7 @@ void SkillExcutor::GetAction(ItemType item, Vec2 direction)
 	switch (item)
 	{
 	case ItemType::Move:
-
+		Move(direction);
 		break;
 	case ItemType::Grenade:
 		Grenade(direction);
@@ -70,10 +70,9 @@ void SkillExcutor::Gun(Vec2 direction)
 {
 	NewPorjectile* pProj = new NewPorjectile;
 	Vec2 vPos = GetOwner()->GetPos();
-	vPos.y -= GetOwner()->GetSize().y / 2.f;
-	pProj->SetPos(vPos + direction.Normalize() * 10);
+	pProj->SetPos(vPos + direction.Normalize() * 26);
 	pProj->SetSize({ 20.f,20.f });
-	pProj->gravity = 5.f;
+	pProj->gravity = 0.04f;
 	pProj->GetComponent<RigidBody>()->AddForce(direction*5);
 	pProj->SetName(L"Bullet");
 	GET_SINGLE(SceneManager)->GetCurrentScene()->AddObject(pProj, LAYER::PROJECTILE);
@@ -83,8 +82,7 @@ void SkillExcutor::Grenade(Vec2 direction)
 {
 	Granade* pProj = new Granade;
 	Vec2 vPos = GetOwner()->GetPos();
-	vPos.y -= GetOwner()->GetSize().y / 2.f;
-	pProj->SetPos(vPos + direction.Normalize() * 10);
+	pProj->SetPos(vPos + direction.Normalize() * 26);
 	pProj->SetSize({ 20.f,20.f });
 
 	pProj->GetComponent<RigidBody>()->AddForce(direction*2.3);
@@ -96,10 +94,9 @@ void SkillExcutor::OilGrenade(Vec2 direction)
 {
 	OilGranade* pProj = new OilGranade;
 	Vec2 vPos = GetOwner()->GetPos();
-	vPos.y -= GetOwner()->GetSize().y / 2.f;
-	pProj->SetPos(vPos + direction.Normalize() * 10);
+	pProj->SetPos(vPos + direction.Normalize() * 26);
 	pProj->SetSize({ 20.f,20.f });
-
+	pProj->gravity = 0.02f;
 	pProj->GetComponent<RigidBody>()->AddForce(direction*2);
 	pProj->SetName(L"OilGrenade");
 	GET_SINGLE(SceneManager)->GetCurrentScene()->AddObject(pProj, LAYER::PROJECTILE);
@@ -109,10 +106,10 @@ void SkillExcutor::ThrowMagnet(Vec2 direction)
 {
 	BlackHoleGranade* pProj = new BlackHoleGranade;
 	Vec2 vPos = GetOwner()->GetPos();
-	vPos.y -= GetOwner()->GetSize().y / 2.f;
-	pProj->SetPos(vPos + direction.Normalize() * 10);
+	vPos.y -= GetOwner()->GetSize().y / 3.f;
+	pProj->SetPos(vPos + direction.Normalize() * 26);
 	pProj->SetSize({ 20.f,20.f });
-
+	pProj->gravity = 0.02f;
 	pProj->GetComponent<RigidBody>()->AddForce(direction*2);
 	pProj->SetName(L"ThrowMagnet");
 
@@ -123,10 +120,9 @@ void SkillExcutor::ThrowSeed(Vec2 direction)
 {
 	TreeSeed* pProj = new TreeSeed;
 	Vec2 vPos = GetOwner()->GetPos();
-	vPos.y -= GetOwner()->GetSize().y / 2.f;
-	pProj->SetPos(vPos + direction.Normalize() * 10);
+	pProj->SetPos(vPos + direction.Normalize() * 26);
 	pProj->SetSize({ 20.f,20.f });
-
+	pProj->gravity = 0.001f;
 	pProj->GetComponent<RigidBody>()->AddForce(direction*2);
 	pProj->SetName(L"Seed");
 

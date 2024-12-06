@@ -35,28 +35,24 @@ void Explosion::Update()
 	}
 }
 
-void Explosion::Render(HDC hdc)
+void Explosion::Render(HDC _hdc)
 {
 	Vec2 vPos = GetPos();
-
 	Vec2 vSize = GetSize();
+	HBRUSH brush = CreateSolidBrush(RGB(255, 255, 255));
+	HBRUSH oldbrush = (HBRUSH)SelectObject(_hdc, brush);
 
-	//HBRUSH brush = CreateSolidBrush(RGB(255, 1, 1));
-	//HBRUSH defaultbrush = (HBRUSH)SelectObject(hdc, GetStockObject(WHITE_BRUSH));
-	//HPEN defaultPen = CreatePen(PS_SOLID, 10, RGB(1, 1, 1));
-	//
-	//
-	//HPEN hpen = CreatePen(PS_SOLID, 10, RGB(220, 220, 5));
-	//SelectObject(hdc, hpen);
-	//HBRUSH oldbrush = (HBRUSH)SelectObject(hdc, brush);
+	//HPEN brush2 = CreatePen(PS_SOLID, isBlack ? 4:2, isBlack? RGB(80, 200, 255): RGB(255,150,0));
+	//HPEN oldbrush2 = (HPEN)SelectObject(_hdc, brush2);
+	HPEN brush2 = CreatePen(PS_DASHDOTDOT, 5, RGB(255, 100, 0));
+	HPEN oldbrush2 = (HPEN)SelectObject(_hdc, brush2);
 
-	ELLIPSE_RENDER(hdc, vPos.x, vPos.y
-		, vSize.x, vSize.y);
+	ELLIPSE_RENDER(_hdc, vPos.x, vPos.y, vSize.x, vSize.y);
 
-	//DeleteObject(brush);
-	//DeleteObject(hpen);
+	DeleteObject(brush2);
+	SelectObject(_hdc, oldbrush2);
 
 
-	//SelectObject(hdc, defaultPen);
-	//SelectObject(hdc, )
+	DeleteObject(brush);
+	SelectObject(_hdc, oldbrush);
 }

@@ -6,23 +6,26 @@
 #include "BlackHoleGranade.h"
 #include "BlackHole.h"
 
-void BlackHoleGranade::Render(HDC hdc)
+void BlackHoleGranade::Render(HDC _hdc)
 {
 	Vec2 vPos = GetPos();
-
 	Vec2 vSize = GetSize();
+	HBRUSH brush = CreateSolidBrush(RGB(10, 5, 15));
+	HBRUSH oldbrush = (HBRUSH)SelectObject(_hdc, brush);
 
-	//HBRUSH brush = CreateSolidBrush(RGB(255, 1, 1));
-	//HPEN hpen = CreatePen(PS_DOT, 10, RGB(220, 220, 5));
-	//SelectObject(hdc, hpen);
-	//HBRUSH oldbrush = (HBRUSH)SelectObject(hdc, brush);
+	//HPEN brush2 = CreatePen(PS_SOLID, isBlack ? 4:2, isBlack? RGB(80, 200, 255): RGB(255,150,0));
+	//HPEN oldbrush2 = (HPEN)SelectObject(_hdc, brush2);
+	HPEN brush2 = CreatePen(PS_DASHDOTDOT, 5, RGB(0, 0, 0));
+	HPEN oldbrush2 = (HPEN)SelectObject(_hdc, brush2);
 
-	ELLIPSE_RENDER(hdc, vPos.x, vPos.y
-		, vSize.x, vSize.y);
+	ELLIPSE_RENDER(_hdc, vPos.x, vPos.y, vSize.x, vSize.y);
 
-	//DeleteObject(brush);
-	//DeleteObject(hpen);
-	//SelectObject(hdc, oldbrush);
+	DeleteObject(brush2);
+	SelectObject(_hdc, oldbrush2);
+
+
+	DeleteObject(brush);
+	SelectObject(_hdc, oldbrush);
 }
 
 void BlackHoleGranade::Summoner()

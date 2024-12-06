@@ -33,6 +33,13 @@ void IntroScene::Update()
 	{
 		GET_SINGLE(SceneManager)->LoadScene(L"Setting");
 	}
+	if (GET_SINGLE(MapManager)->canStart)
+	{
+		if (GET_KEY(KEY_TYPE::SPACE))
+		{
+			GET_SINGLE(SceneManager)->LoadScene(L"TitleScene");
+		}
+	}
 }
 
 void IntroScene::Render(HDC _hdc)
