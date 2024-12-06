@@ -44,6 +44,8 @@ void GamePlayer::LataUpdate()
 
 		if (!(pos.x > 110 && pos.x < 1810 && pos.y>90 && pos.y < 990))
 		{
+			stones[i].SetDead();
+
 			stones.erase(stones.begin() + i);
 			deadStonecnt++;
 
