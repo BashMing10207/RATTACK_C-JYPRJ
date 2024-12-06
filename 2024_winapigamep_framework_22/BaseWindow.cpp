@@ -136,7 +136,7 @@ void GameLoopv2() {
         //}
         GET_SINGLE(Core)->GameLoop();
         // CPU 사용량 조절 (Optional)
-        std::this_thread::sleep_for(milliseconds(2));
+        //std::this_thread::sleep_for(milliseconds(2));
     }
 }
 
