@@ -2,6 +2,7 @@
 #include "InputManager.h"
 #include "UI.h"
 #include "TimeManager.h"
+#include "GamePlayManager.h";
 
 UI::UI()
 	: m_vPos{}
@@ -29,6 +30,7 @@ void UI::Init()
 
 void UI::Update()
 {
+	GET_SINGLE(GamePlayManager)->CurrentGamePlayer()->items;
 }
 
 void UI::Render(HDC _hdc)
