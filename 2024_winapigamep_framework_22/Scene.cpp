@@ -75,20 +75,21 @@ void Scene::LateUpdate()
 		for (UINT j = 0; j < m_vecObj[i].size(); ++j)
 		{
 			if (!m_vecObj[i][j]->GetIsDead())
-			m_vecObj[i][j]->LateUpdate();
+				m_vecObj[i][j]->LateUpdate();
 
 		}
 	}
 }
 
 void Scene::Render(HDC _hdc)
-{ 
+{
 	for (UINT i = 0; i < (UINT)LAYER::END; ++i)
 	{
 		for (size_t j = 0; j < m_vecObj[i].size();)
 		{
-			if (!m_vecObj[i][j]->GetIsDead())
-				m_vecObj[i][j++]->Render(_hdc);
+			if (m_vecObj[i][j] != nullptr)
+				if (!m_vecObj[i][j]->GetIsDead())
+					m_vecObj[i][j++]->Render(_hdc);
 
 		}
 
@@ -117,7 +118,7 @@ void Scene::Release()
 	{
 		delete m_vecUI[i];
 	}
-		m_vecUI.clear();
+	m_vecUI.clear();
 
 	GET_SINGLE(CollisionManager)->CheckReset();
 }
