@@ -11,28 +11,41 @@
 
 void AdjustSystemVolume(float volumeStep);
 
+Button* btn = new Button;
+Button* btn3 = new Button;
+Button* btn2 = new Button;
+
 void Setting::Init()
 {
+    btn->SetActive(true);
+    btn->SetPos({ 500,400 });
+    btn->SetSize({ 300, 200 });
+    btn->SetText({ L"<" });
+    btn->Init();
+    AddUI(btn, LAYER::UI);
 
+    btn3->SetActive(true);
+    btn3->SetPos({ 800,400 });
+    btn3->SetSize({ 300, 200 });
+    btn3->SetText({ L"소리크기" });
+    btn3->Init();
+    AddUI(btn3, LAYER::UI);
+
+    btn2->SetActive(true);
+    btn2->SetPos({ 1100,400 });
+    btn2->SetSize({ 300, 200 });
+    btn2->SetText({ L">" });
+    btn2->Init();
+    AddUI(btn2, LAYER::UI);
 }
 
 void Setting::Update()
 {
-	Button* btn = new Button;
-	btn->SetActive(true);
-	btn->SetPos({ 100,100 });
-	btn->SetSize({ 300, 200 });
-	btn->SetText({ L"볼륨업" });
-	btn->Init();
-	AddUI(btn, LAYER::UI);
 
-    Button* btn2 = new Button;
-    btn2->SetActive(true);
-    btn2->SetPos({ 800,100 });
-    btn2->SetSize({ 300, 200 });
-    btn2->SetText({ L"볼륨다운" });
-    btn2->Init();
-    AddUI(btn2, LAYER::UI);
+
+
+
+
 
     if (btn->IsMouseDown())
     {
@@ -48,27 +61,27 @@ void Setting::Update()
 
 
 
-	if (INPUT->GetKey(KEY_TYPE::ESC) == KEY_STATE::DOWN)
-	{
-		GET_SINGLE(SceneManager)->LoadScene(L"IntroScene");
-	}
+    if (INPUT->GetKey(KEY_TYPE::ESC) == KEY_STATE::DOWN)
+    {
+        GET_SINGLE(SceneManager)->LoadScene(L"IntroScene");
+    }
 }
 
 void Setting::Render(HDC _hdc)
 {
-	GET_SINGLE(MapManager)->RenderMing(_hdc);
+    GET_SINGLE(MapManager)->RenderMing(_hdc);
 
-	if (GET_SINGLE(MapManager)->canStart)
-	{
-		Scene::Render(_hdc);
-	}
+    if (GET_SINGLE(MapManager)->canStart)
+    {
+        Scene::Render(_hdc);
+    }
 
 
-	for (size_t i = 0; i < m_vecUI.size(); ++i)
-	{
-		if (m_vecUI[i]->GetActive() == true)
-			m_vecUI[i]->Render(_hdc);
-	}
+    for (size_t i = 0; i < m_vecUI.size(); ++i)
+    {
+        if (m_vecUI[i]->GetActive() == true)
+            m_vecUI[i]->Render(_hdc);
+    }
 }
 
 void AdjustSystemVolume(float volumeStep)

@@ -18,7 +18,7 @@ public:
     void ThrowSeed(Vec2 direction);
     void Magnet(Vec2 direction);
     void ExplosionSkill(Vec2 direction);
-    void JooYoung(Vec2 direction);
+    void JooMing(Vec2 direction);
     void BeWater(Vec2 direction);
     void Tetkkai(Vec2 direction);
 };
