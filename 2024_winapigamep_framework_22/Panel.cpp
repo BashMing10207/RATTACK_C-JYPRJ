@@ -150,22 +150,22 @@ void Panel::RenderSelectedPanel(HDC _hdc)
 
 void Panel::RenderTexture(HDC _hdc)
 {
+	if (m_pTex != nullptr)
+		if (m_isTexture)
+		{
+			Vec2 vPos = GetPos();
 
-	if (m_isTexture)
-	{
-		Vec2 vPos = GetPos();
+			Vec2 vSize = GetSize();
 
-		Vec2 vSize = GetSize();
-
-		int width = m_pTex->GetWidth();
-		int height = m_pTex->GetHeight();
-		::TransparentBlt(_hdc
-			, (int)(vPos.x - width / 2)
-			, (int)(vPos.y - height / 2)
-			, width, height,
-			m_pTex->GetTexDC()
-			, 0, 0, width, height, RGB(255, 0, 255));
-	}
+			int width = m_pTex->GetWidth();
+			int height = m_pTex->GetHeight();
+			::TransparentBlt(_hdc
+				, (int)(vPos.x - width / 2)
+				, (int)(vPos.y - height / 2)
+				, width, height,
+				m_pTex->GetTexDC()
+				, 0, 0, width, height, RGB(255, 0, 255));
+		}
 }
 
 
