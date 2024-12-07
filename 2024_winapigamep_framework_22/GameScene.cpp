@@ -77,7 +77,6 @@ void GameScene::Init()
 		panel->Init();
 		panel->SetIndex(i);
 		AddUI(panel, LAYER::UI);
-		panel->SetTexture(L"", L"");
 	}
 
 	GET_SINGLE(GamePlayManager)->isStart = true;
@@ -104,40 +103,38 @@ wstring GameScene::ItemTypeToWString(ItemType _item)
 	switch (_item)
 	{
 	case Move:
-		return L"Move";
+		return L"MoveItem";
 		break;
 	case Grenade:
-		return L"Grenade";
+		return L"GrenadeItem";
 		break;
 	case OilGrenade:
-		return L"OilGrenade";
+		return L"OilGrenadeItem";
 		break;
 	case ThrowMagnet:
-		return L"ThrowMagnet";
+		return L"ThrowMagnetItem";
 		break;
 	case Magnet:
-		return L"Magnet";
+		return L"MagnetItem";
 		break;
 	case Boom:
-		return L"Boom";
+		return L"BoomItem";
 		break;
 	case Potal:
-		return L"Potal";
+		return L"PotalItem";
 		break;
 	case Seed:
-		return L"Seed";
+		return L"SeedItem";
 		break;
 	case Gun:
-		return L"Gun";
+		return L"GunItem";
 		break;
 	case Joo:
-		return L"Joo";
+		return L"JooItem";
 		break;
 	case End:
-		return L"End";
 		break;
 	default:
-		return L"";
 		break;
 	}
 	return L"";
