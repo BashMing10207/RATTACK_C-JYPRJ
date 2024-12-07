@@ -77,13 +77,7 @@ void GameScene::Init()
 		panel->Init();
 		panel->SetIndex(i);
 		AddUI(panel, LAYER::UI);
-		//GamePlayer* gamePlayer = GET_SINGLE(GamePlayManager)->CurrentGamePlayer();
-		//cout << gamePlayer->items.size() << "\n" << i;
-		//if (gamePlayer->items.size() >= i + 1)
-		//{
-		//	ItemType item = gamePlayer->items[i];
-		//	panel->SetTexture(ItemTypeToWString(item), ItemTypeToPath(item));
-		//}
+		panel->SetTexture(L"", L"");
 	}
 
 	GET_SINGLE(GamePlayManager)->isStart = true;
@@ -99,7 +93,6 @@ void GameScene::Update()
 		GamePlayer* gamePlayer = GET_SINGLE(GamePlayManager)->CurrentGamePlayer();
 		if (gamePlayer->items.size() >= i + 1)
 		{
-			cout << gamePlayer->items[i];
 			ItemType item = gamePlayer->items[i];
 			Panel* panel = dynamic_cast<Panel*>(m_vecUI[i]);
 			panel->SetTexture(ItemTypeToWString(item), ItemTypeToPath(item));
