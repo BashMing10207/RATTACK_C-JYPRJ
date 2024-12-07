@@ -128,11 +128,20 @@ void Core::MainRender()
 	//
 	////Blur(m_hBackDC, 2);
 	//
+	switch (isPostProcess)
+	{
+	case 0:
+		break;
+	case 1:
+		LagacyPostProcsess(m_hBackDC);
+		break;
+	case 2:
+		Bloom(m_hBackDC, 10, 150, 2.f, 0.1f, postProcessthreadnum);
+		break;
+	case 3:
+		Blur(m_hDC, 25);
+	}
 
-	LagacyPostProcsess(m_hBackDC);
-	//Bloom(m_hBackDC, 10, 150, 2.f,0.1f,postProcessthreadnum);
-	//
-	////Blur(m_hDC, 25);
 	//// 3. display	
 	::BitBlt(m_hDC, camx, camy, SCREEN_WIDTH, SCREEN_HEIGHT,
 			m_hBackDC, 0, 0, SRCCOPY);

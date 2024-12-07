@@ -403,6 +403,10 @@ void LagacyPostProcsess(HDC hdc)
    //LagacyBlur(hdc, 1);
 }
  
+void Blur(HDC hdc, int blurSize)
+{
+    LagacyBlur(hdc, 1);
+}
 //void Blur(HDC hdc, int blurSize) {
 //    int width = SCREEN_WIDTH;
 //    int height = SCREEN_HEIGHT;

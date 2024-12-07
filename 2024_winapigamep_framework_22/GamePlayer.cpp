@@ -4,6 +4,7 @@
 #include"Stone.h"
 #include"LineComponent.h"
 #include "InputManager.h"
+#include "ResourceManager.h"
 
 GamePlayer::GamePlayer(bool isNigger)
 {
@@ -48,6 +49,17 @@ void GamePlayer::Update()
 			stones[i]->Die();
 			stones.erase(stones.begin() + i);
 			deadStonecnt++;
+
+			if (rand() % 2 == 0)
+			{
+				GET_SINGLE(ResourceManager)->LoadSound(L"dieS", L"Sound\\Dah.wav", false);
+				GET_SINGLE(ResourceManager)->Play(L"dieS");
+			}
+			else 
+			{
+				GET_SINGLE(ResourceManager)->LoadSound(L"dieS2", L"Sound\\Scat.mp3", false);
+				GET_SINGLE(ResourceManager)->Play(L"dieS2");
+			}
 
 			//if (stones.size() <= 0)
 			if (deadStonecnt >= 5 || stones.size() <= 0)

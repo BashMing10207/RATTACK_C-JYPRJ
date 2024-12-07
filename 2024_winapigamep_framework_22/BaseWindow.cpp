@@ -118,37 +118,19 @@ void BaseWindow::updateWindow()
 {
     ::UpdateWindow(m_hWnd); // WM_PAINT
 }
-//using namespace std::chrono;
-//const milliseconds frameTime(16); // 약 60 FPS
 void GameLoopv2() {
-    //auto lastTime = steady_clock::now();
-
 
     while (isPlaying) {
-        //auto currentTime = steady_clock::now();
-        //auto deltaTime = duration_cast<milliseconds>(currentTime - lastTime);
 
-        //if (deltaTime >= frameTime) {
-        //    lastTime = currentTime;
-
-        //    // 게임 업데이트 및 렌더링 호출
-
-        //}
         GET_SINGLE(Core)->GameLoop();
-        // CPU 사용량 조절 (Optional)
-        //std::this_thread::sleep_for(milliseconds(2));
     }
 }
 
 void Rendering() {
     while (isPlaying) {
-        GET_SINGLE(Core)->GameLoop2(); // 렌더링 함수 호출
-
-        //std::this_thread::sleep_for(std::chrono::milliseconds(16)); // 약 60 FPS
+        GET_SINGLE(Core)->GameLoop2();
     }
 }
-
-
 //int BaseWindow::MessageLoop()
 //{
 //    

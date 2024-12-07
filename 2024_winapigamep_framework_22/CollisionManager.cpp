@@ -194,13 +194,14 @@ Vec2 CollisionManager::IsCollisionMinscope(Collider* _circle, Collider* _ractang
 	Vec2 vRightSize = _ractangle->GetSize();
 	vRightSize += circleSize;
 
-	//if (!(vRightPos.x + vRightSize.x / 2 >= circlePos.x,
-	//	vRightPos.y + vRightSize.y / 2 >= circlePos.y,
-	//	vRightPos.x - vRightSize.x / 2 <= circlePos.x,
-	//	vRightPos.y - vRightSize.y / 2 <= circlePos.y))
+	if (!(vRightPos.x + vRightSize.x / 2 >= circlePos.x,
+		vRightPos.y + vRightSize.y / 2 >= circlePos.y,
+		vRightPos.x - vRightSize.x / 2 <= circlePos.x,
+		vRightPos.y - vRightSize.y / 2 <= circlePos.y))
 		return Vec2(0, 0);
-	//Vec2::A2BLineAndPoint(Vec2(vRightPos.x + vRightSize.x / 2, vRightPos.y),
-	//	Vec2(vRightPos.x, vRightPos.y+vRightSize.y/2),)
+	//return Vec2::A2BLineAndPoint({vRightPos.x + vRightSize.x / 2, vRightPos.y },
+	//	{ vRightPos.x, vRightPos.y + vRightSize.y / 2 }, circlePos);
+
 }
 
 Vec2 CollisionManager::IsCollisionCircle(Collider* _left, Collider* _right)

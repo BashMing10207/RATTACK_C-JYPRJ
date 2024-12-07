@@ -30,7 +30,7 @@ public:
 		return m_colorPens[(UINT)_eType];
 	}
 	int camx = 50, camy = 50;
-	int ispostProcess = 1;
+	int isPostProcess = 1;
 
 private:
 	HBRUSH m_colorBrushs[(UINT)BRUSH_TYPE::END] = {};

@@ -6,6 +6,7 @@
 #include "BackGroundObject.h"
 #include "SceneManager.h"
 #include "Scene.h"
+#include "Core.h"
 
 //void GamePlayManager::TurnEnd()
 
@@ -32,6 +33,11 @@ void GamePlayManager::Update()
 			isrestart = false;
 			GET_SINGLE(SceneManager)->LoadScene(L"IntroScene");
 		}
+	}
+
+	if (::GET_KEYDOWN(KEY_TYPE::TAB))
+	{
+		GET_SINGLE(Core)->isPostProcess = (GET_SINGLE(Core)->isPostProcess + 1) % 4;
 	}
 }
 
