@@ -63,7 +63,7 @@ void SkillExcutor::GetAction(ItemType item, Vec2 direction)
 
 void SkillExcutor::Move(Vec2 direction)
 {
-	GetOwner()->GetComponent<RigidBody>()->AddForce(direction * 5);
+	GetOwner()->GetComponent<RigidBody>()->AddForce(direction * 2);
 }
 
 void SkillExcutor::Gun(Vec2 direction)
@@ -73,7 +73,7 @@ void SkillExcutor::Gun(Vec2 direction)
 	pProj->SetPos(vPos + direction.Normalize() * 26);
 	pProj->SetSize({ 20.f,20.f });
 	pProj->gravity = 0.04f;
-	pProj->GetComponent<RigidBody>()->AddForce(direction*5);
+	pProj->GetComponent<RigidBody>()->AddForce(direction*10);
 	pProj->SetName(L"Bullet");
 	GET_SINGLE(SceneManager)->GetCurrentScene()->AddObject(pProj, LAYER::PROJECTILE);
 }
@@ -85,7 +85,7 @@ void SkillExcutor::Grenade(Vec2 direction)
 	pProj->SetPos(vPos + direction.Normalize() * 26);
 	pProj->SetSize({ 20.f,20.f });
 
-	pProj->GetComponent<RigidBody>()->AddForce(direction*2.3);
+	pProj->GetComponent<RigidBody>()->AddForce(direction*1.7f);
 	pProj->SetName(L"Granade");
 	GET_SINGLE(SceneManager)->GetCurrentScene()->AddObject(pProj, LAYER::PROJECTILE);
 }
@@ -97,7 +97,7 @@ void SkillExcutor::OilGrenade(Vec2 direction)
 	pProj->SetPos(vPos + direction.Normalize() * 26);
 	pProj->SetSize({ 20.f,20.f });
 	pProj->gravity = 0.02f;
-	pProj->GetComponent<RigidBody>()->AddForce(direction*2);
+	pProj->GetComponent<RigidBody>()->AddForce(direction*1.7f);
 	pProj->SetName(L"OilGrenade");
 	GET_SINGLE(SceneManager)->GetCurrentScene()->AddObject(pProj, LAYER::PROJECTILE);
 }
@@ -110,7 +110,7 @@ void SkillExcutor::ThrowMagnet(Vec2 direction)
 	pProj->SetPos(vPos + direction.Normalize() * 26);
 	pProj->SetSize({ 20.f,20.f });
 	pProj->gravity = 0.02f;
-	pProj->GetComponent<RigidBody>()->AddForce(direction*2);
+	pProj->GetComponent<RigidBody>()->AddForce(direction * 1.7f);
 	pProj->SetName(L"ThrowMagnet");
 
 	GET_SINGLE(SceneManager)->GetCurrentScene()->AddObject(pProj, LAYER::PROJECTILE);

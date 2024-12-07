@@ -30,7 +30,7 @@ public:
 
     Vec2 velocity = Vec2(0, 0);
     Vec2 accelation = Vec2(0, 0);
-    float mass = 1.f, friction=5.f;
+    float mass = 1.f, friction=0.8f;
     
     virtual void AddForce(Vec2 dir);
 
