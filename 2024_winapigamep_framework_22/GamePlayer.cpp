@@ -17,7 +17,6 @@ GamePlayer::GamePlayer(bool isNigger)
 
 GamePlayer::~GamePlayer()
 {
-
 }
 
 void GamePlayer::Init()
