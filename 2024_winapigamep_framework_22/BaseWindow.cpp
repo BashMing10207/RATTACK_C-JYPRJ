@@ -7,6 +7,7 @@
 #include <atomic>
 #include <condition_variable>
 #include <chrono>
+#include"ResourceManager.h";
 
 // 전역 변수
 std::atomic<bool> isPlaying(true);
@@ -173,8 +174,32 @@ void Rendering() {
 //    return (int)msg.wParam;
 //}
 //
+void AllTextureLoad()
+{
+GET_SINGLE(ResourceManager)->TextureLoad(L"MoveTx", L"Texture\\Move_HaveImg.bmp");
+GET_SINGLE(ResourceManager)->TextureLoad(L"GrenadeTx", L"Texture\\ShinGranade.bmp");
+ GET_SINGLE(ResourceManager)->TextureLoad(L"OilGrTx", L"Texture\\Oil_HaveImg.bmp");
+ GET_SINGLE(ResourceManager)->TextureLoad(L"TrowManTx", L"Texture\\Magnet_HaveImg.bmp");
+GET_SINGLE(ResourceManager)->TextureLoad(L"MGnTx", L"Texture\\MegaMagnet_HaveImg.bmp");
+GET_SINGLE(ResourceManager)->TextureLoad(L"BoomTNTTx", L"Texture\\Tnt_HaveImg.bmp");
+GET_SINGLE(ResourceManager)->TextureLoad(L"PortalButtonTX", L"Texture\\Teleport_HaveImg.bmp");
+GET_SINGLE(ResourceManager)->TextureLoad(L"treeSeedItemTx", L"Texture\\Seed2.bmp");
+GET_SINGLE(ResourceManager)->TextureLoad(L"Gun_TX", L"Texture\\Gun_HaveImg2.bmp");
+GET_SINGLE(ResourceManager)->TextureLoad(L"bullet2", L"Texture\\Bullet.bmp");
+GET_SINGLE(ResourceManager)->TextureLoad(L"Seed12", L"Texture\\Seed2.bmp");
+GET_SINGLE(ResourceManager)->TextureLoad(L"Tree2", L"Texture\\Tree2.bmp");
+GET_SINGLE(ResourceManager)->TextureLoad(L"Granade", L"Texture\\ShinGranade.bmp");
+GET_SINGLE(ResourceManager)->TextureLoad(L"Texture\\Map.bmp", L"Texture\\Map.bmp");
+GET_SINGLE(ResourceManager)->TextureLoad(L"Texture\\TITLE.bmp", L"Texture\\TITLE.bmp");
+GET_SINGLE(ResourceManager)->TextureLoad(L"Texture\\BlackWin.bmp", L"Texture\\BlackWin.bmp");
+GET_SINGLE(ResourceManager)->TextureLoad((L"Texture\\WhiteWin.bmp", (L"Texture\\WhiteWin.bmp");
+}
+
 int BaseWindow::MessageLoop() {
     MSG msg;
+
+    AllTextureLoad();
+
     std::thread gameThread(GameLoopv2); // GameLoop 실행 스레드
     std::thread renderThread(Rendering); // Rendering 실행 스레드
 
