@@ -13,16 +13,7 @@
 void GameScene::Init()
 {
 
-	for (int i = 0; i < 5; i++)
-	{
-		Panel* panel = new Panel;
-		panel->SetActive(true);
-		panel->SetHasPanel(true);
-		panel->SetPos({ 465 + i * 150.f, SCREEN_HEIGHT - 80.f });
-		panel->SetSize({ 100.f, 150.f });
-		panel->Init();
-		AddUI(panel, LAYER::UI);
-	}
+
 	/*for (size_t i = 0; i < 100; i++)
 	{
 		Object* obj = new Enemy;
@@ -76,6 +67,22 @@ void GameScene::Init()
 	GET_SINGLE(GamePlayManager)->gamePlayers[0]->AddItem(ItemType::Move);
 	GET_SINGLE(GamePlayManager)->gamePlayers[0]->AddItem(ItemType::Boom);
 	GET_SINGLE(GamePlayManager)->gamePlayers[0]->AddItem(ItemType::Boom);
+	
+
+	for (int i = 0; i < 5; i++)
+	{
+		Panel* panel = new Panel;
+		panel->SetActive(true);
+		panel->SetHasPanel(true);
+		panel->SetPos({ 465 + i * 150.f, SCREEN_HEIGHT - 80.f });
+		panel->SetSize({ 100.f, 150.f });
+		panel->Init();
+		panel->SetIndex(i);
+		AddUI(panel, LAYER::UI);
+		GamePlayer* gamePlayer = GET_SINGLE(GamePlayManager)->CurrentGamePlayer();
+		ItemType item = gamePlayer->items[i];
+		panel->SetTexture(ItemTypeToWString(item), ItemTypeToPath(item));
+	}
 
 
 }
@@ -84,4 +91,92 @@ void GameScene::Update()
 {
 	Scene::Update();
 	Scene::LateUpdate();
+}
+
+wstring GameScene::ItemTypeToWString(ItemType _item)
+{
+	switch (_item)
+	{
+	case Move:
+		return L"Move";
+		break;
+	case Grenade:
+		return L"Grenade";
+		break;
+	case OilGrenade:
+		return L"OilGrenade";
+		break;
+	case ThrowMagnet:
+		return L"ThrowMagnet";
+		break;
+	case Magnet:
+		return L"Magnet";
+		break;
+	case Boom:
+		return L"Boom";
+		break;
+	case Potal:
+		return L"Potal";
+		break;
+	case Seed:
+		return L"Seed";
+		break;
+	case Gun:
+		return L"Gun";
+		break;
+	case Joo:
+		return L"Joo";
+		break;
+	case End:
+		return L"End";
+		break;
+	default:
+		return L"";
+		break;
+	}
+	return L"";
+}
+
+wstring GameScene::ItemTypeToPath(ItemType _item)
+{
+	switch (_item)
+	{
+	case Move:
+		return L"Texture//MoveSkill.bmp";
+		break;
+	case Grenade:
+		return L"Texture//Grenade_item.bmp";
+		break;
+	case OilGrenade:
+		return L"Texture//OIlShoke.bmp";
+		break;
+	case ThrowMagnet:
+		return L"Texture//ThrowingMagent_itme.bmp";
+		break;
+	case Magnet:
+		return L"Texture//MagnetItem.bmp";
+		break;
+	case Boom:
+		return L"Texture//BoomItem.bmp";
+		break;
+	case Potal:
+		return L"Texture//TeleportItem.bmp";
+		break;
+	case Seed:
+		return L"Texture//SeedItem.bmp";
+		break;
+	case Gun:
+		return L"Texture//gunItem.bmp";
+		break;
+	case Joo:
+		return L"Texture//LemonTree.bmp";
+		break;
+	case End:
+		return L"Texture//LemonTree.bmp";
+		break;
+	default:
+		return L"Texture//LemonTree.bmp";
+		break;
+	}
+	return L"Texture//LemonTree.bmp";
 }
