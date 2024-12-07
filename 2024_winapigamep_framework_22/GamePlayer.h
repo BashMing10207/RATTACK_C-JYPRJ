@@ -26,4 +26,5 @@ public:
 	void LateUpdate();
 	void EndTurnReward();
 	void UseItem();
+	ItemType CurrentItem();
 };

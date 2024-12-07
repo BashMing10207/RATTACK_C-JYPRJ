@@ -11,6 +11,7 @@
 #include "EventManager.h"
 #include"SkillExcutor.h"
 #include "LineComponent.h"
+#include"CurrentSkillRenderer.h"
 //Stone::Stone()
 //{
 //	this->AddComponent<LineComponent>();
@@ -26,6 +27,7 @@ Stone::Stone(bool isBlack)
 	this->AddComponent<RigidBody>();
 	this->AddComponent<Collider>();
 	this->AddComponent<SkillExcutor>();
+	this->AddComponent<CurrentSkillRenderer>();
 	this->isBlack = isBlack;
 	Init();
 }

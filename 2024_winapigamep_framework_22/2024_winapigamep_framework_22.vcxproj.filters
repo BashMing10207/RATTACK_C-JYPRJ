@@ -122,6 +122,7 @@
     <ClCompile Include="BackGroundObject.cpp" />
     <ClCompile Include="SkillExcutor.cpp" />
     <ClCompile Include="Setting.cpp" />
+    <ClCompile Include="CurrentSkillRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Item.h" />
@@ -266,6 +267,7 @@
     <ClInclude Include="BackGroundObject.h" />
     <ClInclude Include="SkillExcutor.h" />
     <ClInclude Include="Setting.h" />
+    <ClInclude Include="CurrentSkillRenderer.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="2024_winapigamep_framework_22.ico">

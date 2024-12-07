@@ -78,8 +78,18 @@ void GamePlayer::EndTurnReward()
 
 void GamePlayer::UseItem()
 {		
-	cout << items.size();
 	items.erase(items.begin() + selectecIndex);
 	
+}
+
+ItemType GamePlayer::CurrentItem()
+{
+	if (items.size() > selectecIndex)
+	{
+		return items[selectecIndex];
+	}
+	else {
+		return ItemType::End;
+	}
 }
 
