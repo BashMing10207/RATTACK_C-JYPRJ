@@ -51,7 +51,7 @@ void SkillExcutor::GetAction(ItemType item, Vec2 direction)
 		ThrowSeed(direction);
 		break;
 	case ItemType::Joo:
-		JooYoung(direction);
+		JooMing(direction);
 		break;
 	case ItemType::Gun:
 		Gun(direction);
@@ -170,9 +170,9 @@ void SkillExcutor::ExplosionSkill(Vec2 direction)
 
 }
 
-void SkillExcutor::JooYoung(Vec2 direction)
+void SkillExcutor::JooMing(Vec2 direction)
 {
-
+	GetOwner()->GetComponent<RigidBody>()->friction *= 3.f;
 }
 
 void SkillExcutor::BeWater(Vec2 direction)
