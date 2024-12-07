@@ -67,7 +67,6 @@ void GameScene::Init()
 			pObj2->GetComponent<Collider>()->mass = 20;
 			AddObject(pObj2, LAYER::PLAYER);
 			GET_SINGLE(GamePlayManager)->gamePlayers[1]->stones.push_back(pObj2);
-		
 	}
 
 	GET_SINGLE(GamePlayManager)->gamePlayers[0]->AddItem(ItemType::Boom);
