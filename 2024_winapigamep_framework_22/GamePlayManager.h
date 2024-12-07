@@ -22,6 +22,6 @@ public:
 
 	void TurnEnd();
 
-
+	bool isEditing = false;
 };
 
