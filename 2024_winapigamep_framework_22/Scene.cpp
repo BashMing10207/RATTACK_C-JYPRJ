@@ -3,6 +3,7 @@
 #include "Object.h"
 #include "CollisionManager.h"
 #include "PostProcess.h"
+#include "SceneManager.h"
 
 Scene::Scene()
 {
@@ -25,6 +26,12 @@ void Scene::Update()
 	//			m_vecObj[i].erase(m_vecObj[i].begin() + j);
 	//	}
 	//}
+
+	if (INPUT->GetKey(KEY_TYPE::ESC) == KEY_STATE::DOWN)
+	{
+		GET_SINGLE(SceneManager)->LoadScene(L"Setting");
+	}
+
 	for (UINT i = 0; i < (UINT)LAYER::END; ++i)
 	{
 		for (size_t j = 0; j < m_vecObj[i].size(); ++j)
@@ -45,6 +52,7 @@ void Scene::Update()
 		if (m_vecUI[i]->GetActive() == true)
 			m_vecUI[i]->Update();
 	}
+
 }
 
 void Scene::DeleteLoop()

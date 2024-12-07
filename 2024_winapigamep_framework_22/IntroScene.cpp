@@ -30,10 +30,6 @@ void IntroScene::Init()
 void IntroScene::Update()
 {
 	Scene::Update();
-	if (INPUT->GetKey(KEY_TYPE::ESC) == KEY_STATE::DOWN)
-	{
-		GET_SINGLE(SceneManager)->LoadScene(L"Setting");
-	}
 	if (GET_SINGLE(MapManager)->canStart)
 	{
 		if (GET_KEY(KEY_TYPE::SPACE))
