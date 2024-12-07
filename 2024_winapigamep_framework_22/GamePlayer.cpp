@@ -49,9 +49,10 @@ void GamePlayer::Update()
 			stones.erase(stones.begin() + i);
 			deadStonecnt++;
 
-			if (stones.size() == 0)
+			//if (stones.size() <= 0)
+			if (deadStonecnt >= 5 || stones.size() <= 0)
 			{
-				GET_SINGLE(GamePlayManager)->Win(isBlack);
+				GET_SINGLE(GamePlayManager)->Win(!isBlack);
 			}
 		}
 	}

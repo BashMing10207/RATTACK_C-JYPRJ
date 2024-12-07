@@ -2,7 +2,7 @@
 #include "Collider.h"
 #include "OilSplash.h"
 #include "RigidBody.h"
-
+#include "ResourceManager.h"
 
 
 
@@ -13,6 +13,8 @@ OilSplash::~OilSplash()
 
 void OilSplash::Init()
 {
+	GET_SINGLE(ResourceManager)->LoadSound(L"Oil", L"Sound\\»ÒÂï.wav", false);
+	GET_SINGLE(ResourceManager)->Play(L"Oil");
 	this->GetComponent<Collider>()->mass =0.001f;
 }
 
@@ -20,7 +22,7 @@ void OilSplash::EnterCollision(Collider* _other)
 {
 	if (_other->GetOwner()->GetName() == L"Stone")
 	{
-		_other->GetOwner()->GetComponent<RigidBody>()->friction /= 2;
+		_other->GetOwner()->GetComponent<RigidBody>()->friction /= 4;
 	}
 }
 
@@ -32,7 +34,7 @@ void OilSplash::ExitCollision(Collider* _other)
 {
 	if (_other->GetOwner()->GetName() == L"Stone")
 	{
-		_other->GetOwner()->GetComponent<RigidBody>()->friction *= 2;
+		_other->GetOwner()->GetComponent<RigidBody>()->friction *= 4;
 	}
 }
 

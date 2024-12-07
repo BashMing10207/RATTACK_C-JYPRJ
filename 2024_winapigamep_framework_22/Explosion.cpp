@@ -7,7 +7,7 @@
 void Explosion::Init()
 {
 
-	this->GetComponent<Collider>()->bounce = 0.5f;
+	this->GetComponent<Collider>()->bounce = 0.1f;
 
 }
 

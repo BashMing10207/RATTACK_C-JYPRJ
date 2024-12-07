@@ -11,7 +11,8 @@ NewPorjectile::NewPorjectile()
 	this->AddComponent<Collider>();
 	GetComponent<RigidBody>()->friction = 0.5f;
 	//GetComponent<Collider>()->bounce = 0.5f;
-	GetComponent<RigidBody>()->mass = 6.f;
+	GetComponent<RigidBody>()->mass = 4.f;
+	
 	this->Init();
 }
 
@@ -22,7 +23,7 @@ NewPorjectile::~NewPorjectile()
 
 void NewPorjectile::Update()
 {
-	GetComponent<RigidBody>()->AddForce(Vec2(0,gravity));
+	GetComponent<RigidBody>()->AddForce(Vec2(0,gravity*fDT));
 
 	lifetime -= fDT;
 	if (lifetime <= 0)

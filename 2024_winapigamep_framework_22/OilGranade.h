@@ -3,6 +3,9 @@
 class OilGranade :
     public NewPorjectile
 {
+public:
+    OilGranade();
+    ~OilGranade();
     void Render(HDC hdc) override;
     void Summoner() override;
 };

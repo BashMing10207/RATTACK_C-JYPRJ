@@ -22,6 +22,7 @@ void IntroScene::Init()
 	obj->SetPos({ SCREEN_WIDTH / 2,SCREEN_HEIGHT / 2 });
 	AddObject(obj, LAYER::BACKGROUND);
 
+	GET_SINGLE(ResourceManager)->Stop(SOUND_CHANNEL::BGM);
 	GET_SINGLE(ResourceManager)->LoadSound(L"OpenBGM", L"Sound\\Opening.wav", true);
 	GET_SINGLE(ResourceManager)->Play(L"OpenBGM");
 }
@@ -37,7 +38,8 @@ void IntroScene::Update()
 	{
 		if (GET_KEY(KEY_TYPE::SPACE))
 		{
-			GET_SINGLE(SceneManager)->LoadScene(L"TitleScene");
+			GET_SINGLE(SceneManager)->LoadScene(L"GameScene");
+			//GET_SINGLE(SceneManager)->LoadScene(L"TitleScene");
 		}
 	}
 }

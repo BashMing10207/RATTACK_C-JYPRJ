@@ -3,11 +3,15 @@
 #include "Collider.h"
 #include"TimeManager.h"
 #include"EventManager.h"
+#include"ResourceManager.h"
 
 void BlackHole::Init()
 {
 	GetComponent<Collider>()->bounce = -1.01f;
-	existTime = 3;
+	existTime = 4;
+
+	GET_SINGLE(ResourceManager)->LoadSound(L"flush", L"Sound\\toiletflushing.mp3", false);
+	GET_SINGLE(ResourceManager)->Play(L"flush");
 }
 void BlackHole::Update()
 {

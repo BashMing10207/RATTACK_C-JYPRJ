@@ -63,17 +63,21 @@ void SkillExcutor::GetAction(ItemType item, Vec2 direction)
 
 void SkillExcutor::Move(Vec2 direction)
 {
-	GetOwner()->GetComponent<RigidBody>()->AddForce(direction * 2);
+	GET_SINGLE(ResourceManager)->LoadSound(L"Move", L"Sound\\LandingHeavy.wav3", false);
+	GET_SINGLE(ResourceManager)->Play(L"Move");
+	GetOwner()->GetComponent<RigidBody>()->AddForce(direction * 1.5f);
 }
 
 void SkillExcutor::Gun(Vec2 direction)
 {
+	GET_SINGLE(ResourceManager)->LoadSound(L"guns", L"Sound\\MCBow.mp3", false);
+	GET_SINGLE(ResourceManager)->Play(L"guns");
 	NewPorjectile* pProj = new NewPorjectile;
 	Vec2 vPos = GetOwner()->GetPos();
 	pProj->SetPos(vPos + direction.Normalize() * 26);
 	pProj->SetSize({ 20.f,20.f });
 	pProj->gravity = 0.04f;
-	pProj->GetComponent<RigidBody>()->AddForce(direction*10);
+	pProj->GetComponent<RigidBody>()->AddForce(direction*5);
 	pProj->SetName(L"Bullet");
 	GET_SINGLE(SceneManager)->GetCurrentScene()->AddObject(pProj, LAYER::PROJECTILE);
 }
@@ -96,7 +100,7 @@ void SkillExcutor::OilGrenade(Vec2 direction)
 	Vec2 vPos = GetOwner()->GetPos();
 	pProj->SetPos(vPos + direction.Normalize() * 26);
 	pProj->SetSize({ 20.f,20.f });
-	pProj->gravity = 0.02f;
+	//pProj->gravity = 0.001f;
 	pProj->GetComponent<RigidBody>()->AddForce(direction*1.7f);
 	pProj->SetName(L"OilGrenade");
 	GET_SINGLE(SceneManager)->GetCurrentScene()->AddObject(pProj, LAYER::PROJECTILE);
@@ -109,7 +113,7 @@ void SkillExcutor::ThrowMagnet(Vec2 direction)
 	vPos.y -= GetOwner()->GetSize().y / 3.f;
 	pProj->SetPos(vPos + direction.Normalize() * 26);
 	pProj->SetSize({ 20.f,20.f });
-	pProj->gravity = 0.02f;
+	//pProj->gravity = 0.02f;
 	pProj->GetComponent<RigidBody>()->AddForce(direction * 1.7f);
 	pProj->SetName(L"ThrowMagnet");
 
@@ -122,7 +126,7 @@ void SkillExcutor::ThrowSeed(Vec2 direction)
 	Vec2 vPos = GetOwner()->GetPos();
 	pProj->SetPos(vPos + direction.Normalize() * 26);
 	pProj->SetSize({ 20.f,20.f });
-	pProj->gravity = 0.001f;
+	//pProj->gravity = 0.001f;
 	pProj->GetComponent<RigidBody>()->AddForce(direction*2);
 	pProj->SetName(L"Seed");
 
@@ -145,6 +149,7 @@ void SkillExcutor::Magnet(Vec2 direction)
 
 void SkillExcutor::ExplosionSkill(Vec2 direction)
 {
+	GetOwner()->GetComponent<RigidBody>()->velocity = Vec2(0, 0);
 	GET_SINGLE(ResourceManager)->LoadSound(L"GrenadeBoom", L"Sound\\TntBoom.wav", false);
 	GET_SINGLE(ResourceManager)->Play(L"GrenadeBoom");
 
@@ -152,7 +157,7 @@ void SkillExcutor::ExplosionSkill(Vec2 direction)
 	Vec2 vPos = GetOwner()->GetPos();
 	//vPos.y -= GetOwner()->GetSize().y / 2.f;
 	pProj->SetPos(vPos);
-	float size = direction.Length() * 1.5f;
+	float size = direction.Length() * 0.9f;
 
 	pProj->SetSize({ size,size });
 	pProj->GetComponent<Collider>()->SetSize({ size,size });

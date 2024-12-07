@@ -6,6 +6,17 @@
 #include "Collider.h"
 #include "Scene.h"
 #include "EventManager.h"
+#include"ResourceManager.h"
+
+OilGranade::OilGranade()
+{
+	GET_SINGLE(ResourceManager)->LoadSound(L"Oil", L"Sound\\MCBow.mp3", false);
+	GET_SINGLE(ResourceManager)->Play(L"Oil");
+}
+
+OilGranade::~OilGranade()
+{
+}
 
 void OilGranade::Render(HDC hdc)
 {

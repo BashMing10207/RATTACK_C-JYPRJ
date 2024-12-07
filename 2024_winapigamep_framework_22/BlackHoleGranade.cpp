@@ -5,6 +5,13 @@
 #include "EventManager.h"
 #include "BlackHoleGranade.h"
 #include "BlackHole.h"
+#include"ResourceManager.h"
+
+BlackHoleGranade::BlackHoleGranade() 
+{
+	GET_SINGLE(ResourceManager)->LoadSound(L"mag", L"Sound\\ThrowMagnet.mp3", false);
+	GET_SINGLE(ResourceManager)->Play(L"mag");
+}
 
 void BlackHoleGranade::Render(HDC _hdc)
 {

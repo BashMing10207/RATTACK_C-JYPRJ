@@ -2,14 +2,14 @@
 enum class LAYER
 {
 	DEFAULT,
-	UI,
+	//UI,
 	BACKGROUND,
 	OBSTACLE,
 	PLAYER,
 	PROJECTILE,
 	ENEMY,
 	STATIC,
-	// UI
+	UI,
 	END
 };
 

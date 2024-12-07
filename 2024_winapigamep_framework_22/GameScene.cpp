@@ -12,6 +12,9 @@
 
 void GameScene::Init()
 {
+	GET_SINGLE(ResourceManager)->Stop(SOUND_CHANNEL::BGM);
+	GET_SINGLE(ResourceManager)->LoadSound(L"MainBGM", L"Sound\\MainThema.mp3", true);
+	GET_SINGLE(ResourceManager)->Play(L"MainBGM");
 
 	for (int i = 0; i < 5; i++)
 	{
@@ -70,14 +73,11 @@ void GameScene::Init()
 			GET_SINGLE(GamePlayManager)->gamePlayers[1]->stones.push_back(pObj2);
 	}
 
-	GET_SINGLE(GamePlayManager)->gamePlayers[0]->AddItem(ItemType::Boom);
-	GET_SINGLE(GamePlayManager)->gamePlayers[0]->AddItem(ItemType::Grenade);
-	GET_SINGLE(GamePlayManager)->gamePlayers[0]->AddItem(ItemType::Gun);
+	GET_SINGLE(GamePlayManager)->IsBlackTurn = true;
 	GET_SINGLE(GamePlayManager)->gamePlayers[0]->AddItem(ItemType::Move);
-	GET_SINGLE(GamePlayManager)->gamePlayers[0]->AddItem(ItemType::Boom);
-	GET_SINGLE(GamePlayManager)->gamePlayers[0]->AddItem(ItemType::Boom);
+	//GET_SINGLE(GamePlayManager)->gamePlayers[1]->AddItem(ItemType::Move);
 
-
+	GET_SINGLE(GamePlayManager)->isStart = true;
 }
 
 void GameScene::Update()

@@ -7,6 +7,8 @@ class GamePlayManager
 
 public:
 	
+	bool isStart = false, isrestart=false;
+
 	bool IsBlackTurn = true;
 
 	vector<GamePlayer*> gamePlayers{new GamePlayer(true), new GamePlayer(false)};
