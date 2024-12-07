@@ -16,16 +16,6 @@ void GameScene::Init()
 	GET_SINGLE(ResourceManager)->LoadSound(L"MainBGM", L"Sound\\MainThema.mp3", true);
 	GET_SINGLE(ResourceManager)->Play(L"MainBGM");
 
-	for (int i = 0; i < 5; i++)
-	{
-		Panel* panel = new Panel;
-		panel->SetActive(true);
-		panel->SetHasPanel(true);
-		panel->SetPos({ 465 + i * 150.f, SCREEN_HEIGHT - 80.f });
-		panel->SetSize({ 100.f, 150.f });
-		panel->Init();
-		AddUI(panel, LAYER::UI);
-	}
 	/*for (size_t i = 0; i < 100; i++)
 	{
 		Object* obj = new Enemy;
@@ -43,39 +33,58 @@ void GameScene::Init()
 	GET_SINGLE(CollisionManager)->CheckLayer(LAYER::PLAYER, LAYER::OBSTACLE);
 	GET_SINGLE(CollisionManager)->CheckLayer(LAYER::PROJECTILE, LAYER::OBSTACLE);
 
-	Object* obj = new BackGroundObject(L"Texture\\Map.bmp",false);
-	obj->SetPos({ SCREEN_WIDTH / 2,SCREEN_HEIGHT / 2-80 });
+	Object* obj = new BackGroundObject(L"Texture\\Map.bmp", false);
+	obj->SetPos({ SCREEN_WIDTH / 2,SCREEN_HEIGHT / 2 - 80 });
 	AddObject(obj, LAYER::BACKGROUND);
 
 	for (int i = 0; i < 5; i++)
 	{
 		//Object* stone = new Stone;
-		
-			Stone* pObj4 = new Stone(true);
-			pObj4->SetPos({ 320.f,60.f + 65*i });
-			pObj4->SetSize({ 50.f,50.f });
-			pObj4->SetName(L"Stone");
-			pObj4->Init();
-			pObj4->GetComponent<Collider>()->mass = 20;
-			AddObject(pObj4, LAYER::PLAYER);
-			GET_SINGLE(GamePlayManager)->gamePlayers[0]->stones.push_back(pObj4);
-		
+
+		Stone* pObj4 = new Stone(true);
+		pObj4->SetPos({ 320.f,60.f + 65 * i });
+		pObj4->SetSize({ 50.f,50.f });
+		pObj4->SetName(L"Stone");
+		pObj4->Init();
+		pObj4->GetComponent<Collider>()->mass = 20;
+		AddObject(pObj4, LAYER::PLAYER);
+		GET_SINGLE(GamePlayManager)->gamePlayers[0]->stones.push_back(pObj4);
+
 
 		//Object* stone2 = new Stone;
-		
-			Stone* pObj2 = new Stone(false);
-			pObj2->SetPos({ 1100.f,60.f + 65 * i });
-			pObj2->SetSize({ 50.f,50.f });
-			pObj2->SetName(L"Stone");
-			pObj2->Init();
-			pObj2->GetComponent<Collider>()->mass = 20;
-			AddObject(pObj2, LAYER::PLAYER);
-			GET_SINGLE(GamePlayManager)->gamePlayers[1]->stones.push_back(pObj2);
+
+		Stone* pObj2 = new Stone(false);
+		pObj2->SetPos({ 1100.f,60.f + 65 * i });
+		pObj2->SetSize({ 50.f,50.f });
+		pObj2->SetName(L"Stone");
+		pObj2->Init();
+		pObj2->GetComponent<Collider>()->mass = 20;
+		AddObject(pObj2, LAYER::PLAYER);
+		GET_SINGLE(GamePlayManager)->gamePlayers[1]->stones.push_back(pObj2);
 	}
 
 	GET_SINGLE(GamePlayManager)->IsBlackTurn = true;
 	GET_SINGLE(GamePlayManager)->gamePlayers[0]->AddItem(ItemType::Move);
 	//GET_SINGLE(GamePlayManager)->gamePlayers[1]->AddItem(ItemType::Move);
+
+	for (int i = 0; i < 5; i++)
+	{
+		Panel* panel = new Panel;
+		panel->SetActive(true);
+		panel->SetHasPanel(true);
+		panel->SetPos({ 465 + i * 150.f, SCREEN_HEIGHT - 80.f });
+		panel->SetSize({ 100.f, 150.f });
+		panel->Init();
+		panel->SetIndex(i);
+		AddUI(panel, LAYER::UI);
+		//GamePlayer* gamePlayer = GET_SINGLE(GamePlayManager)->CurrentGamePlayer();
+		//cout << gamePlayer->items.size() << "\n" << i;
+		//if (gamePlayer->items.size() >= i + 1)
+		//{
+		//	ItemType item = gamePlayer->items[i];
+		//	panel->SetTexture(ItemTypeToWString(item), ItemTypeToPath(item));
+		//}
+	}
 
 	GET_SINGLE(GamePlayManager)->isStart = true;
 }
@@ -84,4 +93,103 @@ void GameScene::Update()
 {
 	Scene::Update();
 	Scene::LateUpdate();
+
+	for (int i = 0; i < 5; i++)
+	{
+		GamePlayer* gamePlayer = GET_SINGLE(GamePlayManager)->CurrentGamePlayer();
+		if (gamePlayer->items.size() >= i + 1)
+		{
+			cout << gamePlayer->items[i];
+			ItemType item = gamePlayer->items[i];
+			Panel* panel = dynamic_cast<Panel*>(m_vecUI[i]);
+			panel->SetTexture(ItemTypeToWString(item), ItemTypeToPath(item));
+		}
+	}
+}
+wstring GameScene::ItemTypeToWString(ItemType _item)
+{
+	switch (_item)
+	{
+	case Move:
+		return L"Move";
+		break;
+	case Grenade:
+		return L"Grenade";
+		break;
+	case OilGrenade:
+		return L"OilGrenade";
+		break;
+	case ThrowMagnet:
+		return L"ThrowMagnet";
+		break;
+	case Magnet:
+		return L"Magnet";
+		break;
+	case Boom:
+		return L"Boom";
+		break;
+	case Potal:
+		return L"Potal";
+		break;
+	case Seed:
+		return L"Seed";
+		break;
+	case Gun:
+		return L"Gun";
+		break;
+	case Joo:
+		return L"Joo";
+		break;
+	case End:
+		return L"End";
+		break;
+	default:
+		return L"";
+		break;
+	}
+	return L"";
+}
+
+wstring GameScene::ItemTypeToPath(ItemType _item)
+{
+	switch (_item)
+	{
+	case Move:
+		return L"Texture//MoveSkill.bmp";
+		break;
+	case Grenade:
+		return L"Texture//Grenade_item.bmp";
+		break;
+	case OilGrenade:
+		return L"Texture//OIlShoke.bmp";
+		break;
+	case ThrowMagnet:
+		return L"Texture//ThrowingMagent_itme.bmp";
+		break;
+	case Magnet:
+		return L"Texture//MagnetItem.bmp";
+		break;
+	case Boom:
+		return L"Texture//BoomItem.bmp";
+		break;
+	case Potal:
+		return L"Texture//TeleportItem.bmp";
+		break;
+	case Seed:
+		return L"Texture//SeedItem.bmp";
+		break;
+	case Gun:
+		return L"Texture//gunItem.bmp";
+		break;
+	case Joo:
+		return L"Texture//LemonTree.bmp";
+		break;
+	case End:
+		return L"Texture//LemonTree.bmp";
+		break;
+	default:
+		return L"Texture//LemonTree.bmp";
+		break;
+	}
+	return L"Texture//LemonTree.bmp";
 }
