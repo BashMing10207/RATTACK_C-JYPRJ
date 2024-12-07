@@ -192,7 +192,7 @@ GET_SINGLE(ResourceManager)->TextureLoad(L"Granade", L"Texture\\ShinGranade.bmp"
 GET_SINGLE(ResourceManager)->TextureLoad(L"Texture\\Map.bmp", L"Texture\\Map.bmp");
 GET_SINGLE(ResourceManager)->TextureLoad(L"Texture\\TITLE.bmp", L"Texture\\TITLE.bmp");
 GET_SINGLE(ResourceManager)->TextureLoad(L"Texture\\BlackWin.bmp", L"Texture\\BlackWin.bmp");
-GET_SINGLE(ResourceManager)->TextureLoad((L"Texture\\WhiteWin.bmp", (L"Texture\\WhiteWin.bmp");
+GET_SINGLE(ResourceManager)->TextureLoad(L"Texture\\WhiteWin.bmp", L"Texture\\WhiteWin.bmp");
 }
 
 int BaseWindow::MessageLoop() {
