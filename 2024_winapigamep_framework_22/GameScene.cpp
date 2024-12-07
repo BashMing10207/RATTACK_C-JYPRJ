@@ -182,7 +182,7 @@ wstring GameScene::ItemTypeToPath(ItemType _item)
 		return L"Texture//gunItem.bmp";
 		break;
 	case Joo:
-		return L"Texture//LemonTree.bmp";
+		return L"Texture//jiwoo.bmp";
 		break;
 	case End:
 		return L"Texture//LemonTree.bmp";
