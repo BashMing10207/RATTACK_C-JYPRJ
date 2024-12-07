@@ -10,7 +10,7 @@ Panel::~Panel()
 void Panel::Init()
 {
 	m_isHover = false;
-	m_isClick = false;
+	m_isSelected = false;
 	m_isTexture = false;
 	m_textSize = { 0, 0 };
 	m_pTex = nullptr;
@@ -21,11 +21,11 @@ void Panel::Init()
 void Panel::Update()
 {
 
-	if (m_isClick)
+	if (m_isSelected)
 	{
 		if (GET_KEYDOWN(KEY_TYPE::LBUTTON) && !m_isHover)
 		{
-			m_isClick = !m_isClick;
+			m_isSelected = !m_isSelected;
 		}
 	}
 
@@ -70,7 +70,7 @@ void Panel::Update()
 
 	if (IsMouseDown())
 	{
-		m_isClick = true;
+		m_isSelected = true;
 
 	}
 
@@ -87,7 +87,7 @@ void Panel::Update()
 
 	}
 
-	if (m_isClick)
+	if (m_isSelected)
 	{
 		//GET_SINGLE(TimeManager)->AddDelayedTask(aa, 3.0f);
 	}
@@ -139,7 +139,7 @@ void Panel::RenderText(HDC _hdc)
 
 void Panel::RenderSelectedPanel(HDC _hdc)
 {
-	if (m_isClick)
+	if (m_isSelected)
 	{
 		Utils::RenderRectColor(_hdc, m_vPos, m_vSize.x + 10, m_vSize.y + 10, RGB(255, 0, 0));
 	}

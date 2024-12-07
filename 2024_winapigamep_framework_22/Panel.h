@@ -30,14 +30,14 @@ public:
 
     bool IsMouseAction(KEY_STATE _state);
 public:
-    void SetClicked(bool _isClicked) { m_isClick = _isClicked; }
+    void SetClicked(bool _isClicked) { m_isSelected = _isClicked; }
     void SetHover(bool _isHover) { m_isHover = _isHover; }
-    const bool& GetClicked() const { return m_isClick; }
+    const bool& GetClicked() const { return m_isSelected; }
     const bool& GetHovered() const { return m_isHover; }
 
 
 private:
-    bool m_isClick;
+    bool m_isSelected;
     bool m_isHover;
     SIZE m_textSize;
     Texture* m_pTex;
