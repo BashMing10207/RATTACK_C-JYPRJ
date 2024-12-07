@@ -70,7 +70,7 @@ void Setting::Update()
 void Setting::Render(HDC _hdc)
 {
     GET_SINGLE(MapManager)->RenderMing(_hdc);
-
+        
     if (GET_SINGLE(MapManager)->canStart)
     {
         Scene::Render(_hdc);
