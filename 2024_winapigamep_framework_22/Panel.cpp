@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "Panel.h"
 #include "Utils.h"
+#include "TimeManager.h"
 
 Panel::~Panel()
 {
@@ -13,40 +14,77 @@ void Panel::Init()
 	m_isTexture = false;
 	m_textSize = { 0, 0 };
 	m_pTex = nullptr;
+	m_initPos = { m_vPos.x,m_vPos.y };
 
 }
 
 void Panel::Update()
 {
-	
+
+	if (m_isClick)
+	{
+		if (GET_KEYDOWN(KEY_TYPE::LBUTTON) && !m_isHover)
+		{
+			m_isClick = !m_isClick;
+		}
+	}
+
+	if (m_isMoveing)
+	{
+		if (m_currentTime < m_moveTime)
+		{
+			// Lerp
+			float t = m_currentTime / m_moveTime; // 비율
+			m_vPos.x = Lerp(m_vPos.x, m_targetPos.x, t);
+			m_vPos.y = Lerp(m_vPos.y, m_targetPos.y, t);
+
+			m_currentTime += fDT;
+		}
+		else
+		{
+			m_vPos = m_targetPos;
+			m_currentTime = m_moveTime; // 이동 완료
+			m_isMoveing = false;
+			m_isMoved = true;
+		}
+	}
+
+	// 마우스가 UI 영역 안에 있는지
 	if (IsMouseHover())
 	{
-		m_isHover = true;
-		//SetPos();
+		if (!m_isHover)  // 호버 상태가 아니었을때만
+		{
+			m_isHover = true;  // 호버 시작
+			SetPosLerp({ m_vPos.x, m_vPos.y - 10 }, 0.5f);  // 이동 처리
+		}
+	}
+	else //영역 안에 없다면
+	{
+		// 마우스가 UI를 벗어나면
+		if (m_isHover)  // 호버 상태였을때만
+		{
+			SetPosLerp({ m_vPos.x, m_initPos.y }, 0.5f); // 원래 위치
+			m_isHover = false;  // 호버 종료
+		}
 	}
 
 	if (IsMouseDown())
 	{
 		m_isClick = true;
-		cout << "Panel 누름\n";
-	}
-	else
-	{
-		m_isClick = false;
+
 	}
 
 	if (IsMouseUp())
 	{
-		cout << "Panel 뗌";
+
 	}
 	if (IsMouseHold())
 	{
-		
-		cout << "Panel누르고있음\n";
+
 	}
 	else
 	{
-		
+
 	}
 
 	if (m_isClick)
@@ -57,6 +95,7 @@ void Panel::Update()
 
 void Panel::Render(HDC _hdc)
 {
+	RenderSelectedPanel(_hdc);
 	RenderPanel(_hdc);
 	RenderText(_hdc);
 	RenderTexture(_hdc);
@@ -96,6 +135,14 @@ void Panel::RenderText(HDC _hdc)
 
 	::SelectObject(_hdc, oldFont);
 	::DeleteObject(myFont);
+}
+
+void Panel::RenderSelectedPanel(HDC _hdc)
+{
+	if (m_isClick)
+	{
+		Utils::RenderRectColor(_hdc, m_vPos, m_vSize.x + 10, m_vSize.y + 10, RGB(255, 0, 0));
+	}
 }
 
 void Panel::RenderTexture(HDC _hdc)

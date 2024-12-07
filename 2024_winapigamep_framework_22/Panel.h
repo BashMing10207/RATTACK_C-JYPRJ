@@ -17,6 +17,7 @@ public:
     void Update() override;
     void Render(HDC _hdc) override;
     void RenderText(HDC _hdc) override;
+    void RenderSelectedPanel(HDC _hdc);
     void RenderTexture(HDC _hdc);
     void RenderPanel(HDC _hdc);
     void SetTexture(wstring name, wstring _texture);
@@ -34,6 +35,7 @@ public:
     const bool& GetClicked() const { return m_isClick; }
     const bool& GetHovered() const { return m_isHover; }
 
+
 private:
     bool m_isClick;
     bool m_isHover;
@@ -41,5 +43,8 @@ private:
     Texture* m_pTex;
     bool m_isTexture;
     bool m_hasPanel;
+
+    Vec2 m_initPos;
+
 };
 

@@ -12,6 +12,8 @@ public:
 	virtual void RenderText(HDC _hdc) abstract;
 public:
 	void SetPos(Vec2 _vPos) { m_vPos = _vPos; }
+	void SetPosLerp(Vec2 targetPos, float moveTime);
+	float Lerp(float a, float b, float t);
 	void SetSize(Vec2 _vSize) { m_vSize = _vSize; }
 	const Vec2& GetPos() const { return m_vPos; }
 	const Vec2& GetSize() const { return m_vSize; }
@@ -45,6 +47,12 @@ protected:
 	Vec2 m_vPos;
 	Vec2 m_vSize;
 	wstring m_text;
+
+	Vec2 m_targetPos;   // 목표 위치
+	float m_moveTime;    // 이동 시간
+	float m_currentTime; // 경과 시간
+	bool m_isMoveing; //움직이고있는 중인지
+	bool m_isMoved; //다 움직였니?
 
 	UI* m_parent;                // 부모 UI
 	std::vector<UI*> m_children; // 자식 UI 리스트
