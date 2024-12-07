@@ -57,7 +57,7 @@ void CurrentSkillRenderer::Render(HDC _hdc)
 				m_pTex = GET_SINGLE(ResourceManager)->TextureLoad(L"treeSeedItemTx", L"Texture\\Seed2.bmp");
 				break;
 			case Gun:
-				m_pTex = GET_SINGLE(ResourceManager)->TextureLoad(L"Gun_TX", L"Gun_HaveImg2.bmp");
+				m_pTex = GET_SINGLE(ResourceManager)->TextureLoad(L"Gun_TX", L"Texture\\Gun_HaveImg2.bmp");
 				break;
 			case Joo:
 				m_pTex = GET_SINGLE(ResourceManager)->TextureLoad(L"Jiwoo", L"Texture\\jiwoo.bmp");
