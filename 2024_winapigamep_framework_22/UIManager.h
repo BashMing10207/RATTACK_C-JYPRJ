@@ -1,4 +1,5 @@
 #pragma once
+#include "UI.h"
 
 struct UIPosition
 {
@@ -14,5 +15,7 @@ class UIManager
 public:
 	void Init();
 	void Render(HDC _hdc);
+
+	vector<UI*> m_vecItemUIs;
 
 };

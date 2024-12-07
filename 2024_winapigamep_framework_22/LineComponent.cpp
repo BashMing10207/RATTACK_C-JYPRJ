@@ -147,6 +147,7 @@ void LineComponent::DoAction()
 
 		GetOwner()->GetComponent<SkillExcutor>()->GetAction(gameplayer->items[gameplayer->selectecIndex], dir);
 		gameplayer->UseItem();
+
 	}
 
 

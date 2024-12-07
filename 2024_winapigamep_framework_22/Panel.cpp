@@ -2,6 +2,8 @@
 #include "Panel.h"
 #include "Utils.h"
 #include "TimeManager.h"
+#include "GamePlayer.h"
+#include "GamePlayManager.h"
 
 Panel::~Panel()
 {
@@ -71,6 +73,7 @@ void Panel::Update()
 	if (IsMouseDown())
 	{
 		m_isSelected = true;
+		GET_SINGLE(GamePlayManager)->CurrentGamePlayer()->selectecIndex = GetIndex();
 
 	}
 
@@ -147,6 +150,7 @@ void Panel::RenderSelectedPanel(HDC _hdc)
 
 void Panel::RenderTexture(HDC _hdc)
 {
+
 	if (m_isTexture)
 	{
 		Vec2 vPos = GetPos();
@@ -164,6 +168,7 @@ void Panel::RenderTexture(HDC _hdc)
 	}
 }
 
+
 void Panel::RenderPanel(HDC _hdc)
 {
 	if (m_hasPanel)
@@ -174,6 +179,7 @@ void Panel::RenderPanel(HDC _hdc)
 
 void Panel::SetTexture(wstring name, wstring _texture)
 {
+	m_isTexture = true;
 	m_pTex = GET_SINGLE(ResourceManager)->TextureLoad(name, _texture);
 	//m_pTex = 	m_pTex = GET_SINGLE(ResourceManager)->TextureLoad(L"Granade", L"Texture\\ShinGranade.bmp");;
 }
@@ -181,6 +187,11 @@ void Panel::SetTexture(wstring name, wstring _texture)
 void Panel::SetHasPanel(bool _isHas)
 {
 	m_hasPanel = _isHas;
+}
+
+void Panel::SetIndex(int _index)
+{
+	m_index = _index;
 }
 
 bool Panel::IsMouseHover()
