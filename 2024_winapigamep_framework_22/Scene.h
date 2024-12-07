@@ -30,7 +30,7 @@ public:
 		m_vecUI.push_back(_ui);
 	}
 
-	const vector<UI*>& GetLayerUIs(LAYER _type)
+	const vector<UI*>& GetUIs()
 	{
 		return m_vecUI;
 	}

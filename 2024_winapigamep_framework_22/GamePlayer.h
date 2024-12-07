@@ -27,4 +27,5 @@ public:
 	void EndTurnReward();
 	void UseItem();
 	ItemType CurrentItem();
+	void SetItemTexture(wstring _name, wstring _texture);
 };

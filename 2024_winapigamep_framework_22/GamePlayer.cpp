@@ -4,6 +4,11 @@
 #include"Stone.h"
 #include"LineComponent.h"
 #include "InputManager.h"
+#include "SceneManager.h"
+#include "Scene.h"
+#include "UI.h"
+#include "Panel.h"
+#include "GameScene.h"
 #include "ResourceManager.h"
 
 GamePlayer::GamePlayer(bool isNigger)
@@ -30,6 +35,8 @@ void GamePlayer::SetPlayer()
 void GamePlayer::AddItem(ItemType item)
 {
 	items.push_back(item);
+
+
 }
 
 void GamePlayer::UseItemIdx(int idx)
@@ -76,7 +83,7 @@ void GamePlayer::LateUpdate()
 {
 	for (int i = 0; i < stones.size(); i++)
 	{
-		stones[i]->GetComponent<LineComponent>()->LateUpdate2(); // ÀÏ´Ü ¸ðµç µ¹ÀÇ »óÈ£ÀÛ¿ëÀ» ¾÷µ¥ÀÌÆ® ½ÃÅ°±â.
+		stones[i]->GetComponent<LineComponent>()->LateUpdate2(); // ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£ï¿½Û¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½Å°ï¿½ï¿½.
 	}
 }
 
@@ -92,6 +99,8 @@ void GamePlayer::EndTurnReward()
 void GamePlayer::UseItem()
 {		
 	items.erase(items.begin() + selectecIndex);
+	SetItemTexture(L"", L"");
+
 	
 }
 
@@ -103,6 +112,20 @@ ItemType GamePlayer::CurrentItem()
 	}
 	else {
 		return ItemType::End;
+	}
+}
+
+void GamePlayer::SetItemTexture(wstring _name, wstring _texture)
+{
+	vector<UI*> ui = GET_SINGLE(SceneManager)->GetCurrentScene()->GetUIs();
+
+	for (int i = 0; i < ui.size(); i++)
+	{
+		Panel* panel = dynamic_cast<Panel*>(ui[i]);
+		if (panel)
+		{
+			panel->SetTexture(_name, _texture);
+		}
 	}
 }
 
