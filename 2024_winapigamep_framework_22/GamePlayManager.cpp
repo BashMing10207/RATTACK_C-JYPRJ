@@ -31,6 +31,8 @@ void GamePlayManager::Update()
 		if (::GET_KEYDOWN(KEY_TYPE::ENTER))
 		{
 			isrestart = false;
+			gamePlayers[0]->items.clear();
+			gamePlayers[1]->items.clear();
 			GET_SINGLE(SceneManager)->LoadScene(L"IntroScene");
 		}
 	}

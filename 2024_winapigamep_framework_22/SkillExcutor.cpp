@@ -63,7 +63,7 @@ void SkillExcutor::GetAction(ItemType item, Vec2 direction)
 
 void SkillExcutor::Move(Vec2 direction)
 {
-	GET_SINGLE(ResourceManager)->LoadSound(L"Move", L"Sound\\LandingHeavy.wav3", false);
+	GET_SINGLE(ResourceManager)->LoadSound(L"Move", L"Sound\\Punch.ogg", false);
 	GET_SINGLE(ResourceManager)->Play(L"Move");
 	GetOwner()->GetComponent<RigidBody>()->AddForce(direction * 1.5f);
 }
@@ -76,8 +76,9 @@ void SkillExcutor::Gun(Vec2 direction)
 	Vec2 vPos = GetOwner()->GetPos();
 	pProj->SetPos(vPos + direction.Normalize() * 26);
 	pProj->SetSize({ 20.f,20.f });
-	pProj->gravity = 0.04f;
-	pProj->GetComponent<RigidBody>()->AddForce(direction*5);
+	pProj->gravity *=1.5f;
+	pProj->renderming = true;
+	pProj->GetComponent<RigidBody>()->AddForce(direction*6);
 	pProj->SetName(L"Bullet");
 	GET_SINGLE(SceneManager)->GetCurrentScene()->AddObject(pProj, LAYER::PROJECTILE);
 }
@@ -172,6 +173,8 @@ void SkillExcutor::ExplosionSkill(Vec2 direction)
 
 void SkillExcutor::JooMing(Vec2 direction)
 {
+	GET_SINGLE(ResourceManager)->LoadSound(L"jooys", L"Sound\\LandingHeavy.wav", false);
+	GET_SINGLE(ResourceManager)->Play(L"jooys");
 	GetOwner()->GetComponent<RigidBody>()->friction *= 3.f;
 }
 

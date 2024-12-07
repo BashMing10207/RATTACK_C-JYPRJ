@@ -30,6 +30,6 @@ public:
 	float m_angle;
 	Vec2 m_vDir;
 	Texture* m_pTex;
-	float gravity = 5.f;
+	float gravity = 6.5f;
 	bool renderming = false;
 };

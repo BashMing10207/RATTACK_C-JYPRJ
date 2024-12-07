@@ -103,11 +103,16 @@ void Stone::Die()
 
 void Stone::EnterCollision(Collider* _other)
 {
-	//GET_SINGLE(ResourceManager)->LoadSound(L"col1", L"Sound\\HeadShotSound.mp3", false);
-	//GET_SINGLE(ResourceManager)->Play(L"col1");
-
-	//GET_SINGLE(ResourceManager)->LoadSound(L"col2", L"Sound\\Scat.mp3", false);
-	//GET_SINGLE(ResourceManager)->Play(L"col2");
+	if (rand() % 2 == 0)
+	{
+		GET_SINGLE(ResourceManager)->LoadSound(L"col1", L"Sound\\Parry2.mp3", false);
+		GET_SINGLE(ResourceManager)->Play(L"col1");
+	}
+	else
+	{
+		GET_SINGLE(ResourceManager)->LoadSound(L"col2", L"Sound\\Parry.mp3", false);
+		GET_SINGLE(ResourceManager)->Play(L"col2");
+	}
 }
 
 void Stone::StayCollision(Collider* _other)
