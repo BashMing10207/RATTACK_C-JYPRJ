@@ -73,7 +73,7 @@ void GamePlayer::EndTurnReward()
 	AddItem((ItemType::Move));
 	for (int i = 0; i < deadStonecnt; i++)
 	{
-		AddItem((ItemType)(rand() % 8));
+		AddItem((ItemType)(rand() % 10));
 	}
 }
 
